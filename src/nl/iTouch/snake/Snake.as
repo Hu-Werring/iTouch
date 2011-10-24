@@ -7,6 +7,7 @@ package nl.iTouch.snake
 		public function Snake()
 		{
 			trace("testje pannenkoek kebab");
+			trace("yeey git doet het ook op mijn thuis pc");
 		}
 	}
 }
