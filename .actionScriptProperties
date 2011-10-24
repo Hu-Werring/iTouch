@@ -34,9 +34,6 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="nl/iTouch/maze/Maze.as">
-      <airExcludes/>
-    </application>
     <application path="iTouch.as">
       <airExcludes/>
     </application>
