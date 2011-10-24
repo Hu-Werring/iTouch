@@ -6,7 +6,7 @@ package nl.iTouch.snake
 	{
 		public function Snake()
 		{
-			
+			trace("testje pannenkoek kebab");
 		}
 	}
 }
