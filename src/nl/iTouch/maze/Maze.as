@@ -9,6 +9,7 @@ package nl.iTouch.maze
 	{
 		protected var lucas;
 		protected var grid:nl.iTouch.maze.Grid;
+		protected var Control:nl.iTouch.maze.Controls;
 		
 		protected var _db:DataBase;
 		
@@ -16,83 +17,49 @@ package nl.iTouch.maze
 		{
 			//this.width = mazeWidth;
 			//this.height = mazeHeight;
-			
-			//this.graphics.beginFill(0xFF0000);
-			//this.graphics.drawRect(0,0,100,100);
-			//this.graphics.endFill();
-			
-			//_db = DataBase.getInstance;
-			this.grid = new Grid(mazeWidth, mazeHeight, 14, 10);
-			//makeBookShelves(this.grid);
-			this.grid.setColomColor(1, 0x886644);
-			
-			this.grid.setColomColor(2, 0x2244FF);
-			this.grid.setColomColor(3, 0x2244FF);
-			this.grid.setColomColor(4, 0x2244FF);
-			
-			this.grid.setColomColor(5, 0x886644);
-			
-			this.grid.setColomColor(6, 0xEEEEEE);
-			this.grid.setColomColor(7, 0xEEEEEE);
-			
-			this.grid.setColomColor(8, 0x886644);
-
-			this.grid.setColomColor(9, 0xFF9933);
-			this.grid.setColomColor(10, 0xFF9933);
-			
-			this.grid.setColomColor(11, 0x886644);
-			
-			this.grid.setColomColor(12, 0xFF0000);
-			this.grid.setColomColor(13, 0xFF0000);
-			
-			this.grid.setColomColor(14, 0x886644);
-
-			this.grid.setRowColor(5, 0x555555);
-			this.grid.setRowColor(6, 0x555555);
-			addChild(this.grid);
-		}
-		
-		private function makeBookShelves(G:Grid):void
-		{
-			var bookshelveArray:Array = new Array( 	  0,	  3,	  6,	  9,	 13,
-				14,	 17, 	 20, 	 23,	 27,
-				28,	 31,	 34, 	 37, 	 41,
-				42,	 45,	 48, 	 51, 	 55,
-				
-				84,	 87,	 90, 	 93, 	 97,
-				98,	101,	104,	107,	111,
-				112,	115,	118,	121,	125,
-				126,	129,	132,	135,	139);
-			
-			/*var bookshelveArray:Array = new Array( 	  1,	  4,	  7,	 10,	 14,
-			15,	 18, 	 21, 	 24,	 28,
-			29,	 32,	 35, 	 38, 	 42,
-			43,	 46,	 49, 	 52, 	 56,
-			
-			85,	 88,	 91, 	 94, 	 98,
-			99,	102,	105,	108,	112,
-			113,	116,	119,	122,	126,
-			127,	130,	133,	136,	139);*/
-			
-			bookshelveArray.forEach(setBookShelveTile);
-			
-		}
-		
-		private function setBookShelveTile(tileNr:int, index:uint, refArray:Array):void
-		{
-			this.grid.colorTile(tileNr,0x886644);
-			
 			/*
-			var curTileNr:int = tileNr;
-			var curTile:MovieClip = this.grid.returnTile(curTileNr);
-			curTile.graphics.beginFill(0x886644);
-			curTile.graphics.drawRect(0,0,curTile.width, curTile.height);
-			curTile.graphics.endFill();
+			this.graphics.beginFill(0xFF0000);
+			this.graphics.drawRect(0,0,100,100);
+			this.graphics.endFill();
+			*/
+			//_db = DataBase.getInstance;
+	
+			this.x = 0;
+			this.y = 0;
+			this.grid = new Grid(mazeWidth, mazeHeight, 14, 10);
+			this.grid.x = 0;
+			this.grid.y = 0;
+			trace(this.grid.x);
+			trace(grid.tilesObj[0].x);
+			trace(this.x);
+			colorGrid(this.grid);
+			addChild(this.grid);
 			
-			//tile.graphics.beginFill(0x555555);
-			//tile.graphics.drawRect(0,0, tile.width, tile.height);
-			//tile.graphics.endFill();*/
+			this.Control = new Controls();
+			addChild(this.Control);
 		}
+		
+		private function colorGrid(G:Grid):void
+		{
+			G.setColomColor(1, 0x886644);
+			G.setColomColor(2, 0x2244FF);
+			G.setColomColor(3, 0x2244FF);
+			G.setColomColor(4, 0x2244FF);
+			G.setColomColor(5, 0x886644);
+			G.setColomColor(6, 0xDDDDDD);
+			G.setColomColor(7, 0xDDDDDD);
+			G.setColomColor(8, 0x886644);
+			G.setColomColor(9, 0xFF9933);
+			G.setColomColor(10, 0xFF9933);
+			G.setColomColor(11, 0x886644);
+			G.setColomColor(12, 0xFF0000);
+			G.setColomColor(13, 0xFF0000);
+			G.setColomColor(14, 0x886644);
+
+			G.setRowColor(5, 0x555555);
+			G.setRowColor(6, 0x555555);
+		}
+		
 		
 		public function play():void
 		{
