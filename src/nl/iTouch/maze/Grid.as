@@ -78,9 +78,11 @@ package nl.iTouch.maze
 			
 		}
 		
-		public function setColom(col:int, content)
+		public function setColom(col:int, content:*):void
 		{
-			
+			//var startTile:int = col-1;
+			//var endTile:int = 
+			//for(i=startTile, i<(this.
 		}
 		
 		private function createTile(tile:*, index:uint, refArray:Array):void
