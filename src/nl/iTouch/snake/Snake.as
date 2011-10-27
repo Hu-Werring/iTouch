@@ -21,7 +21,7 @@ package nl.iTouch.snake
 		private var _wall:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
-		private var book:Book = new Book();
+		private var student:Student = new Student();
 		
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
@@ -42,10 +42,10 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_wall['left'] = 15;
-			_wall['right'] = 15 + _areaSize;
-			_wall['up'] = 15;
-			_wall['down'] = 15 + _areaSize;
+			_wall['left'] = _gridSize;
+			_wall['right'] = _gridSize + _areaSize;
+			_wall['up'] = _gridSize;
+			_wall['down'] = _gridSize + _areaSize;
 			
 			//== create first part of the snake ==
 			var firstSnakePart:SnakePart = new SnakePart();
@@ -55,7 +55,7 @@ package nl.iTouch.snake
 			addChild(firstSnakePart);
 			
 			//== create book en set to random position ==
-			addChild(book);
+			addChild(student);
 			placeBook();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
@@ -75,7 +75,26 @@ package nl.iTouch.snake
 			var nY:Number = snakeParts[0].y + snakeMoveY * _gridSize;
 			var nR:Number = 90;
 			
-			if((nX == book.x) && (nY == book.y))
+			//== collision check  met wall ==
+			if (nX > _wall['right'])
+			{
+				gameOver();
+			}
+			else if (nX < _wall['left'])
+			{
+				gameOver();
+			}
+			else if (nY > _wall['down'])
+			{
+				gameOver();
+			}
+			else if (nY < _wall['up'])
+			{
+				gameOver();
+			}
+			
+			//== collision check met student ==
+			if((nX == student.x) && (nY == student.y))
 			{
 				placeBook();
 				
@@ -166,8 +185,8 @@ package nl.iTouch.snake
 			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _gridSize;
 			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _gridSize;
 			
-			book.x = nX;
-			book.y = nY;
+			student.x = nX;
+			student.y = nY;
 		}
 		
 		public function gameOver():void
@@ -177,7 +196,7 @@ package nl.iTouch.snake
 		
 		public function play():void
 		{
-			
+			_gameTimer.start();
 		}
 		
 		public function stop(force:Boolean = false):void
