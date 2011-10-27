@@ -45,10 +45,10 @@ package nl.iTouch
 		
 		public function query(qry:String,params:Array = null):SQLResult
 		{
-			
+			_sqlStatement.clearParameters();
 			_sqlStatement.text = qry;
 			if(params !=null){
-				for each(var key:* in params)
+				for(var key:* in params)
 				{
 					trace(key,params[key]);
 					_sqlStatement.parameters[key] = params[key];
@@ -70,6 +70,23 @@ package nl.iTouch
 					trace(e.details);
 				}
 			}
+		}
+		
+		public function insert(data:Array,table:String):SQLResult
+		{
+			var fieldList:String = "";
+			var inserts:Array = new Array();
+			for (var key:String in data){
+				fieldList += key + ", ";
+				inserts['@' + key] = data[key];
+			}
+			fieldList = fieldList.slice(0,-2);
+			try{
+				var res:SQLResult = query('INSERT INTO ' + table + ' (' + fieldList + ') VALUES (@'+fieldList.replace(', ',', @')+')',inserts);
+			} catch(e:SQLError){
+				trace(e);
+			}
+			return res;
 		}
 	}
 }
