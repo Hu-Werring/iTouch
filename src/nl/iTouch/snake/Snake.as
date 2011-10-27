@@ -9,11 +9,13 @@ package nl.iTouch.snake
 	
 	public class Snake extends Sprite
 	{
+		//== constante waardes ==
 		private const _gridSize:uint = 15;
 		private const _areaSize:uint = 900; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,465);//== beide punten moeten deelbaar zijn door gridSize (of 0)
 		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
 		
+		//game variables ==
 		private var _wall:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
