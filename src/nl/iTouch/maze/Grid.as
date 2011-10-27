@@ -68,6 +68,13 @@ package nl.iTouch.maze
 			this.tilesObj[tile] = content;
 		}
 		
+		public function colorTile(tile:Number, color):void
+		{
+			this.tilesObj[tile].graphics.beginFill(color);
+			this.tilesObj[tile].graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
+			this.tilesObj[tile].graphics.endFill();
+		}
+		
 		public function returnTile(tile:int):MovieClip
 		{
 			return this.tilesObj[tile];
@@ -80,10 +87,46 @@ package nl.iTouch.maze
 		
 		public function setColom(col:int, content:*):void
 		{
-			//var startTile:int = col-1;
-			//var endTile:int = 
-			//for(i=startTile, i<(this.
+			if(col/this.cols <= 1)
+			{
+				var startTile:int = col-1;
+				var endTile:int = startTile + (this.rows*this.cols);
+				var tmpSP = new Sprite();
+
+				this.colorTile(startTile,0x00FF00);
+				/*for(var i:int=startTile; i < endTile;i++)
+				{
+					//
+				}*/
+			}
 		}
+		
+		public function setColomColor(col:int, color):void
+		{
+			if(col/this.cols <= 1)
+			{
+				var startTile:int = col-1;
+				var endTile:int = (this.rows*this.cols) - (this.cols - startTile);
+				for(var i:int=startTile;i<=endTile;i+=this.cols)
+				{
+					this.colorTile(i, color);
+				}
+			}
+		}
+		
+		public function setRowColor(row:int, color):void
+		{
+			if(row/this.rows <= 1)
+			{
+				var startTile:int = (row-1)*this.cols;
+				var endTile:int = startTile + cols;
+				for(var i:int=startTile;i<endTile;i++)
+				{
+					this.colorTile(i, color);
+				}
+			}
+		}
+		
 		
 		private function createTile(tile:*, index:uint, refArray:Array):void
 		{

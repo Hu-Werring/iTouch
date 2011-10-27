@@ -13,7 +13,7 @@ package nl.iTouch.snake
 	{
 		//== constante waardes ==
 		private const _gridSize:uint = 15;
-		private const _areaSize:uint = 900; //== moet deelbaar zijn door gridSize ==
+		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,465);//== beide punten moeten deelbaar zijn door gridSize (of 0)
 		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
 		
@@ -21,6 +21,10 @@ package nl.iTouch.snake
 		private var _wall:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
+		
+		
+		//== objecten
+		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		
 		//== snake variables ==
@@ -42,10 +46,19 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_wall['left'] = _gridSize;
-			_wall['right'] = _gridSize + _areaSize;
-			_wall['up'] = _gridSize;
-			_wall['down'] = _gridSize + _areaSize;
+			_wall['left'] = 30; //== moet deelbaar zijn door _gridsize
+			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
+			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
+			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
+			
+			//== create grid raster ==
+			var grid:SnakeBackground = new SnakeBackground();
+			addChild(grid);
+			
+			//== create gamearea sprite ==
+			gamearea.x = _wall['left'] - (_gridSize/2);
+			gamearea.y = _wall['up'] - (_gridSize/2);
+			addChild(gamearea);
 			
 			//== create first part of the snake ==
 			var firstSnakePart:SnakePart = new SnakePart();
@@ -76,20 +89,24 @@ package nl.iTouch.snake
 			var nR:Number = 90;
 			
 			//== collision check  met wall ==
-			if (nX > _wall['right'])
+			if (nX > _wall['right'] + 15)
 			{
+				nX -= 15;
 				gameOver();
 			}
 			else if (nX < _wall['left'])
 			{
+				nX += 15;
 				gameOver();
 			}
-			else if (nY > _wall['down'])
+			else if (nY > _wall['down'] + 15)
 			{
+				nY -= 15;
 				gameOver();
 			}
 			else if (nY < _wall['up'])
 			{
+				nY += 15;
 				gameOver();
 			}
 			
@@ -111,6 +128,7 @@ package nl.iTouch.snake
 				}
 				
 				//== score wordt hier opgetelt
+				//== TODO ==
 			}
 			
 			placeTail();
@@ -182,8 +200,8 @@ package nl.iTouch.snake
 		
 		public function placeBook():void
 		{
-			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _gridSize;
-			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _gridSize;
+			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 			
 			student.x = nX;
 			student.y = nY;
