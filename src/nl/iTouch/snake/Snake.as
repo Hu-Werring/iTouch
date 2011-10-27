@@ -51,6 +51,10 @@ package nl.iTouch.snake
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
+			//== create grid raster ==
+			var grid:SnakeGrid = new SnakeGrid();
+			addChild(grid);
+			
 			//== create gamearea sprite ==
 			gamearea.x = _wall['left'] - (_gridSize/2);
 			gamearea.y = _wall['up'] - (_gridSize/2);
