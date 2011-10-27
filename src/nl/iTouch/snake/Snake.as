@@ -7,7 +7,9 @@ package nl.iTouch.snake
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
-	public class Snake extends Sprite
+	import nl.iTouch.Game;
+	
+	public class Snake extends Sprite implements Game
 	{
 		//== constante waardes ==
 		private const _gridSize:uint = 15;
