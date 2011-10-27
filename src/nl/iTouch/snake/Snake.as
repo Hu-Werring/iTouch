@@ -51,6 +51,10 @@ package nl.iTouch.snake
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
+			//== create grid raster ==
+			var grid:SnakeBackground = new SnakeBackground();
+			addChild(grid);
+			
 			//== create gamearea sprite ==
 			gamearea.x = _wall['left'] - (_gridSize/2);
 			gamearea.y = _wall['up'] - (_gridSize/2);
@@ -85,20 +89,24 @@ package nl.iTouch.snake
 			var nR:Number = 90;
 			
 			//== collision check  met wall ==
-			if (nX > _wall['right'])
+			if (nX > _wall['right'] + 15)
 			{
+				nX -= 15;
 				gameOver();
 			}
 			else if (nX < _wall['left'])
 			{
+				nX += 15;
 				gameOver();
 			}
-			else if (nY > _wall['down'])
+			else if (nY > _wall['down'] + 15)
 			{
+				nY -= 15;
 				gameOver();
 			}
 			else if (nY < _wall['up'])
 			{
+				nY += 15;
 				gameOver();
 			}
 			
@@ -192,8 +200,8 @@ package nl.iTouch.snake
 		
 		public function placeBook():void
 		{
-			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _gridSize;
-			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _gridSize;
+			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 			
 			student.x = nX;
 			student.y = nY;
