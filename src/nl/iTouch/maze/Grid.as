@@ -9,21 +9,21 @@ package nl.iTouch.maze
 		public var gridWidth:int;
 		public var gridHeight:int;
 		
-		protected var cols:int;
-		protected var colWidth:int;
-		protected var colHeight:int;
+		public var cols:int;
+		public var colWidth:int;
+		public var colHeight:int;
 		
-		protected var rows:int;
-		protected var rowWidth:int;
-		protected var rowHeight:int;
+		public var rows:int;
+		public var rowWidth:int;
+		public var rowHeight:int;
 		
-		protected var tiles:int;
-		protected var tilesObj:Array;
-		protected var tileWidth:int;
-		protected var tileHeight:int;
+		public var tiles:int;
+		public var tilesObj:Array;
+		public var tileWidth:int;
+		public var tileHeight:int;
 		
-		private var curRow:int = -1;
-		private var curCol:int;
+		public var curRow:int = -1;
+		public var curCol:int;
 		
 		public function Grid(gWidth:int, gHeight:int, cols:int, rows:int)
 		{
