@@ -13,7 +13,7 @@ package nl.iTouch.snake
 	{
 		//== constante waardes ==
 		private const _gridSize:uint = 15;
-		private const _areaSize:uint = 900; //== moet deelbaar zijn door gridSize ==
+		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,465);//== beide punten moeten deelbaar zijn door gridSize (of 0)
 		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
 		
@@ -21,6 +21,10 @@ package nl.iTouch.snake
 		private var _wall:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
+		
+		
+		//== objecten
+		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		
 		//== snake variables ==
@@ -42,10 +46,15 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
-			_wall['left'] = _gridSize;
-			_wall['right'] = _gridSize + _areaSize;
-			_wall['up'] = _gridSize;
-			_wall['down'] = _gridSize + _areaSize;
+			_wall['left'] = 30; //== moet deelbaar zijn door _gridsize
+			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
+			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
+			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
+			
+			//== create gamearea sprite ==
+			gamearea.x = _wall['left'] - (_gridSize/2);
+			gamearea.y = _wall['up'] - (_gridSize/2);
+			addChild(gamearea);
 			
 			//== create first part of the snake ==
 			var firstSnakePart:SnakePart = new SnakePart();
@@ -111,6 +120,7 @@ package nl.iTouch.snake
 				}
 				
 				//== score wordt hier opgetelt
+				//== TODO ==
 			}
 			
 			placeTail();
