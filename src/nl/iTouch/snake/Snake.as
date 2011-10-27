@@ -55,6 +55,12 @@ package nl.iTouch.snake
 			var grid:SnakeBackground = new SnakeBackground();
 			addChild(grid);
 			
+			//== Create boeken kasten ==
+			var boekenkast1:BoekenKast = new BoekenKast();
+			boekenkast1.x = 225;
+			boekenkast1.y = 120;
+			addChild(boekenkast1);
+			
 			//== create gamearea sprite ==
 			gamearea.x = _wall['left'] - (_gridSize/2);
 			gamearea.y = _wall['up'] - (_gridSize/2);
