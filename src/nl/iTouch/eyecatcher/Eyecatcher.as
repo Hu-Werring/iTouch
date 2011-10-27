@@ -15,10 +15,11 @@ package nl.iTouch.eyecatcher
 		private function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
+			
+			var backgroundGradient:Sprite = new Sprite();
+			addChild(backgroundGradient);
 			var luuk:Sprite = new Lucas();
 			addChild(luuk);		
-			var backgroundGradient:Sprite = new Sprite();
-			addChildAt(backgroundGradient, 0);
 			
 			var bord:Sprite = new BordImage();
 			var gat:Sprite = new GatImage();
