@@ -16,6 +16,12 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			var b:PlayAreaBackground = new PlayAreaBackground();
+			b.x = 22.5;
+			b.y = 52.5;
+			b.alpha = 0.4;
+			addChild(b);
+			
 			for (var i:int = 0; i < 61; i++)
 			{
 				var lineH:GridLine = new GridLine();
