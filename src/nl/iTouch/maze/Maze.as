@@ -23,7 +23,32 @@ package nl.iTouch.maze
 			
 			//_db = DataBase.getInstance;
 			this.grid = new Grid(mazeWidth, mazeHeight, 14, 10);
-			makeBookShelves(this.grid);
+			//makeBookShelves(this.grid);
+			this.grid.setColomColor(1, 0x886644);
+			
+			this.grid.setColomColor(2, 0x2244FF);
+			this.grid.setColomColor(3, 0x2244FF);
+			this.grid.setColomColor(4, 0x2244FF);
+			
+			this.grid.setColomColor(5, 0x886644);
+			
+			this.grid.setColomColor(6, 0xEEEEEE);
+			this.grid.setColomColor(7, 0xEEEEEE);
+			
+			this.grid.setColomColor(8, 0x886644);
+
+			this.grid.setColomColor(9, 0xFF9933);
+			this.grid.setColomColor(10, 0xFF9933);
+			
+			this.grid.setColomColor(11, 0x886644);
+			
+			this.grid.setColomColor(12, 0xFF0000);
+			this.grid.setColomColor(13, 0xFF0000);
+			
+			this.grid.setColomColor(14, 0x886644);
+
+			this.grid.setRowColor(5, 0x555555);
+			this.grid.setRowColor(6, 0x555555);
 			addChild(this.grid);
 		}
 		
@@ -55,6 +80,9 @@ package nl.iTouch.maze
 		
 		private function setBookShelveTile(tileNr:int, index:uint, refArray:Array):void
 		{
+			this.grid.colorTile(tileNr,0x886644);
+			
+			/*
 			var curTileNr:int = tileNr;
 			var curTile:MovieClip = this.grid.returnTile(curTileNr);
 			curTile.graphics.beginFill(0x886644);
@@ -63,7 +91,7 @@ package nl.iTouch.maze
 			
 			//tile.graphics.beginFill(0x555555);
 			//tile.graphics.drawRect(0,0, tile.width, tile.height);
-			//tile.graphics.endFill();
+			//tile.graphics.endFill();*/
 		}
 		
 		public function play():void
