@@ -52,7 +52,7 @@ package nl.iTouch.snake
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
 			//== create grid raster ==
-			var grid:SnakeGrid = new SnakeGrid();
+			var grid:SnakeBackground = new SnakeBackground();
 			addChild(grid);
 			
 			//== create gamearea sprite ==
@@ -89,20 +89,24 @@ package nl.iTouch.snake
 			var nR:Number = 90;
 			
 			//== collision check  met wall ==
-			if (nX > _wall['right'])
+			if (nX > _wall['right'] + 15)
 			{
+				nX -= 15;
 				gameOver();
 			}
 			else if (nX < _wall['left'])
 			{
+				nX += 15;
 				gameOver();
 			}
-			else if (nY > _wall['down'])
+			else if (nY > _wall['down'] + 15)
 			{
+				nY -= 15;
 				gameOver();
 			}
 			else if (nY < _wall['up'])
 			{
+				nY += 15;
 				gameOver();
 			}
 			

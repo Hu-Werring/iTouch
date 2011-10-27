@@ -3,11 +3,11 @@ package nl.iTouch.snake
 	import flash.display.Sprite;
 	import flash.events.Event;
 	
-	public class SnakeGrid extends Sprite
+	public class SnakeBackground extends Sprite
 	{
 		
 		
-		public function SnakeGrid()
+		public function SnakeBackground()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
