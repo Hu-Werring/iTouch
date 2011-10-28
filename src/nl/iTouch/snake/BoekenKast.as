@@ -5,15 +5,18 @@ package nl.iTouch.snake
 	
 	public class BoekenKast extends Sprite
 	{
+		private const partsX:uint = 6
+		private const partsY:uint = 23
+		
 		public var kastParts:Array = new Array();
 		
 		public function BoekenKast()
 		{
 			//addEventListener(Event.ADDED_TO_STAGE, init);
 			
-			for(var i:int=0;i<=23;i++)
+			for(var i:int=0;i <= partsY;i++)
 			{
-				for(var j:int=0; j<4; j++)
+				for(var j:int=0; j < partsX; j++)
 				{
 					if(i == 0)
 					{
@@ -26,7 +29,7 @@ package nl.iTouch.snake
 							addChild(bkH1);
 							kastParts.push(bkH1);
 						}
-						else if(j == 3)
+						else if(j == partsX-1)
 						{
 							var bkH2:BoekenKastHoek = new BoekenKastHoek();
 							bkH2.x = j*15;
@@ -37,15 +40,15 @@ package nl.iTouch.snake
 						}
 						else
 						{
-							var bkR:BoekenKastRecht = new BoekenKastRecht();
-							bkR.x = j*15;
-							bkR.y = i*15;
-							bkR.rotation = 0;
-							addChild(bkR);
-							kastParts.push(bkR);
+							var bkR1:BoekenKastRecht = new BoekenKastRecht();
+							bkR1.x = j*15;
+							bkR1.y = i*15;
+							bkR1.rotation = 0;
+							addChild(bkR1);
+							kastParts.push(bkR1);
 						}
 					}
-					else if (i == 23)
+					else if (i == partsY)
 					{
 						if(j == 0)
 						{
@@ -56,7 +59,7 @@ package nl.iTouch.snake
 							addChild(bkH3);
 							kastParts.push(bkH3);
 						}
-						else if(j == 3)
+						else if(j == partsX-1)
 						{
 							var bkH4:BoekenKastHoek = new BoekenKastHoek();
 							bkH4.x = j*15;
@@ -67,33 +70,33 @@ package nl.iTouch.snake
 						}
 						else
 						{
-							var bkR:BoekenKastRecht = new BoekenKastRecht();
-							bkR.x = j*15;
-							bkR.y = i*15;
-							bkR.rotation = 180;
-							addChild(bkR);
-							kastParts.push(bkR);
+							var bkR2:BoekenKastRecht = new BoekenKastRecht();
+							bkR2.x = j*15;
+							bkR2.y = i*15;
+							bkR2.rotation = 180;
+							addChild(bkR2);
+							kastParts.push(bkR2);
 						}
 					}
 					else
 					{
 						if(j == 0)
 						{
-							var bkR:BoekenKastRecht = new BoekenKastRecht();
-							bkR.x = j*15;
-							bkR.y = i*15;
-							bkR.rotation = -90;
-							addChild(bkR);
-							kastParts.push(bkR);
+							var bkR3:BoekenKastRecht = new BoekenKastRecht();
+							bkR3.x = j*15;
+							bkR3.y = i*15;
+							bkR3.rotation = -90;
+							addChild(bkR3);
+							kastParts.push(bkR3);
 						}
-						else if (j == 3)
+						else if (j == partsX-1)
 						{
-							var bkR:BoekenKastRecht = new BoekenKastRecht();
-							bkR.x = j*15;
-							bkR.y = i*15;
-							bkR.rotation = 90;
-							addChild(bkR);
-							kastParts.push(bkR);
+							var bkR4:BoekenKastRecht = new BoekenKastRecht();
+							bkR4.x = j*15;
+							bkR4.y = i*15;
+							bkR4.rotation = 90;
+							addChild(bkR4);
+							kastParts.push(bkR4);
 						}
 						else
 						{

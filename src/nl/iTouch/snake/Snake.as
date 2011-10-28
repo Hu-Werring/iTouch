@@ -14,16 +14,16 @@ package nl.iTouch.snake
 		//== constante waardes ==
 		private const _gridSize:uint = 15;
 		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
-		private const _snakeStartPoint:Point = new Point(465,465);//== beide punten moeten deelbaar zijn door gridSize (of 0)
+		private const _snakeStartPoint:Point = new Point(465,510);//== beide punten moeten deelbaar zijn door gridSize (of 0)
 		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
 		
 		//game variables ==
 		private var _wall:Array = new Array();
+		private var _boekenkasten:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
 		
-		
-		//== objecten
+		//== objecten ==
 		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		
@@ -56,10 +56,14 @@ package nl.iTouch.snake
 			addChild(grid);
 			
 			//== Create boeken kasten ==
-			var boekenkast1:BoekenKast = new BoekenKast();
-			boekenkast1.x = 225;
-			boekenkast1.y = 120;
-			addChild(boekenkast1);
+			for(var i:int = 1;i <= 3; i++)
+			{
+				var bk:BoekenKast = new BoekenKast();
+				bk.x = i*210+((i-1)*15);
+				bk.y = 120;
+				addChild(bk);
+				_boekenkasten.push(bk);
+			}
 			
 			//== create gamearea sprite ==
 			gamearea.x = _wall['left'] - (_gridSize/2);
@@ -75,12 +79,11 @@ package nl.iTouch.snake
 			
 			//== create book en set to random position ==
 			addChild(student);
-			placeBook();
+			placeStudent();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
-			_gameTimer.start();
 			
 		}
 		
@@ -119,7 +122,7 @@ package nl.iTouch.snake
 			//== collision check met student ==
 			if((nX == student.x) && (nY == student.y))
 			{
-				placeBook();
+				placeStudent();
 				
 				if (snakeParts.length-1 >= 5)
 				{
@@ -182,6 +185,10 @@ package nl.iTouch.snake
 					nextRotation = 180;
 				}
 			}
+			else if(ke.keyCode == 32) //== spatie
+			{
+				play();
+			}
 		}
 		
 		public function newSnakePart():void
@@ -204,13 +211,31 @@ package nl.iTouch.snake
 			}
 		}
 		
-		public function placeBook():void
+		public function placeStudent():void
 		{
 			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
 			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
+			var nR:int = Math.random()*3;
+			
+			var kast:BoekenKast
+			for(var j:uint=0;j<_boekenkasten.length;j++)
+			{ 
+				
+				kast = _boekenkasten[j] as BoekenKast;
+				for (var k:int =0; k<kast.kastParts.length; k++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((nX == kast.kastParts[k].x+kast.x) && (nY == kast.kastParts[k].y+kast.y))
+					{
+						nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
+						nR = Math.random()*3;
+					}
+				}
+			}
 			
 			student.x = nX;
 			student.y = nY;
+			student.rotation = 90 * nR;
 		}
 		
 		public function gameOver():void
@@ -220,12 +245,16 @@ package nl.iTouch.snake
 		
 		public function play():void
 		{
-			_gameTimer.start();
+			if (!_gameTimer.running)
+			{
+				resetSnake();
+				_gameTimer.start();
+			}
 		}
 		
 		public function stop(force:Boolean = false):void
 		{
-			
+			_gameTimer.stop();
 		}
 		
 		public function credits():void
@@ -238,5 +267,19 @@ package nl.iTouch.snake
 			
 		}
 		
+		public function resetSnake():void
+		{
+			snakeParts[0].x = _snakeStartPoint.x;
+			snakeParts[0].y = _snakeStartPoint.y;
+			
+			nextMoveX = 1;
+			nextMoveY = 0;
+			nextRotation = 90;
+			
+			while(snakeParts.length>1)
+			{
+				removeChild(snakeParts.pop());
+			}
+		}
 	}
 }
