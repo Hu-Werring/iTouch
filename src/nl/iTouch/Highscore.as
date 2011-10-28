@@ -18,12 +18,11 @@ package nl.iTouch
 			
 			db.createTable(_tableName,'id int,naam varchar(20), datum int, score int','id');
 			var data:Array = new Array();
-			data['id'] = null;
-			data['naam'] = 'qwertyuiopasdfghjklzxcvbnm';
-			data['score'] = int(Math.random()*0xFFFFFF);
-			data['datum'] = Math.round(new Date().getTime()/1000);
-			var res:SQLResult = db.insert(data,_tableName);
-			
+			data['@naam'] = 'qwertyuiopasdfghjklzxcvbnm';
+			data['@score'] = int(Math.random()*0xFFFFFF);
+			data['@datum'] = Math.round(new Date().getTime()/1000);
+			var res:SQLResult = db.query('INSERT INTO '+_tableName+' (id, naam, score, datum) VALUES (null,@naam,@score,@datum)',data);
+			var sel:Array = getList();
 
 
 		}
