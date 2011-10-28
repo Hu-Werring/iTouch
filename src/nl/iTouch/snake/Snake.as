@@ -7,7 +7,9 @@ package nl.iTouch.snake
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
+	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
+	import nl.iTouch.Highscore;
 	
 	public class Snake extends Sprite implements Game
 	{
@@ -29,13 +31,15 @@ package nl.iTouch.snake
 		
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
-		private var snakeMoveX:Number = 1;
-		private var snakeMoveY:Number = 0;
-		private var snakeRotation:Number = 90;
-		private var nextMoveX:Number = 1;
-		private var nextMoveY:Number = 0;
-		private var nextRotation:Number = 90;
+		private var snakeMoveX:int = 1;
+		private var snakeMoveY:int = 0;
+		private var snakeRotation:int = 90;
+		private var nextMoveX:int = 1;
+		private var nextMoveY:int = 0;
+		private var nextRotation:int = 90;
 		
+		private var db:DataBase = DataBase.getInstance;
+		private var hs:Highscore;
 		//== main class function ==
 		public function Snake()
 		{
@@ -45,6 +49,12 @@ package nl.iTouch.snake
 		public function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			
+			/*hs = new Highscore('snake');
+			hs.highScoreList()
+				
+			var list:Sprite = hs.highScoreList();
+			addChild(list);*/
 			
 			_wall['left'] = 30; //== moet deelbaar zijn door _gridsize
 			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
@@ -145,6 +155,7 @@ package nl.iTouch.snake
 			snakeParts[0].x = nX;
 			snakeParts[0].y = nY;
 			snakeParts[0].rotation = snakeRotation;
+			if(snakeParts[1] != undefined) snakeParts[1].rotation = snakeRotation;
 		}
 		
 		public function keyDownFunction(ke:KeyboardEvent):void
@@ -218,6 +229,7 @@ package nl.iTouch.snake
 			var nR:int = Math.random()*3;
 			
 			var kast:BoekenKast
+			var error:Boolean = false;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
 			{ 
 				
@@ -226,16 +238,26 @@ package nl.iTouch.snake
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
 					if ((nX == kast.kastParts[k].x+kast.x) && (nY == kast.kastParts[k].y+kast.y))
 					{
-						nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+						error  = true;
+						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
 						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 						nR = Math.random()*3;
+						*/
+						
+						
+						placeStudent();
+						break;
 					}
+					trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					
 				}
+				if(error) break;
 			}
-			
+			if(!error){
 			student.x = nX;
 			student.y = nY;
 			student.rotation = 90 * nR;
+			}
 		}
 		
 		public function gameOver():void
