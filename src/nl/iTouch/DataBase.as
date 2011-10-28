@@ -43,7 +43,7 @@ package nl.iTouch
 			}
 		}
 		
-		public function query(qry:String,params:Array = null):SQLResult
+		public function query(qry:String,params:Array = null,limit:uint=0):SQLResult
 		{
 			_sqlStatement.clearParameters();
 			_sqlStatement.text = qry;
@@ -54,7 +54,14 @@ package nl.iTouch
 					_sqlStatement.parameters[key] = params[key];
 				}
 			}
-			_sqlStatement.execute();
+			if(limit ==0) _sqlStatement.execute();
+			else _sqlStatement.execute(limit);
+			return _sqlStatement.getResult();
+		}
+		
+		public function nextResult():SQLResult
+		{
+			_sqlStatement.next();
 			return _sqlStatement.getResult();
 		}
 		
@@ -75,16 +82,24 @@ package nl.iTouch
 		public function insert(data:Array,table:String):SQLResult
 		{
 			var fieldList:String = "";
+			var insertList:String = "";
 			var inserts:Array = new Array();
 			for (var key:String in data){
 				fieldList += key + ", ";
+				insertList +=key + ", @";
 				inserts['@' + key] = data[key];
 			}
 			fieldList = fieldList.slice(0,-2);
+			insertList = fieldList.slice(0,-3);
 			try{
-				var res:SQLResult = query('INSERT INTO ' + table + ' (' + fieldList + ') VALUES (@'+fieldList.replace(', ',', @')+')',inserts);
+				var res:SQLResult = query('INSERT INTO ' + table + ' (' + fieldList + ') VALUES (@'+insertList+')',inserts);
 			} catch(e:SQLError){
 				trace(e);
+				trace(_sqlStatement.text);
+				for (var i:String in _sqlStatement.parameters)
+				{
+					trace(i,_sqlStatement.parameters[i]);
+				}
 			}
 			return res;
 		}
