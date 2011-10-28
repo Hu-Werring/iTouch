@@ -5,74 +5,105 @@ package nl.iTouch.eyecatcher
 	import flash.utils.*;
 	
 	public class Lucas extends Sprite {
-		private var beweeg:Boolean;		
-		private var a:Array = [links];
+		private var beweeg:Array = new Array();	
+		
+		private var a:Array = [boven, onder, links, rechts];
 		private var snelheid:Number;
 		
+		public var lucasLinks:LucasImage = new LucasImage();
+		public var lucasRechts:LucasImage = new LucasImage();
+		public var lucasBoven:LucasImage = new LucasImage();
+		public var lucasOnder:LucasImage = new LucasImage();
+		
 		public function Lucas() {
-			addChild(new LucasImage());
-			trace("Lucas weergeven");
-			width = 150;
-			height = 250;		
-			beweeg = false;	
-			addEventListener(Event.ADDED_TO_STAGE,startlucas);
+			var tralalala:LucasImage = new LucasImage();
+			tralalala.visible = false;
+			addChild(tralalala);
+			width = 125; //25
+			height = 265;//53	
+			beweeg['links'] = false;	
+			beweeg['rechts'] = false;	
+			beweeg['boven'] = false;	
+			beweeg['onder'] = false;
+			addEventListener(Event.ADDED_TO_STAGE,init);
 		}
 		public function links():void
 		{
 				trace("Links");
-				addEventListener(Event.ENTER_FRAME,beweegLucasLinks);
-				x=0;
-				rotation = 90;			
+				addEventListener(Event.ENTER_FRAME,beweegLucasLinks);	
 		}
 		public	function rechts():void
 		{
 				trace("Rechts");
 				addEventListener(Event.ENTER_FRAME,beweegLucasRechts);
-				x=1300;
-				rotation = 270;
 		}
 		public	function onder():void
 		{
 				trace("Onder");
 				addEventListener(Event.ENTER_FRAME,beweegLucasOnder);
-				y = 950;
-				rotation =0;
 		}
 		public	function boven():void
 		{
 				trace("boven");
 				addEventListener(Event.ENTER_FRAME,beweegLucasBoven);
-				y = 0;
-				rotation= 180;
 		}			
-		public function startlucas(e:Event):void
-		{
+		public function init(e:Event):void
+		{		
+			removeEventListener(Event.ADDED_TO_STAGE,init);		
+			
+				lucasLinks.x = 0;
+				lucasLinks.y = 0;
+				lucasLinks.rotation = 90;
+				addChild(lucasLinks);	
+				
+				lucasRechts.x= 2550;
+				lucasRechts.y= 0;
+				lucasRechts.rotation = 270;
+				addChild(lucasRechts);
+				
+				lucasOnder.x = 0;				
+				lucasOnder.y = 2100;
+				lucasOnder.rotation = 0;
+				addChild(lucasOnder);
+				
+				lucasBoven.x = 0; 
+				lucasBoven.y = 0;
+				lucasBoven.rotation= 180;
+				addChild(lucasBoven);
+				
 				randomZijde(); 
 		}				
 		public	function randomZijde():void
 		{
-				removeEventListener(Event.ENTER_FRAME,startlucas);
 				a[Math.floor(Math.random() * a.length)]();
-				snelheid = Math.floor(Math.random() * 5 + 2);
-				beweeg = false;
+				snelheid = Math.floor(Math.random() * 8 + 4);
+				//snelheid = 8;
+				trace('Random zijde');
+				lucasRechts.y = Math.random() * 2200 + 100;	
+				lucasLinks.y = Math.random() * 1900 + 100;
+				lucasBoven.x = Math.random() * 2200 + 100;	
+				lucasOnder.x = Math.random() * 2200 + 100;
 		}
 			
 		public function beweegLucasOnder(e:Event):void
 			{
-				if(beweeg == false){
-					e.currentTarget.y -= snelheid;
-					if(e.currentTarget.y <= 900)
+				if(beweeg['onder'] == false){
+					lucasOnder.y -= snelheid;
+					if(lucasOnder.y <= 1800)
 					{
-						beweeg = true;
+						beweeg['onder'] = true;
 					}
 				}				
-				else if(beweeg == true){
-					e.currentTarget.y +=  snelheid;					
-					if(e.currentTarget.y >= 1050)
+				else if(beweeg['onder'] == true){
+					lucasOnder.y +=  snelheid;					
+					if(lucasOnder.y >= 2100)
 					{
-						beweeg = false;
+						beweeg['onder'] = false;
 						trace("Verplaats");
-						x = Math.random() * 1200 + 0;					
+						//lucasOnder.x = Math.random() * 2300;
+						//lucasOnder.y = 2100;
+						this.removeEventListener(Event.ENTER_FRAME,beweegLucasOnder);
+
 						randomZijde();
 					}
 				}								
@@ -80,62 +111,75 @@ package nl.iTouch.eyecatcher
 			
 			public function beweegLucasBoven(e:Event):void
 			{
-				if(beweeg == false){
-					e.currentTarget.y += snelheid;
-					if(e.currentTarget.y >= 100)
+				if(beweeg['boven'] == false){
+					lucasBoven.y += snelheid;
+					if(lucasBoven.y >= 250)
 					{
-						beweeg = true;
+						beweeg['boven'] = true;
 					}
 				}				
-				else if(beweeg == true){
-					e.currentTarget.y -=  snelheid;					
-					if(e.currentTarget.y <= 0)
+				else if(beweeg['boven'] == true){
+					lucasBoven.y -=  snelheid;					
+					if(lucasBoven.y <= 0)
 					{
-						beweeg = false;
+						beweeg['boven'] = false;
 						trace("Verplaats");
-						x = Math.random() * 1200 + 0;					
+						//lucasBoven.x = Math.random() * 2300;	
+						//lucasBoven.y = 0;
+						this.removeEventListener(Event.ENTER_FRAME,beweegLucasBoven);
 						randomZijde();
+
 					}
 				}								
 			}		
 			
 			public function beweegLucasLinks(e:Event):void
-			{				
-				if(beweeg == false){
-					e.currentTarget.x +=  snelheid;
-					if(e.currentTarget.x >= 80)
+			{			
+				trace(lucasLinks.x);
+				if(beweeg['links'] == false){
+					
+					if(lucasLinks.x >= 250)
 					{
-						beweeg = true;						
+						beweeg['links'] = true;						
+					} else {
+						lucasLinks.x +=  snelheid;
 					}
 				}				
-				else if(beweeg == true){
-					e.currentTarget.x -=  snelheid;					
-					if(e.currentTarget.x <= -50)
+				else if(beweeg['links'] == true){
+					if(lucasLinks.x <= 0)
 					{
-						beweeg = false;				
-						trace("Verplaats");
-						y = Math.random() * 800 + 50;	
+						beweeg['links'] = false;				
+						trace("Verplaats",lucasLinks.x);
+						//lucasLinks.y = Math.random() * 1800;
+						//lucasLinks.x = 0;
+						this.removeEventListener(Event.ENTER_FRAME,beweegLucasLinks);
 						randomZijde();
+
+
+					} else {
+						lucasLinks.x -=  snelheid;					
 					}
 				}								
 			}							
 			
 			public function beweegLucasRechts(e:Event):void
 			{							
-				if(beweeg == false){
-					e.currentTarget.x -=  snelheid;			
-					if(e.currentTarget.x <= 1220)
+				if(beweeg['rechts'] == false){
+					lucasRechts.x -=  snelheid;			
+					if(lucasRechts.x <= 2300)
 					{
-						beweeg = true;						
+						beweeg['rechts'] = true;						
 					}
 				}				
-				else if(beweeg == true){
-					e.currentTarget.x +=  snelheid;					
-					if(e.currentTarget.x >= 1300)
+				else if(beweeg['rechts'] == true){
+					lucasRechts.x +=  snelheid;					
+					if(lucasRechts.x >= 2550)
 					{
-						beweeg = false;			
-						trace("Verplaats");
-						y = Math.random() * 800 + 50;	
+						beweeg['rechts'] = false;			
+						trace("Verplaats" + " x: " + lucasRechts.x + " y: " + lucasRechts.y);
+						//lucasRechts.y = Math.random() * 2300;	
+					//	lucasRechts.x= 2550;
+						this.removeEventListener(Event.ENTER_FRAME,beweegLucasRechts);					
 						randomZijde();
 					}
 				}								
