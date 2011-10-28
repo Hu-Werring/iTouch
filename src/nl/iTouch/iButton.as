@@ -15,7 +15,14 @@ package nl.iTouch
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 45;
 			bevel.quality = BitmapFilterQuality.HIGH;
-			_sprite.filters = [bevel];
+			
+			
+			var glow:GlowFilter = new GlowFilter();
+			glow.color=0x0;
+			
+			_sprite.filters = [bevel,glow];
+			
+			
 			addChild(_sprite);
 		}
 		
@@ -31,14 +38,25 @@ package nl.iTouch
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 225;
 			bevel.quality = BitmapFilterQuality.HIGH;
-			_sprite.filters = [bevel];
+			
+			var glow:GlowFilter = new GlowFilter();
+			glow.color=0xFFFFFF*Math.random();
+			
+			
+			_sprite.filters = [bevel,glow];
+			
 		}
 		private function  mouseRelease(e:MouseEvent):void
 		{
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 45;
 			bevel.quality = BitmapFilterQuality.HIGH;
-			_sprite.filters = [bevel];
+			
+			var glow:GlowFilter = new GlowFilter();
+			glow.color=0x0;
+			
+			_sprite.filters = [bevel,glow];
+			
 
 		}
 	}
