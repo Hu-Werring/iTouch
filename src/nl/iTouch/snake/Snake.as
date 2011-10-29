@@ -28,6 +28,8 @@ package nl.iTouch.snake
 		//== objecten ==
 		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
+		private var _deelX:Array = new Array();
+		private var _deelY:Array = new Array();
 		
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
@@ -38,8 +40,10 @@ package nl.iTouch.snake
 		private var nextMoveY:int = 0;
 		private var nextRotation:int = 90;
 		
+		//== highscore + DB varables/objecten ==
 		private var db:DataBase = DataBase.getInstance;
 		private var hs:Highscore;
+		
 		//== main class function ==
 		public function Snake()
 		{
@@ -50,11 +54,23 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			
 			/*hs = new Highscore('snake');
 			hs.highScoreList()
 				
 			var list:Sprite = hs.highScoreList();
 			addChild(list);*/
+			
+			_deelX.push(2 * _gridSize - (_gridSize/2));
+			_deelX.push(17 * _gridSize - (_gridSize/2));
+			_deelX.push(32 * _gridSize - (_gridSize/2));
+			_deelX.push(47 * _gridSize - (_gridSize/2));
+			_deelX.push(63 * _gridSize - (_gridSize/2));
+			
+			_deelY.push(4 * _gridSize - (_gridSize/2));
+			_deelY.push(32 * _gridSize - (_gridSize/2));
+			_deelY.push(37 * _gridSize - (_gridSize/2));
+			_deelY.push(63 * _gridSize - (_gridSize/2));
 			
 			_wall['left'] = 30; //== moet deelbaar zijn door _gridsize
 			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
@@ -150,8 +166,30 @@ package nl.iTouch.snake
 				//== TODO ==
 			}
 			
+			//== check if snake is in same area as student ==
+				if (checkPlaceY() == 1)
+				{
+					if (checkPlaceX())
+					{
+						student.visible = true;
+					}
+					else
+					{
+						student.visible = false;
+					}
+				}
+				else if(checkPlaceY() == 2)
+				{
+					student.visible = true;
+				}
+				else
+				{
+					student.visible = false;
+				}
+			
 			placeTail();
 			
+			trace(snakeParts[0].x,snakeParts[0].y);
 			snakeParts[0].x = nX;
 			snakeParts[0].y = nY;
 			snakeParts[0].rotation = snakeRotation;
@@ -253,7 +291,9 @@ package nl.iTouch.snake
 				}
 				if(error) break;
 			}
-			if(!error){
+			
+			if(!error)
+			{
 			student.x = nX;
 			student.y = nY;
 			student.rotation = 90 * nR;
@@ -298,10 +338,64 @@ package nl.iTouch.snake
 			nextMoveY = 0;
 			nextRotation = 90;
 			
+			placeStudent();
+			
 			while(snakeParts.length>1)
 			{
 				removeChild(snakeParts.pop());
 			}
+		}
+		
+		public function checkPlaceX():Boolean
+		{
+			var check:Boolean;
+			
+			if ((snakeParts[0].x > _deelX[0]) && (snakeParts[0].x < _deelX[1]) && (student.x > _deelX[0]) && (student.x < _deelX[1]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[1]) && (snakeParts[0].x < _deelX[2]) && (student.x > _deelX[1]) && (student.x < _deelX[2]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[2]) && (snakeParts[0].x < _deelX[3]) && (student.x > _deelX[2]) && (student.x < _deelX[3]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[3]) && (snakeParts[0].x < _deelX[4]) && (student.x > _deelX[3]) && (student.x < _deelX[4]))
+			{
+				check = true;
+			}
+			else
+			{
+				check = false;
+			}
+			
+			return check;
+		}
+		
+		public function checkPlaceY():uint
+		{
+			var check:uint;
+			
+			if ((snakeParts[0].y > _deelY[0]) && (snakeParts[0].y < _deelY[1]) && (student.y > _deelY[0]) && (student.y < _deelY[1]))
+			{
+				check = 1;
+			}
+			else if ((snakeParts[0].y > _deelY[1]) && (snakeParts[0].y < _deelY[2]) && (student.y > _deelY[1]) && (student.y < _deelY[2]))
+			{
+				check = 2;
+			}
+			else if ((student.y > _deelY[2]) && (student.y < _deelY[3]))
+			{
+				check = 1;
+			}
+			else
+			{
+				check = 0;
+			}
+			
+			return check;
 		}
 	}
 }
