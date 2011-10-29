@@ -81,22 +81,6 @@ package nl.iTouch.snake
 			var background:SnakeBackground = new SnakeBackground();
 			addChild(background);
 			
-			//== create tafel ==
-			var tafel:Tafels = new Tafels(true);
-			tafel.x = 75;
-			tafel.y = 585;
-			addChild(tafel);
-			
-			var tafel2:Tafels = new Tafels();
-			tafel2.x = 105;
-			tafel2.y = 690;
-			addChild(tafel2);
-			
-			var tafel3:Tafels = new Tafels(true);
-			tafel3.x = 75;
-			tafel3.y = 855;
-			addChild(tafel3);
-			
 			//== Create boeken kasten ==
 			for(var i:int = 1;i <= 3; i++)
 			{
