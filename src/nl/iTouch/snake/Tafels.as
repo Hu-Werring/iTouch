@@ -5,6 +5,11 @@ package nl.iTouch.snake
 	
 	public class Tafels extends Sprite
 	{
+		//private const _lenght:uint = 5;
+		//private const _height:uint = 9;
+		
+		public var tafelParts:Array = new Array();
+		
 		private var _switchRotation:Boolean;
 		
 		public function Tafels(s:Boolean = false)
@@ -24,7 +29,7 @@ package nl.iTouch.snake
 					drawTafelHorizontaal();
 					break;
 				
-				case true:
+				case false:
 					drawTafelVerticaal();
 					break;
 			}
@@ -32,12 +37,54 @@ package nl.iTouch.snake
 		
 		public function drawTafelHorizontaal():void
 		{
-			
+			for (var i:uint = 0; j < 5;j++)
+			{
+				for(var j:int = 0; i < 9; i++)
+				{
+					/*if (i == 0)
+					{
+						if(j == 0)
+						{
+							
+						}
+						else if(j == 8)
+						{
+							
+						}
+						else
+						{
+							
+						}
+					}
+					else if (i == 4)
+					{
+						
+					}
+					else
+					{*/
+						var t:TafelFill = new TafelFill();;
+						t.x = j * 15;
+						t.y = i * 15;
+						addChild(t);
+						tafelParts.push(t);
+					//}
+				}
+			}
 		}
 		
 		public function drawTafelVerticaal():void
 		{
-			
+			for (var j:uint = 0; j < 9;j++)
+			{
+				for(var i:int = 0; i < 5; i++)
+				{
+					var t:TafelFill = new TafelFill();;
+					t.x = i * 15;
+					t.y = j * 15;
+					addChild(t);
+					tafelParts.push(t);
+				}
+			}
 		}
 	}
 }

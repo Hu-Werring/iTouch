@@ -78,8 +78,24 @@ package nl.iTouch.snake
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
 			//== create grid raster ==
-			var grid:SnakeBackground = new SnakeBackground();
-			addChild(grid);
+			var background:SnakeBackground = new SnakeBackground();
+			addChild(background);
+			
+			//== create tafel ==
+			var tafel:Tafels = new Tafels(true);
+			tafel.x = 75;
+			tafel.y = 585;
+			addChild(tafel);
+			
+			var tafel2:Tafels = new Tafels();
+			tafel2.x = 105;
+			tafel2.y = 690;
+			addChild(tafel2);
+			
+			var tafel3:Tafels = new Tafels(true);
+			tafel3.x = 75;
+			tafel3.y = 855;
+			addChild(tafel3);
 			
 			//== Create boeken kasten ==
 			for(var i:int = 1;i <= 3; i++)
@@ -167,14 +183,16 @@ package nl.iTouch.snake
 			}
 			
 			//== check if snake is in same area as student ==
-				if (checkPlaceY() == 1)
+				if (checkPlaceY() >= 1)
 				{
 					if (checkPlaceX())
 					{
+						//student.alpha = 1;
 						student.visible = true;
 					}
 					else
 					{
+						//student.alpha = 0.5;
 						student.visible = false;
 					}
 				}
@@ -184,6 +202,7 @@ package nl.iTouch.snake
 				}
 				else
 				{
+					//student.alpha = 0.5;
 					student.visible = false;
 				}
 			
@@ -386,7 +405,7 @@ package nl.iTouch.snake
 			{
 				check = 2;
 			}
-			else if ((student.y > _deelY[2]) && (student.y < _deelY[3]))
+			else if ((snakeParts[0].y > _deelY[2]) && (snakeParts[0].y < _deelY[3]) && (student.y > _deelY[2]) && (student.y < _deelY[3]))
 			{
 				check = 1;
 			}
