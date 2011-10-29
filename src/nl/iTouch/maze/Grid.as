@@ -68,7 +68,7 @@ package nl.iTouch.maze
 			this.tilesObj[tile] = content;
 		}
 		
-		public function colorTile(tile:Number, color):void
+		public function colorTile(tile:Number, color:uint):void
 		{
 			this.tilesObj[tile].graphics.beginFill(color);
 			this.tilesObj[tile].graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
@@ -91,7 +91,7 @@ package nl.iTouch.maze
 			{
 				var startTile:int = col-1;
 				var endTile:int = startTile + (this.rows*this.cols);
-				var tmpSP = new Sprite();
+				var tmpSP:Sprite = new Sprite();
 
 				this.colorTile(startTile,0x00FF00);
 				/*for(var i:int=startTile; i < endTile;i++)
@@ -101,7 +101,7 @@ package nl.iTouch.maze
 			}
 		}
 		
-		public function setColomColor(col:int, color):void
+		public function setColomColor(col:int, color:uint):void
 		{
 			if(col/this.cols <= 1)
 			{
@@ -114,7 +114,7 @@ package nl.iTouch.maze
 			}
 		}
 		
-		public function setRowColor(row:int, color):void
+		public function setRowColor(row:int, color:uint):void
 		{
 			if(row/this.rows <= 1)
 			{

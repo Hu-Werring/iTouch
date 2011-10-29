@@ -5,7 +5,11 @@ package
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.display.*;
 	
+	import nl.iTouch.maze.Maze;
+	import nl.iTouch.snake.Snake;
+
 	import nl.iTouch.*;
 	import nl.iTouch.ui.Button1;
 	import nl.iTouch.ui.Button2;
@@ -19,6 +23,7 @@ package
 	{
 		
 		public function iTouch(){
+			/*
 			stage.align = "TL";
 			stage.scaleMode = "noScale";
 			addChild(new fullsizeBackgroundImage('UserInterface.jpg',0,0));
@@ -31,6 +36,12 @@ package
 			addChild( button1);
 			addChild( button2);
 			addChild( button3);
+			*/
+			
+			stage.align = StageAlign.TOP_LEFT;	
+			stage.scaleMode = StageScaleMode.NO_SCALE;
+			var mazeGame:Maze = new Maze(1120, 800);
+			addChild(mazeGame);
 		}
 	}
 }

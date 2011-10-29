@@ -7,7 +7,7 @@ package nl.iTouch.maze
 	
 	public class Maze extends Sprite implements Game 
 	{
-		protected var lucas;
+		protected var lucas:Lucas;
 		protected var grid:nl.iTouch.maze.Grid;
 		protected var Control:nl.iTouch.maze.Controls;
 		
