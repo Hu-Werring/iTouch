@@ -192,7 +192,7 @@ package nl.iTouch.snake
 			
 			placeTail();
 			
-			trace(snakeParts[0].x,snakeParts[0].y);
+			//trace(snakeParts[0].x,snakeParts[0].y);
 			snakeParts[0].x = nX;
 			snakeParts[0].y = nY;
 			snakeParts[0].rotation = snakeRotation;
