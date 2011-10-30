@@ -2,7 +2,10 @@ package nl.iTouch
 {
 	import flash.data.SQLResult;
 	import flash.display.Sprite;
+	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	
+	import nid.ui.controls.VirtualKeyBoard;
 
 	public class Highscore
 	{
@@ -53,5 +56,28 @@ package nl.iTouch
 			holder.addChild(scoreList);
 			return holder;
 		}
+		
+		public function submitHS():Sprite
+		{
+			
+			var holder:Sprite = new Sprite();
+			holder.graphics.beginFill(0xFFFFFF);
+			holder.graphics.lineStyle(1,0xE63028);
+			holder.graphics.drawRect(0,0,300,150);
+			holder.graphics.endFill();
+			var TF:TextField = new TextField();
+			TF.width = 300;
+			TF.height = 100;
+			TF.addEventListener(MouseEvent.CLICK, toggleKeyboard);
+			holder.addChild(TF);
+			return holder;
+		}
+		
+		private function toggleKeyboard(e:MouseEvent):void 
+		{
+			
+			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Test" };
+		}
+
 	}
 }

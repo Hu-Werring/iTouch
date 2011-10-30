@@ -34,11 +34,19 @@ package
 			stage.align = "TL";
 			stage.scaleMode = StageScaleMode.SHOW_ALL;
 			
-			//VirtualKeyBoard.getInstance().init(this);
+			VirtualKeyBoard.getInstance().init(this);
 			
-			addChild(new Interface());
+			//addChild(new Interface());
 			addChild(gh);
+			
 			/*
+			var hs:Highscore = new Highscore('test');
+			
+			addChild(hs.submitHS());
+			
+			/* */
+			
+			//*
 			var tmp:Sprite = new Sprite();
 			tmp.graphics.beginFill(0xFF0000);
 			tmp.graphics.drawCircle(30,30,25);
