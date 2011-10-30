@@ -16,6 +16,7 @@ package
 	import nl.iTouch.ui.Button1;
 	import nl.iTouch.ui.Button2;
 	import nl.iTouch.ui.Button3;
+	import nl.iTouch.ui.Interface;
 	
 	
 	
@@ -33,9 +34,9 @@ package
 			stage.align = "TL";
 			stage.scaleMode = StageScaleMode.SHOW_ALL;
 			
-			VirtualKeyBoard.getInstance().init(this);
+			//VirtualKeyBoard.getInstance().init(this);
 			
-			
+			addChild(new Interface());
 			addChild(gh);
 			/*
 			var tmp:Sprite = new Sprite();

@@ -65,7 +65,7 @@ package com.fullsizeBackgroundImage {
 		private function loadBackImgComplete(e:Event):void {
 		
 			backgroundImgLoader.width = 1280; //backgroundimage width is equal to stage width
-			backgroundImgLoader.height = 428; //* (backgroundImgLoader.content.height / backgroundImgLoader.content.width); //backgroundimage height is proportional to backgroundimage width
+			backgroundImgLoader.height = 1024; //* (backgroundImgLoader.content.height / backgroundImgLoader.content.width); //backgroundimage height is proportional to backgroundimage width
 			backgroundImgLoader.y = stage.stageHeight - backgroundImgLoader.height + ((backgroundImgLoader.height - stage.stageHeight) / 2); //center the horizontal position of the backgroundimage 
 		}
 		
