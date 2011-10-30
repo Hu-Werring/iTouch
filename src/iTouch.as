@@ -46,26 +46,8 @@ package
 			gui.addEventListener(Interface.START_GUESS,startGuess);
 			/*
 			var hs:Highscore = new Highscore('test');
+			addChild(hs.submitHS(Math.random()*0xFFFFFF));
 			
-			addChild(hs.submitHS());
-			
-			/* */
-			
-			/*
-			var tmp:Sprite = new Sprite();
-			tmp.graphics.beginFill(0xFF0000);
-			tmp.graphics.drawCircle(30,30,25);
-			tmp.graphics.endFill();
-			tmp = new iButton(tmp);
-			addChild(tmp);
-			tmp.addEventListener(MouseEvent.CLICK,startMaze);
-			var tmp2:Sprite = new Sprite();
-			tmp2.graphics.beginFill(0xFF0000);
-			tmp2.graphics.drawCircle(85,30,25);
-			tmp2.graphics.endFill();
-			tmp2 = new iButton(tmp2);
-			addChild(tmp2);
-			tmp2.addEventListener(MouseEvent.CLICK,startSnake);
 			/* */
 		}
 		

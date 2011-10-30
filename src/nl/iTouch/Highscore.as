@@ -1,9 +1,14 @@
 package nl.iTouch
 {
+	import com.greensock.TweenLite;
+	
 	import flash.data.SQLResult;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	import nid.ui.controls.VirtualKeyBoard;
 
@@ -57,26 +62,50 @@ package nl.iTouch
 			return holder;
 		}
 		
-		public function submitHS():Sprite
+		public function submitHS(score:uint):Sprite
 		{
 			
-			var holder:Sprite = new Sprite();
-			holder.graphics.beginFill(0xFFFFFF);
-			holder.graphics.lineStyle(1,0xE63028);
-			holder.graphics.drawRect(0,0,300,150);
-			holder.graphics.endFill();
-			var TF:TextField = new TextField();
-			TF.width = 300;
-			TF.height = 100;
-			TF.addEventListener(MouseEvent.CLICK, toggleKeyboard);
-			holder.addChild(TF);
-			return holder;
+			var sw:ScoreWindow = new ScoreWindow();
+			sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
+			sw.TFScore.text = score.toString();
+			sw.sendKnop.buttonMode = true;
+			sw.noSendKnop.buttonMode = true;
+			sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScore);
+			sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);
+			return sw;
 		}
 		
+		private function sendScore(e:MouseEvent):void
+		{	
+			hideKB();
+			hideSubmit(e.target.parent as ScoreWindow);
+			var naam:String = e.target.parent.TFName.text;
+			var score:uint = uint(e.target.parent.TFScore.text);
+			submit(naam,score);
+			
+		}
+		private function noSendScore(e:MouseEvent):void
+		{
+			hideSubmit(e.target.parent as ScoreWindow);
+		}
+
+		
+		private function hideSubmit(object:ScoreWindow):void
+		{
+			object.noSendKnop.removeEventListener(MouseEvent.CLICK,noSendScore);
+			object.sendKnop.removeEventListener(MouseEvent.CLICK,sendScore);
+			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,onComplete:function():void{ 
+				object.parent.removeChild(object);
+			}});
+
+		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{
-			
-			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Test" };
+			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Naam" };
+		}
+		private function hideKB():void
+		{
+			VirtualKeyBoard.getInstance().hide();
 		}
 
 	}

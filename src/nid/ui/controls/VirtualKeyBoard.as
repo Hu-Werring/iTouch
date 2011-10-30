@@ -64,8 +64,8 @@ package  nid.ui.controls
 				
 				case 'enter':
 				{
-					referenceText += '\n';
-					//hide();
+					//referenceText += '\n';
+					hide();
 					//dispatchEvent(new KeyBoardEvent(KeyBoardEvent.ENTER));
 					return;
 				}
