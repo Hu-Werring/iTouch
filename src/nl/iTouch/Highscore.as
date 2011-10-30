@@ -6,11 +6,13 @@ package nl.iTouch
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
 	import nid.ui.controls.VirtualKeyBoard;
+	import nid.ui.controls.vkb.KeyBoardEvent;
 
 	public class Highscore
 	{
@@ -70,20 +72,38 @@ package nl.iTouch
 			sw.TFScore.text = score.toString();
 			sw.sendKnop.buttonMode = true;
 			sw.noSendKnop.buttonMode = true;
-			sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScore);
+			sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScoreMouse);
 			sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);
+			
+			VirtualKeyBoard.getInstance().addEventListener(KeyBoardEvent.ENTER,sendScoreKb)
+			
 			return sw;
 		}
 		
-		private function sendScore(e:MouseEvent):void
-		{	
-			hideKB();
-			hideSubmit(e.target.parent as ScoreWindow);
-			var naam:String = e.target.parent.TFName.text;
-			var score:uint = uint(e.target.parent.TFScore.text);
-			submit(naam,score);
-			
+		private function sendScore(obj:ScoreWindow):void
+		{
+			var naam:String = obj.TFName.text;
+			var score:uint = uint(obj.TFScore.text);
+			if(naam.length !=0){
+				hideKB();
+				hideSubmit(obj);
+				submit(naam,score);
+			} else {
+				obj.TFName.borderColor = 0xFF0000;
+				obj.TFName.backgroundColor = 0xFFCCCC;
+			}
+
 		}
+		
+		private function sendScoreMouse(e:MouseEvent):void
+		{	
+			sendScore(e.currentTarget.parent);
+		}
+		private function sendScoreKb(e:KeyBoardEvent):void
+		{
+			sendScore(e.obj as ScoreWindow);
+		}
+		
 		private function noSendScore(e:MouseEvent):void
 		{
 			hideSubmit(e.target.parent as ScoreWindow);
@@ -94,7 +114,7 @@ package nl.iTouch
 		{
 			object.noSendKnop.removeEventListener(MouseEvent.CLICK,noSendScore);
 			object.sendKnop.removeEventListener(MouseEvent.CLICK,sendScore);
-			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,onComplete:function():void{ 
+			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,x:object.width/2+object.x,y:object.height/2+object.y,onComplete:function():void{ 
 				object.parent.removeChild(object);
 			}});
 

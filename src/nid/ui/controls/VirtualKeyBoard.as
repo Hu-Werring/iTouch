@@ -66,7 +66,7 @@ package  nid.ui.controls
 				{
 					//referenceText += '\n';
 					hide();
-					//dispatchEvent(new KeyBoardEvent(KeyBoardEvent.ENTER));
+					dispatchEvent(new KeyBoardEvent(KeyBoardEvent.ENTER,"",false,false,targetField.parent));
 					return;
 				}
 				break;
