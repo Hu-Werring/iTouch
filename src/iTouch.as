@@ -60,6 +60,7 @@ package
 		{
 			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
 				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startSnake);
+				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startMaze);
 			}
 			switch(gh.status)
 			{
@@ -80,6 +81,7 @@ package
 		public function startMaze(e:Event):void
 		{
 			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
+				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startSnake);
 				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startMaze);
 			}
 			switch(gh.status)
