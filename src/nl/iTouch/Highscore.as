@@ -17,12 +17,6 @@ package nl.iTouch
 			_tableName = "HS_" + _name;
 			
 			db.createTable(_tableName,'id int,naam varchar(20), datum int, score int','id');
-			var data:Array = new Array();
-			data['@naam'] = 'qwertyuiopasdfghjklzxcvbnm';
-			data['@score'] = int(Math.random()*0xFFFFFF);
-			data['@datum'] = Math.round(new Date().getTime()/1000);
-			var res:SQLResult = db.query('INSERT INTO '+_tableName+' (id, naam, score, datum) VALUES (null,@naam,@score,@datum)',data);
-			var sel:Array = getList();
 
 
 		}
@@ -30,20 +24,18 @@ package nl.iTouch
 		public function getList():Array
 		{
 			var params:Array = new Array();
-			params['@table'] = _tableName;
 			
-			var ret:Array = db.query("SELECT * FROM @table ORDER BY score DESC",params,50).data;
+			var ret:Array = db.query("SELECT * FROM "+_tableName+" ORDER BY score DESC",null,50).data;
 			return ret;
 		}
 		
 		public function submit(name:String, score:uint):void
 		{
 			var data:Array = new Array();
-			data['id'] = 'null';
-			data['naam'] = name;
-			data['score'] = score;
-			data['datum'] = Math.round(new Date().getTime()/1000);
-			db.insert(data,_tableName);
+			data['@naam'] = name;
+			data['@score'] = score;
+			data['@datum'] = Math.round(new Date().getTime()/1000);
+			db.query('INSERT INTO '+_tableName+' (id, naam, score, datum) VALUES (null,@naam,@score,@datum)',data);
 		}
 		
 		public function highScoreList():Sprite

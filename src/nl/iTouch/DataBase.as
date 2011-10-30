@@ -31,13 +31,16 @@ package nl.iTouch
 		private function init():void
 		{
 			try {
-			_dbFile = File.applicationDirectory.resolvePath('iTouch.db');
-			if(!_dbFile.exists) throw(new Error('Database could not be found!'));
-			_sqlCon = new SQLConnection();
-			_sqlStatement = new SQLStatement();
-			
-			_sqlCon.open(_dbFile);
-			_sqlStatement.sqlConnection = _sqlCon;
+				//opening database file
+				_dbFile = File.applicationDirectory.resolvePath('iTouch.db');
+				//check if database exists
+				if(!_dbFile.exists) throw(new Error('Database could not be found!'));
+				
+				_sqlCon = new SQLConnection();
+				_sqlStatement = new SQLStatement();
+				
+				_sqlCon.open(_dbFile);
+				_sqlStatement.sqlConnection = _sqlCon;
 			} catch(e:Error) {
 				trace(e.message,e.getStackTrace());
 			}
@@ -50,7 +53,6 @@ package nl.iTouch
 			if(params !=null){
 				for(var key:* in params)
 				{
-					trace(key,params[key]);
 					_sqlStatement.parameters[key] = params[key];
 				}
 			}
