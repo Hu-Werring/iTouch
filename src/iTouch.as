@@ -8,6 +8,8 @@ package
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import nid.ui.controls.VirtualKeyBoard;
+	
 	import nl.iTouch.*;
 	import nl.iTouch.maze.Maze;
 	import nl.iTouch.snake.Snake;
@@ -30,9 +32,12 @@ package
 			
 			stage.align = "TL";
 			stage.scaleMode = StageScaleMode.SHOW_ALL;
-
+			
+			VirtualKeyBoard.getInstance().init(this);
+			
 			
 			addChild(gh);
+			/*
 			var tmp:Sprite = new Sprite();
 			tmp.graphics.beginFill(0xFF0000);
 			tmp.graphics.drawCircle(30,30,25);
@@ -47,7 +52,7 @@ package
 			tmp2 = new iButton(tmp2);
 			addChild(tmp2);
 			tmp2.addEventListener(MouseEvent.CLICK,startSnake);
-
+			/* */
 		}
 		public function hideGame(e:MouseEvent):void
 		{
