@@ -2,6 +2,7 @@ package nl.iTouch.ui
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import nl.iTouch.iButton;
@@ -17,9 +18,10 @@ package nl.iTouch.ui
 			knop.addEventListener(MouseEvent.CLICK, Buttonfunction);
 			
 		}
-		public function Buttonfunction(e:MouseEvent)
+		
+		public function Buttonfunction(e:MouseEvent):void
 		{
-			addChild(new Snake());
+			this.parent.dispatchEvent(new Event(Interface.START_SNAKE));
 		}
 		public function setPos(_x:int,_y:int):void
 		{

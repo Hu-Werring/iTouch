@@ -7,6 +7,10 @@ package nl.iTouch.ui
 	
 	public class Interface extends Sprite
 	{
+		public static const START_SNAKE:String = 'startSnake';
+		public static const START_MAZE:String = 'startMaze';
+		public static const START_GUESS:String = 'startGuess';
+		
 		public function Interface()
 		{
 			addEventListener(Event.ADDED_TO_STAGE,init);

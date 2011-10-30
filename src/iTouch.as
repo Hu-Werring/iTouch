@@ -11,6 +11,7 @@ package
 	import nid.ui.controls.VirtualKeyBoard;
 	
 	import nl.iTouch.*;
+	import nl.iTouch.guessgame.GuessGame;
 	import nl.iTouch.maze.Maze;
 	import nl.iTouch.snake.Snake;
 	import nl.iTouch.ui.Button1;
@@ -31,14 +32,18 @@ package
 		
 		public function iTouch(){
 			
-			stage.align = "TL";
-			stage.scaleMode = StageScaleMode.SHOW_ALL;
+			stage.align = StageAlign.TOP_LEFT;
+			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
 			VirtualKeyBoard.getInstance().init(this);
 			
-			//addChild(new Interface());
-			addChild(gh);
+			var gui:Interface = new Interface();
 			
+			addChild(gui);
+			addChild(gh);
+			gui.addEventListener(Interface.START_SNAKE,startSnake);
+			gui.addEventListener(Interface.START_MAZE,startMaze);
+			gui.addEventListener(Interface.START_GUESS,startGuess);
 			/*
 			var hs:Highscore = new Highscore('test');
 			
@@ -46,7 +51,7 @@ package
 			
 			/* */
 			
-			//*
+			/*
 			var tmp:Sprite = new Sprite();
 			tmp.graphics.beginFill(0xFF0000);
 			tmp.graphics.drawCircle(30,30,25);
@@ -63,24 +68,19 @@ package
 			tmp2.addEventListener(MouseEvent.CLICK,startSnake);
 			/* */
 		}
-		public function hideGame(e:MouseEvent):void
-		{
-			gh.hide();
-			gh.addGame(games[Math.floor(Math.random()*games.length)]);
-			gh.show();
-		}
 		
-		public function startSnake(e:Event):void
+		public function startGame(game:Class):void
 		{
 			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
 				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startSnake);
 				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startMaze);
+				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startGuess);
 			}
 			switch(gh.status)
 			{
 				case GameHolder.ONSTAGE:
 				case GameHolder.GAME_INVISIBLE:
-					gh.addGame(Snake);
+					gh.addGame(game);
 					gh.show();
 					break;
 				case GameHolder.GAME_VISIBLE:
@@ -91,27 +91,18 @@ package
 					throw(new Error('First add GameHolder to stage before adding a game!'));
 			}
 		}
+		public function startSnake(e:Event):void
+		{
+			startGame(Snake);
+		}
 		
 		public function startMaze(e:Event):void
 		{
-			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
-				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startSnake);
-				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startMaze);
-			}
-			switch(gh.status)
-			{
-				case GameHolder.ONSTAGE:
-				case GameHolder.GAME_INVISIBLE:
-					gh.addGame(Maze);
-					gh.show();
-					break;
-				case GameHolder.GAME_VISIBLE:
-						gh.hide();
-						gh.addEventListener(GameHolder.GAME_INVISIBLE,startMaze);
-					break;
-				case GameHolder.CREATED:
-					throw(new Error('First add GameHolder to stage before adding a game!'));
-			}
+			startGame(Maze);
+		}
+		public function startGuess(e:Event):void
+		{
+			startGame(GuessGame);
 		}
 	}
 }

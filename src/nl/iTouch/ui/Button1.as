@@ -2,6 +2,7 @@ package nl.iTouch.ui
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
 	import nl.iTouch.iButton;
@@ -19,9 +20,9 @@ package nl.iTouch.ui
 			
 		}
 		
-		public function Buttonfunction(e:MouseEvent)
+		public function Buttonfunction(e:MouseEvent):void
 		{
-			addChild(new Maze());
+			this.parent.dispatchEvent(new Event(Interface.START_MAZE));
 		}
 		
 		public function setPos(_x:int,_y:int):void
