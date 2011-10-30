@@ -2,46 +2,53 @@ package
 {
 	import com.fullsizeBackgroundImage.fullsizeBackgroundImage;
 	
+	import flash.display.*;
 	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.display.*;
+	import flash.events.MouseEvent;
 	
+	import nl.iTouch.*;
 	import nl.iTouch.maze.Maze;
 	import nl.iTouch.snake.Snake;
-
-	import nl.iTouch.*;
 	import nl.iTouch.ui.Button1;
 	import nl.iTouch.ui.Button2;
 	import nl.iTouch.ui.Button3;
 	
-	import org.osmf.layout.ScaleMode;
+	
 	
 	
 	[SWF(frameRate='24',backgroundColor='0xffffff', width="1280", height="1024")]
 	public class iTouch extends Sprite
 	{
 		
+		private var gh:GameHolder = new GameHolder();
+		
+		private var games:Array = [Snake, Maze];
+		
 		public function iTouch(){
-			/*
+			trace(stage)
 			stage.align = "TL";
-			stage.scaleMode = "noScale";
-			addChild(new fullsizeBackgroundImage('UserInterface.jpg',0,0));
-			var button1:Button1 = new Button1();
-			var button2:Button2 = new Button2();
-			var button3:Button3 = new Button3();
-			button1.setPos(300,300);
-			button2.setPos(600,300);
-			button3.setPos(300,600);
-			addChild( button1);
-			addChild( button2);
-			addChild( button3);
-			*/
+			stage.scaleMode = StageScaleMode.SHOW_ALL;
+
 			
-			stage.align = StageAlign.TOP_LEFT;	
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-			var mazeGame:Maze = new Maze(1120, 800);
-			addChild(mazeGame);
+
+			addChild(gh);
+			gh.addGame(games[Math.floor(Math.random()*games.length)]);
+			gh.show();
+			var tmp:Sprite = new Sprite();
+			tmp.graphics.beginFill(0x333333);
+			tmp.graphics.drawCircle(50,50,50);
+			tmp.graphics.endFill();
+			tmp = new iButton(tmp);
+			addChild(tmp);
+			tmp.addEventListener(MouseEvent.CLICK,hideGame);
+		}
+		public function hideGame(e:MouseEvent):void
+		{
+			gh.hide();
+			gh.addGame(games[Math.floor(Math.random()*games.length)]);
+			gh.show();
 		}
 	}
 }
