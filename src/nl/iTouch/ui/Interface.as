@@ -18,7 +18,7 @@ package nl.iTouch.ui
 			
 			
 			
-			addChild(new fullsizeBackgroundImage('UserInterface.jpg',0,0));
+			addChild(new fullsizeBackgroundImage('UIV2.jpg',0,0));
 			var button1:Button1 = new Button1();
 			var button2:Button2 = new Button2();
 			var button3:Button3 = new Button3();
