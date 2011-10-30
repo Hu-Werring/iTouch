@@ -7,7 +7,9 @@ package nl.iTouch.snake
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
+	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
+	import nl.iTouch.Highscore;
 	
 	public class Snake extends Sprite implements Game
 	{
@@ -26,15 +28,21 @@ package nl.iTouch.snake
 		//== objecten ==
 		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
+		private var _deelX:Array = new Array();
+		private var _deelY:Array = new Array();
 		
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
-		private var snakeMoveX:Number = 1;
-		private var snakeMoveY:Number = 0;
-		private var snakeRotation:Number = 90;
-		private var nextMoveX:Number = 1;
-		private var nextMoveY:Number = 0;
-		private var nextRotation:Number = 90;
+		private var snakeMoveX:int = 1;
+		private var snakeMoveY:int = 0;
+		private var snakeRotation:int = 90;
+		private var nextMoveX:int = 1;
+		private var nextMoveY:int = 0;
+		private var nextRotation:int = 90;
+		
+		//== highscore + DB varables/objecten ==
+		private var db:DataBase = DataBase.getInstance;
+		private var hs:Highscore;
 		
 		//== main class function ==
 		public function Snake()
@@ -46,14 +54,32 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			
+			/*hs = new Highscore('snake');
+			hs.highScoreList()
+				
+			var list:Sprite = hs.highScoreList();
+			addChild(list);*/
+			
+			_deelX.push(2 * _gridSize - (_gridSize/2));
+			_deelX.push(17 * _gridSize - (_gridSize/2));
+			_deelX.push(32 * _gridSize - (_gridSize/2));
+			_deelX.push(47 * _gridSize - (_gridSize/2));
+			_deelX.push(63 * _gridSize - (_gridSize/2));
+			
+			_deelY.push(4 * _gridSize - (_gridSize/2));
+			_deelY.push(32 * _gridSize - (_gridSize/2));
+			_deelY.push(37 * _gridSize - (_gridSize/2));
+			_deelY.push(63 * _gridSize - (_gridSize/2));
+			
 			_wall['left'] = 30; //== moet deelbaar zijn door _gridsize
 			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
 			//== create grid raster ==
-			var grid:SnakeBackground = new SnakeBackground();
-			addChild(grid);
+			var background:SnakeBackground = new SnakeBackground();
+			addChild(background);
 			
 			//== Create boeken kasten ==
 			for(var i:int = 1;i <= 3; i++)
@@ -140,11 +166,37 @@ package nl.iTouch.snake
 				//== TODO ==
 			}
 			
+			//== check if snake is in same area as student ==
+				if (checkPlaceY() >= 1)
+				{
+					if (checkPlaceX())
+					{
+						//student.alpha = 1;
+						student.visible = true;
+					}
+					else
+					{
+						//student.alpha = 0.5;
+						student.visible = false;
+					}
+				}
+				else if(checkPlaceY() == 2)
+				{
+					student.visible = true;
+				}
+				else
+				{
+					//student.alpha = 0.5;
+					student.visible = false;
+				}
+			
 			placeTail();
 			
+			trace(snakeParts[0].x,snakeParts[0].y);
 			snakeParts[0].x = nX;
 			snakeParts[0].y = nY;
 			snakeParts[0].rotation = snakeRotation;
+			if(snakeParts[1] != undefined) snakeParts[1].rotation = snakeRotation;
 		}
 		
 		public function keyDownFunction(ke:KeyboardEvent):void
@@ -218,6 +270,7 @@ package nl.iTouch.snake
 			var nR:int = Math.random()*3;
 			
 			var kast:BoekenKast
+			var error:Boolean = false;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
 			{ 
 				
@@ -226,16 +279,28 @@ package nl.iTouch.snake
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
 					if ((nX == kast.kastParts[k].x+kast.x) && (nY == kast.kastParts[k].y+kast.y))
 					{
-						nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+						error  = true;
+						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
 						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 						nR = Math.random()*3;
+						*/
+						
+						
+						placeStudent();
+						break;
 					}
+					trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					
 				}
+				if(error) break;
 			}
 			
+			if(!error)
+			{
 			student.x = nX;
 			student.y = nY;
 			student.rotation = 90 * nR;
+			}
 		}
 		
 		public function gameOver():void
@@ -276,10 +341,64 @@ package nl.iTouch.snake
 			nextMoveY = 0;
 			nextRotation = 90;
 			
+			placeStudent();
+			
 			while(snakeParts.length>1)
 			{
 				removeChild(snakeParts.pop());
 			}
+		}
+		
+		public function checkPlaceX():Boolean
+		{
+			var check:Boolean;
+			
+			if ((snakeParts[0].x > _deelX[0]) && (snakeParts[0].x < _deelX[1]) && (student.x > _deelX[0]) && (student.x < _deelX[1]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[1]) && (snakeParts[0].x < _deelX[2]) && (student.x > _deelX[1]) && (student.x < _deelX[2]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[2]) && (snakeParts[0].x < _deelX[3]) && (student.x > _deelX[2]) && (student.x < _deelX[3]))
+			{
+				check = true;
+			}
+			else if ((snakeParts[0].x > _deelX[3]) && (snakeParts[0].x < _deelX[4]) && (student.x > _deelX[3]) && (student.x < _deelX[4]))
+			{
+				check = true;
+			}
+			else
+			{
+				check = false;
+			}
+			
+			return check;
+		}
+		
+		public function checkPlaceY():uint
+		{
+			var check:uint;
+			
+			if ((snakeParts[0].y > _deelY[0]) && (snakeParts[0].y < _deelY[1]) && (student.y > _deelY[0]) && (student.y < _deelY[1]))
+			{
+				check = 1;
+			}
+			else if ((snakeParts[0].y > _deelY[1]) && (snakeParts[0].y < _deelY[2]) && (student.y > _deelY[1]) && (student.y < _deelY[2]))
+			{
+				check = 2;
+			}
+			else if ((snakeParts[0].y > _deelY[2]) && (snakeParts[0].y < _deelY[3]) && (student.y > _deelY[2]) && (student.y < _deelY[3]))
+			{
+				check = 1;
+			}
+			else
+			{
+				check = 0;
+			}
+			
+			return check;
 		}
 	}
 }

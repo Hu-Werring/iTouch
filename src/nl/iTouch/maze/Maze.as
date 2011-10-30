@@ -7,9 +7,9 @@ package nl.iTouch.maze
 	
 	public class Maze extends Sprite implements Game 
 	{
-		protected var lucas;
-		protected var grid:nl.iTouch.maze.Grid;
-		protected var Control:nl.iTouch.maze.Controls;
+		protected var lucas:Lucas; //Bevat het Lucas object
+		protected var grid:nl.iTouch.maze.Grid; //Bevat het grid object. (Zo aanroepen anders wordt de flash functie grid gebruikt).
+		protected var Control:nl.iTouch.maze.Controls //Bevat het controls object;
 		
 		protected var _db:DataBase;
 		
@@ -24,38 +24,52 @@ package nl.iTouch.maze
 			*/
 			//_db = DataBase.getInstance;
 	
-			this.x = 0;
+			//Plaats het spel in de linker bovenhoek van de game area.
+			this.x = 0; 
 			this.y = 0;
+			
+			//maak een nieuw grid en plaats deze links boven in het spel.
 			this.grid = new Grid(mazeWidth, mazeHeight, 14, 10);
 			this.grid.x = 0;
 			this.grid.y = 0;
-			trace(this.grid.x);
-			trace(grid.tilesObj[0].x);
-			trace(this.x);
+			
+			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
 			
+			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
 			addChild(this.Control);
 		}
 		
+		//Kleur het grid in zodat het een mediatheek lijkt.
 		private function colorGrid(G:Grid):void
 		{
+			//Teken de boekenkasten
 			G.setColomColor(1, 0x886644);
+			G.setColomColor(5, 0x886644);
+			G.setColomColor(8, 0x886644);
+			G.setColomColor(11, 0x886644);
+			G.setColomColor(14, 0x886644);
+			
+			//Teken blauwe ruimte
 			G.setColomColor(2, 0x2244FF);
 			G.setColomColor(3, 0x2244FF);
 			G.setColomColor(4, 0x2244FF);
-			G.setColomColor(5, 0x886644);
+			
+			//Teken zilvere ruimte
 			G.setColomColor(6, 0xDDDDDD);
 			G.setColomColor(7, 0xDDDDDD);
-			G.setColomColor(8, 0x886644);
+			
+			//Teken oranje ruimte
 			G.setColomColor(9, 0xFF9933);
 			G.setColomColor(10, 0xFF9933);
-			G.setColomColor(11, 0x886644);
+			
+			//Teken rode ruimte
 			G.setColomColor(12, 0xFF0000);
 			G.setColomColor(13, 0xFF0000);
-			G.setColomColor(14, 0x886644);
 
+			//Teken gangpad
 			G.setRowColor(5, 0x555555);
 			G.setRowColor(6, 0x555555);
 		}

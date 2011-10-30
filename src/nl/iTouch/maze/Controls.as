@@ -21,7 +21,6 @@ package nl.iTouch.maze
 			tubeTilesHolder.height = this.height - 350;
 			tubeTilesHolder.x = 20;
 			tubeTilesHolder.y = 20;
-			
 			addChild(tubeTilesHolder);
 			
 			var nextTubeTileBtn:MovieClip = new MovieClip();
