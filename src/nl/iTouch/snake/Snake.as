@@ -197,30 +197,6 @@ package nl.iTouch.snake
 				//== TODO ==
 			}
 			
-			//== check if snake is in same area as student ==
-				if (checkPlaceY() >= 1)
-				{
-					if (checkPlaceX())
-					{
-						//student.alpha = 1;
-						student.visible = true;
-					}
-					else
-					{
-						//student.alpha = 0.5;
-						student.visible = false;
-					}
-				}
-				else if(checkPlaceY() == 2)
-				{
-					student.visible = true;
-				}
-				else
-				{
-					//student.alpha = 0.5;
-					student.visible = false;
-				}
-			
 			placeTail();
 			
 			//trace(snakeParts[0].x,snakeParts[0].y);
@@ -228,6 +204,30 @@ package nl.iTouch.snake
 			snakeParts[0].y = nY;
 			snakeParts[0].rotation = snakeRotation;
 			if(snakeParts[1] != undefined) snakeParts[1].rotation = snakeRotation;
+			
+			//== check if snake is in same area as student ==
+			if (checkPlaceY() >= 1)
+			{
+				if (checkPlaceX())
+				{
+					//student.alpha = 1;
+					student.visible = true;
+				}
+				else
+				{
+					//student.alpha = 0.5;
+					student.visible = false;
+				}
+			}
+			else if(checkPlaceY() == 2)
+			{
+				student.visible = true;
+			}
+			else
+			{
+				//student.alpha = 0.5;
+				student.visible = false;
+			}
 		}
 		
 		public function keyDownFunction(ke:KeyboardEvent):void
