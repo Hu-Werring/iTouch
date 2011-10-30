@@ -1,4 +1,4 @@
-﻿
+
 package com.fullsizeBackgroundImage {
 	
 	import flash.display.BitmapData;

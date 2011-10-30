@@ -1,11 +1,18 @@
 package nl.iTouch
 {
+	import com.greensock.TweenLite;
+	
 	import flash.data.SQLResult;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	import nid.ui.controls.VirtualKeyBoard;
+	import nid.ui.controls.vkb.KeyBoardEvent;
 
 	public class Highscore
 	{
@@ -57,26 +64,68 @@ package nl.iTouch
 			return holder;
 		}
 		
-		public function submitHS():Sprite
+		public function submitHS(score:uint):Sprite
 		{
 			
-			var holder:Sprite = new Sprite();
-			holder.graphics.beginFill(0xFFFFFF);
-			holder.graphics.lineStyle(1,0xE63028);
-			holder.graphics.drawRect(0,0,300,150);
-			holder.graphics.endFill();
-			var TF:TextField = new TextField();
-			TF.width = 300;
-			TF.height = 100;
-			TF.addEventListener(MouseEvent.CLICK, toggleKeyboard);
-			holder.addChild(TF);
-			return holder;
+			var sw:ScoreWindow = new ScoreWindow();
+			sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
+			sw.TFScore.text = score.toString();
+			sw.sendKnop.buttonMode = true;
+			sw.noSendKnop.buttonMode = true;
+			sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScoreMouse);
+			sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);
+			
+			VirtualKeyBoard.getInstance().addEventListener(KeyBoardEvent.ENTER,sendScoreKb)
+			
+			return sw;
 		}
 		
+		private function sendScore(obj:ScoreWindow):void
+		{
+			var naam:String = obj.TFName.text;
+			var score:uint = uint(obj.TFScore.text);
+			if(naam.length !=0){
+				hideKB();
+				hideSubmit(obj);
+				submit(naam,score);
+			} else {
+				obj.TFName.borderColor = 0xFF0000;
+				obj.TFName.backgroundColor = 0xFFCCCC;
+			}
+
+		}
+		
+		private function sendScoreMouse(e:MouseEvent):void
+		{	
+			sendScore(e.currentTarget.parent);
+		}
+		private function sendScoreKb(e:KeyBoardEvent):void
+		{
+			sendScore(e.obj as ScoreWindow);
+		}
+		
+		private function noSendScore(e:MouseEvent):void
+		{
+			hideSubmit(e.target.parent as ScoreWindow);
+		}
+
+		
+		private function hideSubmit(object:ScoreWindow):void
+		{
+			object.noSendKnop.removeEventListener(MouseEvent.CLICK,noSendScore);
+			object.sendKnop.removeEventListener(MouseEvent.CLICK,sendScore);
+			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,x:object.width/2+object.x,y:object.height/2+object.y,onComplete:function():void{ 
+				object.parent.removeChild(object);
+			}});
+
+		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{
-			
-			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Test" };
+			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Naam" };
+		}
+		private function hideKB():void
+		{
+			VirtualKeyBoard.getInstance().hide();
 		}
 
 	}
