@@ -44,9 +44,16 @@ package nl.iTouch.maze
 			colorGrid(this.grid);
 			addChild(this.grid);
 			
+			trace(this.grid.tileHeight);
 			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
 			addChild(this.Control);
+			
+			//Maak lucas en zet op het veld.
+			this.lucas = new Lucas();
+			addChild(this.lucas);
+			
+			this.grid.showTileNrs();
 		}
 		
 		//Kleur het grid in zodat het een mediatheek lijkt.

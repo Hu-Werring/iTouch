@@ -2,6 +2,7 @@ package nl.iTouch.maze
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.text.TextField;
 	import flash.utils.*;
 	
 	public class Grid extends MovieClip
@@ -137,6 +138,24 @@ package nl.iTouch.maze
 			refArray[index].x = (tileWidth*colIndex);
 			refArray[index].y = (tileHeight*this.curRow);
 			addChild(refArray[index]);
+		}
+		
+		public function showTileNrs(tileNrs:Array=null, realNr:Boolean=false):void
+		{
+			for(var i:int=0;i<this.tilesObj.length;i++)
+			{
+				var txtBox:TextField = new TextField();
+				if(realNr==true)
+				{
+					txtBox.text = 'Nr: '+i;
+				}
+				else
+				{
+					var nr:int = i+1;
+					txtBox.text = 'Nr: '+nr;
+				}
+				this.tilesObj[i].addChild(txtBox);
+			}
 		}
 	}
 }

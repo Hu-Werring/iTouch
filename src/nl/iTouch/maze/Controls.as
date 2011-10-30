@@ -13,6 +13,8 @@ package nl.iTouch.maze
 			this.x = 1120;
 			this.y = 0;
 			
+			var tubeTiles:Array;
+
 			var tubeTilesHolder:Sprite = new Sprite();
 			tubeTilesHolder.graphics.beginFill(0xFF0000);
 			tubeTilesHolder.graphics.drawRect(0,0,this.width-40, this.height-350);
