@@ -22,9 +22,9 @@ package nl.iTouch.ui
 			var button1:Button1 = new Button1();
 			var button2:Button2 = new Button2();
 			var button3:Button3 = new Button3();
-			button1.setPos(300,300);
-			button2.setPos(600,300);
-			button3.setPos(300,600);
+			button1.setPos(70,570);
+			button2.setPos(460,770);
+			button3.setPos(560,370);
 			addChild( button1);
 			addChild( button2);
 			addChild( button3);

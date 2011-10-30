@@ -11,7 +11,7 @@ package nl.iTouch.ui
 	{	
 		private var knop:MovieClip;
 		public function Button2(){
-			knop = new SButton();
+			knop = new SnakeButton();
 			addChild(new iButton(knop)); 
 			
 			knop.addEventListener(MouseEvent.CLICK, Buttonfunction);

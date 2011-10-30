@@ -18,7 +18,10 @@ package nl.iTouch
 			
 			
 			var glow:GlowFilter = new GlowFilter();
-			glow.color=0x0;
+			glow.color=0xFAFAFA;
+			glow.blurX=20;
+			glow.blurY=20;
+			glow.strength=2;
 			
 			_sprite.filters = [bevel,glow];
 			

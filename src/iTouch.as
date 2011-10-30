@@ -36,9 +36,9 @@ package
 			
 			//VirtualKeyBoard.getInstance().init(this);
 			
-			//addChild(new Interface());
+			addChild(new Interface());
 			addChild(gh);
-			//*
+			/*
 			var tmp:Sprite = new Sprite();
 			tmp.graphics.beginFill(0xFF0000);
 			tmp.graphics.drawCircle(30,30,25);
