@@ -27,28 +27,75 @@ package
 		private var games:Array = [Snake, Maze];
 		
 		public function iTouch(){
-			trace(stage)
+			
 			stage.align = "TL";
 			stage.scaleMode = StageScaleMode.SHOW_ALL;
 
 			
-
 			addChild(gh);
-			gh.addGame(games[Math.floor(Math.random()*games.length)]);
-			gh.show();
 			var tmp:Sprite = new Sprite();
 			tmp.graphics.beginFill(0xFF0000);
-			tmp.graphics.drawCircle(55,55,50);
+			tmp.graphics.drawCircle(30,30,25);
 			tmp.graphics.endFill();
 			tmp = new iButton(tmp);
 			addChild(tmp);
-			tmp.addEventListener(MouseEvent.CLICK,hideGame);
+			tmp.addEventListener(MouseEvent.CLICK,startMaze);
+			var tmp2:Sprite = new Sprite();
+			tmp2.graphics.beginFill(0xFF0000);
+			tmp2.graphics.drawCircle(85,30,25);
+			tmp2.graphics.endFill();
+			tmp2 = new iButton(tmp2);
+			addChild(tmp2);
+			tmp2.addEventListener(MouseEvent.CLICK,startSnake);
+
 		}
 		public function hideGame(e:MouseEvent):void
 		{
 			gh.hide();
 			gh.addGame(games[Math.floor(Math.random()*games.length)]);
 			gh.show();
+		}
+		
+		public function startSnake(e:Event):void
+		{
+			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
+				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startSnake);
+			}
+			switch(gh.status)
+			{
+				case GameHolder.ONSTAGE:
+				case GameHolder.GAME_INVISIBLE:
+					gh.addGame(Snake);
+					gh.show();
+					break;
+				case GameHolder.GAME_VISIBLE:
+					gh.hide();
+					gh.addEventListener(GameHolder.GAME_INVISIBLE,startSnake);
+					break;
+				case GameHolder.CREATED:
+					throw(new Error('First add GameHolder to stage before adding a game!'));
+			}
+		}
+		
+		public function startMaze(e:Event):void
+		{
+			if(gh.hasEventListener(GameHolder.GAME_INVISIBLE))	{
+				gh.removeEventListener(GameHolder.GAME_INVISIBLE,startMaze);
+			}
+			switch(gh.status)
+			{
+				case GameHolder.ONSTAGE:
+				case GameHolder.GAME_INVISIBLE:
+					gh.addGame(Maze);
+					gh.show();
+					break;
+				case GameHolder.GAME_VISIBLE:
+						gh.hide();
+						gh.addEventListener(GameHolder.GAME_INVISIBLE,startMaze);
+					break;
+				case GameHolder.CREATED:
+					throw(new Error('First add GameHolder to stage before adding a game!'));
+			}
 		}
 	}
 }
