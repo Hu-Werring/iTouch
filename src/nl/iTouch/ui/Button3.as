@@ -11,7 +11,7 @@ package nl.iTouch.ui
 	{
 		private var knop:MovieClip;
 		public function Button3(){ 
-			knop = new GuessGameButton(); 
+			knop = new GButton();
 			addChild(new iButton (knop));
 			
 			knop.addEventListener(MouseEvent.CLICK, Buttonfunction);
@@ -19,7 +19,7 @@ package nl.iTouch.ui
 		
 		public function Buttonfunction(e:MouseEvent)
 		{
-			//addChild(new Maze());
+			addChild(new GuessGame());
 		}
 		
 		public function setPos(_x:int,_y:int):void
