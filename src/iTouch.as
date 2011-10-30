@@ -37,8 +37,8 @@ package
 			gh.addGame(games[Math.floor(Math.random()*games.length)]);
 			gh.show();
 			var tmp:Sprite = new Sprite();
-			tmp.graphics.beginFill(0x333333);
-			tmp.graphics.drawCircle(50,50,50);
+			tmp.graphics.beginFill(0xFF0000);
+			tmp.graphics.drawCircle(55,55,50);
 			tmp.graphics.endFill();
 			tmp = new iButton(tmp);
 			addChild(tmp);
