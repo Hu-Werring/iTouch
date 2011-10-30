@@ -60,21 +60,21 @@ package nl.iTouch.maze
 			G.setColomColor(14, 0x886644);
 			
 			//Teken blauwe ruimte
-			G.setColomColor(2, 0x2244FF);
-			G.setColomColor(3, 0x2244FF);
-			G.setColomColor(4, 0x2244FF);
+			G.setColomColor(2, 0x2244FF, 0.5);
+			G.setColomColor(3, 0x2244FF, 0.5);
+			G.setColomColor(4, 0x2244FF, 0.5);
 			
 			//Teken zilvere ruimte
-			G.setColomColor(6, 0xDDDDDD);
-			G.setColomColor(7, 0xDDDDDD);
+			G.setColomColor(6, 0xDDDDDD, 0.5);
+			G.setColomColor(7, 0xDDDDDD, 0.5);
 			
 			//Teken oranje ruimte
-			G.setColomColor(9, 0xFF9933);
-			G.setColomColor(10, 0xFF9933);
+			G.setColomColor(9, 0xFF9933, 0.5);
+			G.setColomColor(10, 0xFF9933, 0.5);
 			
 			//Teken rode ruimte
-			G.setColomColor(12, 0xFF0000);
-			G.setColomColor(13, 0xFF0000);
+			G.setColomColor(12, 0xFF0000, 0.5);
+			G.setColomColor(13, 0xFF0000, 0.5);
 
 			//Teken gangpad
 			G.setRowColor(5, 0x555555);

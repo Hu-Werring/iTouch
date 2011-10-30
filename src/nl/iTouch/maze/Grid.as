@@ -54,9 +54,9 @@ package nl.iTouch.maze
 		}
 		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
-		public function colorTile(tile:Number, color:uint):void
+		public function colorTile(tile:Number, color:uint, alpha=1):void
 		{
-			this.tilesObj[tile].graphics.beginFill(color);
+			this.tilesObj[tile].graphics.beginFill(color, alpha);
 			this.tilesObj[tile].graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
 			this.tilesObj[tile].graphics.endFill();
 		}
@@ -88,7 +88,7 @@ package nl.iTouch.maze
 		}
 		
 		//Kleur een kolom in. kolom nr vanaf 1.
-		public function setColomColor(col:int, color:uint):void
+		public function setColomColor(col:int, color:uint, alpha=1):void
 		{
 			if(col/this.cols <= 1)
 			{
@@ -96,13 +96,13 @@ package nl.iTouch.maze
 				var endTile:int = (this.rows*this.cols) - (this.cols - startTile);
 				for(var i:int=startTile;i<=endTile;i+=this.cols)
 				{
-					this.colorTile(i, color);
+					this.colorTile(i, color, alpha);
 				}
 			}
 		}
 		
 		//Kleur een rij in. rij nummer vanaf 1.
-		public function setRowColor(row:int, color:uint):void
+		public function setRowColor(row:int, color:uint, alpha=1):void
 		{
 			if(row/this.rows <= 1)
 			{
@@ -110,7 +110,7 @@ package nl.iTouch.maze
 				var endTile:int = startTile + cols;
 				for(var i:int=startTile;i<endTile;i++)
 				{
-					this.colorTile(i, color);
+					this.colorTile(i, color, alpha);
 				}
 			}
 		}
@@ -127,7 +127,7 @@ package nl.iTouch.maze
 			}
 			
 			refArray[index] = new MovieClip(); //Maak tegel
-			refArray[index].graphics.beginFill(Math.random() * 0x00FF00); //Kleur tegel random in.
+			refArray[index].graphics.beginFill(0xFFFFFF, 0); //Witte doorzichtige tegel.
 			refArray[index].graphics.drawRect(0,0,tileWidth, tileHeight); //Geef in main functie berekende breedte en hoogte mee
 			refArray[index].graphics.endFill();
 			
