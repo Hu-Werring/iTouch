@@ -11,6 +11,8 @@ package nl.iTouch
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	
+	import mx.utils.StringUtil;
+	
 	import nid.ui.controls.VirtualKeyBoard;
 	import nid.ui.controls.vkb.KeyBoardEvent;
 
@@ -20,6 +22,8 @@ package nl.iTouch
 		
 		private var _name:String;
 		private var _tableName:String;
+		
+		private var _dotLength:int = 121;
 		
 		public function Highscore(game:String)
 		{
@@ -31,11 +35,17 @@ package nl.iTouch
 
 		}
 		
-		public function getList():Array
+		public function getList(type:String):Array
 		{
 			var params:Array = new Array();
-			
-			var ret:Array = db.query("SELECT * FROM "+_tableName+" ORDER BY score DESC",null,50).data;
+			var datum:uint
+			if(type == 'Week'){
+				datum = new Date().getTime()/1000 - 60*60*24*7;
+			} else {
+				datum = new Date().getTime()/1000 - 60*60*24*30;
+			}
+			params['@datum'] = datum;
+			var ret:Array = db.query("SELECT * FROM "+_tableName+" WHERE datum > @datum ORDER BY score DESC",params,20).data;
 			return ret;
 		}
 		
@@ -50,18 +60,47 @@ package nl.iTouch
 		
 		public function highScoreList():Sprite
 		{
-			var holder:Sprite = new Sprite();
-			var scoreList:TextField = new TextField();
-			var title:TextField = new TextField();
-			title.text = _name;
-			_name.charAt(0).toUpperCase();
-			holder.addChild(title);
-			scoreList.border = true;
-			scoreList.y = 20;
-			scoreList.width = 800;
-			scoreList.height = 600;
-			holder.addChild(scoreList);
-			return holder;
+			
+			var hsList:HSList = new HSList();
+			hsList.GameNameTF.text = _name;
+			hsList.GameScoreTypeTF.text = 'Week Score';
+			var score:Array = generateScore('Week');
+			hsList.ScoreList.text = score[1];
+			hsList.NameList.text = score[0];
+			return hsList;
+		}
+		
+		private function generateScore(type:String):Array
+		{
+			var list:Array = getList(type);
+			
+			var names:String = "";
+			var scores:String = "";
+			for (var i:uint = 0; i<list.length;i++){
+				names += formatName(list[i],i);
+				scores+= list[i].score + "\n";
+			}
+			
+			return [names,scores];
+		}
+		
+		private function formatName(item:Object,i:int):String
+		{
+			var txt:String = "";
+			switch((i+1).toString().length)
+			{
+				case 1:
+				{
+					txt += "  " + (i+1) + ". ";
+					break;
+				}
+				case 2:
+				{
+					txt += (i+1) + ". ";
+					break;
+				}
+			}
+			return txt + item.naam + "\n";
 		}
 		
 		public function submitHS(score:uint):Sprite
