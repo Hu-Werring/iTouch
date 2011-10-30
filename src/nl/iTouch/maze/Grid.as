@@ -4,6 +4,7 @@ package nl.iTouch.maze
 	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.utils.*;
+	import flash.events.*;
 	
 	public class Grid extends MovieClip
 	{
@@ -132,12 +133,19 @@ package nl.iTouch.maze
 			refArray[index].graphics.drawRect(0,0,tileWidth, tileHeight); //Geef in main functie berekende breedte en hoogte mee
 			refArray[index].graphics.endFill();
 			
+			refArray[index].addEventListener(MouseEvent.CLICK, tileClicked);
+			
 			//Geef de tegel een breedte en hoogte. (Doe dit pas nadat de tegel is getekent anders werkt dit niet!
 			refArray[index].width = tileWidth; 
 			refArray[index].height = tileHeight;
 			refArray[index].x = (tileWidth*colIndex);
 			refArray[index].y = (tileHeight*this.curRow);
 			addChild(refArray[index]);
+		}
+		
+		private function tileClicked(e:Event)
+		{
+			trace('tile: '+e.target+' traced');
 		}
 		
 		public function showTileNrs(tileNrs:Array=null, realNr:Boolean=false):void
