@@ -22,6 +22,7 @@ package nl.iTouch.maze
 		
 		private function init(e:Event):void
 		{
+			removeEventListener(Event.ADDED_TO_STAGE,init);
 			//this.width = mazeWidth;
 			//this.height = mazeHeight;
 			/*
@@ -43,18 +44,18 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
+			//this.grid.showTileNrs();
 			
-			trace(this.grid.tileHeight);
 			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
 			addChild(this.Control);
 			
 			//Maak lucas en zet op het veld.
-			this.lucas = new Lucas();
+			this.lucas = new Lucas(129, 84, 10);
+			this.lucas.setGridTiles(this.grid.tilesObj);
 			addChild(this.lucas);
-			
-			this.grid.showTileNrs();
 		}
+
 		
 		//Kleur het grid in zodat het een mediatheek lijkt.
 		private function colorGrid(G:Grid):void

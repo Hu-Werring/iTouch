@@ -1,4 +1,4 @@
-﻿
+
 package com.fullsizeBackgroundImage {
 	
 	import flash.display.BitmapData;
@@ -66,7 +66,7 @@ package com.fullsizeBackgroundImage {
 		
 			backgroundImgLoader.width = 1280; //backgroundimage width is equal to stage width
 			backgroundImgLoader.height = 1024; //* (backgroundImgLoader.content.height / backgroundImgLoader.content.width); //backgroundimage height is proportional to backgroundimage width
-			backgroundImgLoader.y = 0;//stage.stageHeight - backgroundImgLoader.height + ((backgroundImgLoader.height - stage.stageHeight) / 2); //center the horizontal position of the backgroundimage 
+			backgroundImgLoader.y = 0; 
 		}
 		
 		//set overlay pattern
