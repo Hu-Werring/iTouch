@@ -2,6 +2,7 @@ package nl.iTouch.maze
 {
 	import flash.display.*;
 	import flash.display.Stage;
+	import flash.events.Event;
 	
 	import nl.iTouch.*;
 	
@@ -13,7 +14,13 @@ package nl.iTouch.maze
 		
 		protected var _db:DataBase;
 		
-		public function Maze(mazeWidth:int, mazeHeight:int)
+		public function Maze()
+		{
+			
+			addEventListener(Event.ADDED_TO_STAGE,init);
+		}
+		
+		private function init(e:Event):void
 		{
 			//this.width = mazeWidth;
 			//this.height = mazeHeight;
@@ -23,13 +30,13 @@ package nl.iTouch.maze
 			this.graphics.endFill();
 			*/
 			//_db = DataBase.getInstance;
-	
+			
 			//Plaats het spel in de linker bovenhoek van de game area.
 			this.x = 0; 
 			this.y = 0;
 			
 			//maak een nieuw grid en plaats deze links boven in het spel.
-			this.grid = new Grid(mazeWidth, mazeHeight, 14, 10);
+			this.grid = new Grid(1120, 800, 14, 10);
 			this.grid.x = 0;
 			this.grid.y = 0;
 			
