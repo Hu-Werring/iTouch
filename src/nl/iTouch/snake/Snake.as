@@ -3,6 +3,7 @@ package nl.iTouch.snake
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
@@ -10,6 +11,7 @@ package nl.iTouch.snake
 	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
 	import nl.iTouch.Highscore;
+	import nl.iTouch.iButton;
 	
 	public class Snake extends Sprite implements Game
 	{
@@ -76,6 +78,35 @@ package nl.iTouch.snake
 			_wall['right'] = 30 + _areaSize; //== moet deelbaar zijn door _gridsize
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
+			
+			//== create buttons ==
+			var btnUp:ButtonArrow = new ButtonArrow();
+			btnUp.x = 1115;
+			btnUp.y = 740;
+			btnUp.rotation = 0;
+			btnUp.addEventListener(MouseEvent.CLICK,buttonUp);
+			addChild(new iButton(btnUp));
+			
+			var btnDown:ButtonArrow = new ButtonArrow();
+			btnDown.x = 1115;
+			btnDown.y = 930;
+			btnDown.rotation = 180;
+			btnDown.addEventListener(MouseEvent.CLICK,buttonDown);
+			addChild(new iButton(btnDown));
+			
+			var btnLeft:ButtonArrow = new ButtonArrow();
+			btnLeft.x = 1020;
+			btnLeft.y = 835;
+			btnLeft.rotation = -90;
+			btnLeft.addEventListener(MouseEvent.CLICK,buttonLeft);
+			addChild(new iButton(btnLeft));
+			
+			var btnRight:ButtonArrow = new ButtonArrow();
+			btnRight.x = 1210;
+			btnRight.y = 835;
+			btnRight.rotation = 90;
+			btnRight.addEventListener(MouseEvent.CLICK,buttonRight);
+			addChild(new iButton(btnRight));
 			
 			//== create grid raster ==
 			var background:SnakeBackground = new SnakeBackground();
@@ -399,6 +430,46 @@ package nl.iTouch.snake
 			}
 			
 			return check;
+		}
+		
+		public function buttonUp(me:MouseEvent):void
+		{
+			if (snakeMoveY != 1)
+			{	
+				nextMoveX = 0;
+				nextMoveY = -1;
+				nextRotation = 0;
+			}
+		}
+		
+		public function buttonDown(me:MouseEvent):void
+		{
+			if (snakeMoveY != -1)
+			{
+				nextMoveX = 0;
+				nextMoveY = 1;
+				nextRotation = 180;
+			}
+		}
+		
+		public function buttonLeft(me:MouseEvent):void
+		{
+			if (snakeMoveX != 1)
+			{
+				nextMoveX = -1;
+				nextMoveY = 0;
+				nextRotation = -90;
+			}
+		}
+		
+		public function buttonRight(me:MouseEvent):void
+		{
+			if (snakeMoveX != -1)
+			{
+				nextMoveX = 1;
+				nextMoveY = 0;
+				nextRotation = 90;
+			}
 		}
 	}
 }
