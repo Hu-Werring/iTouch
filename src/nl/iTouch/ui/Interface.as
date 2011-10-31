@@ -23,8 +23,8 @@ package nl.iTouch.ui
 			var button3:Button3 = new Button3();
 			var bgui:BackgroundUI= new BackgroundUI;	
 			
-			button1.setPos(70,570);
-			button2.setPos(980,759);
+			button1.setPos(150,370);
+			button2.setPos(300,370);
 			button3.setPos(820,370);
 			addChild( bgui);
 			addChild( button1);
