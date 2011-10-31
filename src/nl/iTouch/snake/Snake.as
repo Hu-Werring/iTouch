@@ -21,11 +21,12 @@ package nl.iTouch.snake
 		private const _gridSize:uint = 15;
 		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,510);//== beide punten moeten deelbaar zijn door gridSize (of 0)
-		private const _timerStartSpeed:int = 500;//200; //== begin snelheid van de gametimer
+		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
 		
 		//game variables ==
 		private var _wall:Array = new Array();
 		private var _boekenkasten:Array = new Array();
+		private var _tafels:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 10;
 		private var _deelX:Array = new Array();
@@ -127,6 +128,31 @@ package nl.iTouch.snake
 				_boekenkasten.push(bk);
 			}
 			
+			//== create tafels ==
+			for(var j:int = 0;j<2;j++)
+			{
+				for(var k:int = 0;k<2;k++)
+				{
+					var tafel:TafelVertical = new TafelVertical();
+					tafel.x = 105 + ((j*225)*2);
+					tafel.y = 585 + (k*195);
+					addChild(tafel);
+					_tafels.push(tafel);
+				}
+			}
+			
+			/*for(var j:int = 0;j<2;j++)
+			{
+				for(var k:int = 0;k<2;k++)
+				{
+					var tafel:tafel
+					tafel.x = 105 + ((j*225)*2);
+					tafel.y = 585 + (k*195);
+					addChild(tafel);
+					_tafels.push(tafel);
+				}
+			}*/
+			
 			//== create gamearea sprite ==
 			gameArea.x = _wall['left'] - (_gridSize/2);
 			gameArea.y = _wall['up'] - (_gridSize/2);
@@ -162,34 +188,40 @@ package nl.iTouch.snake
 			var nX:int = snakeParts[0].x + snakeMoveX * _gridSize;
 			var nY:int = snakeParts[0].y + snakeMoveY * _gridSize;
 			var nR:int = 90;
-			
+			var collisionCheck:Boolean = false;
 			//== collision check  met wall ==
 			if (nX > (_wall['right'] + 15))
 			{
+				collisionCheck = true;
 				//nX -= 15;
 				gameOver();
 			}
 			else if (nX < _wall['left'])
 			{
-				nX += 15;
+				collisionCheck = true;
+				//nX += 15;
 				gameOver();
 			}
 			else if (nY > _wall['down'] + 15)
 			{
-				nY -= 15;
+				collisionCheck = true;
+				//nY -= 15;
 				gameOver();
 			}
 			else if (nY < _wall['up'])
 			{
-				nY += 15;
+				collisionCheck = true;
+				//nY += 15;
 				gameOver();
 			}
 			else if(hitTail(nX,nY))
 			{
+				collisionCheck = true;
 				gameOver();
 			}
 			else if (hitBoekenKast(nX,nY))
 			{
+				collisionCheck = true;
 				gameOver();
 			}
 			
@@ -216,12 +248,13 @@ package nl.iTouch.snake
 			
 			placeTail();
 			
-			//trace(snakeParts[0].x,snakeParts[0].y);
-			snakeParts[0].x = nX;
-			snakeParts[0].y = nY;
-			snakeParts[0].rotation = snakeRotation;
-			if(snakeParts[1] != undefined) snakeParts[1].rotation = snakeRotation;
-			
+			if(collisionCheck != true)
+			{
+				snakeParts[0].x = nX;
+				snakeParts[0].y = nY;
+				snakeParts[0].rotation = snakeRotation;
+				if(snakeParts[1] != undefined) snakeParts[1].rotation = snakeRotation;
+			}
 			//== check if snake is in same area as student ==
 			if (checkPlaceY() >= 1)
 			{
