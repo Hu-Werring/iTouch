@@ -15,6 +15,7 @@ package nl.iTouch.eyecatcher
 		public var bord:Sprite = new BordImage();
 		public var tel:Number = 0;
 		public var bordje:Boolean = false;
+		public var ps:ParticleSystem = new ParticleSystem();	
 
 		public function Eyecatcher() {			
 			addEventListener(Event.ADDED_TO_STAGE,init);
@@ -22,8 +23,7 @@ package nl.iTouch.eyecatcher
 
 		private function init(e:Event):void
 		{
-			
-			var ps:ParticleSystem = new ParticleSystem();			
+					
 			var backgroundGradient:Sprite = new Sprite();
 			var luuk:Sprite = new Lucas();
 			var gat:Sprite = new GatImage();
@@ -87,11 +87,11 @@ package nl.iTouch.eyecatcher
 		}			
 		
 		public function ganaar(e:Event):void{
-			trace("Ga naar interface");
+			dispatchEvent(new Event('CLICKED_EYECATCHER'));
 		}	
 		
 		public function knipperend(e:Event):void{
-			trace("Knipper");
+			
 			tel ++;						
 
 			if(tel == 16){
@@ -103,11 +103,11 @@ package nl.iTouch.eyecatcher
 				streep2.visible=false;				
 				tel = 0;
 			}
-			trace("Tel: " +tel);			
+					
 		}	
 		
 		public function beweegbord(e:Event):void{
-			trace("bord: " +bord.x);
+			
 						
 			if(bordje == false){
 				bord.x -=  2;	
@@ -125,6 +125,17 @@ package nl.iTouch.eyecatcher
 					bordje = false;			
 				}				
 			}
+		}
+		
+		public function hide():void
+		{
+			this.visible = false;
+			ps.pause();
+		}
+		public function show():void
+		{
+			this.visible = true;
+			ps.resume();
 		}
 	}
 }
