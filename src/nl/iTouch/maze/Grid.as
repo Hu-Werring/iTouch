@@ -2,9 +2,9 @@ package nl.iTouch.maze
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.*;
 	import flash.text.TextField;
 	import flash.utils.*;
-	import flash.events.*;
 	
 	public class Grid extends MovieClip
 	{
@@ -56,7 +56,7 @@ package nl.iTouch.maze
 		}
 		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
-		public function colorTile(tile:Number, color:uint, alpha=1):void
+		public function colorTile(tile:Number, color:uint, alpha:Number=1):void
 		{
 			this.tilesObj[tile].graphics.beginFill(color, alpha);
 			this.tilesObj[tile].graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
@@ -90,7 +90,7 @@ package nl.iTouch.maze
 		}
 		
 		//Kleur een kolom in. kolom nr vanaf 1.
-		public function setColomColor(col:int, color:uint, alpha=1):void
+		public function setColomColor(col:int, color:uint, alpha:Number=1):void
 		{
 			if(col/this.cols <= 1)
 			{
@@ -104,7 +104,7 @@ package nl.iTouch.maze
 		}
 		
 		//Kleur een rij in. rij nummer vanaf 1.
-		public function setRowColor(row:int, color:uint, alpha=1):void
+		public function setRowColor(row:int, color:uint, alpha:Number=1):void
 		{
 			if(row/this.rows <= 1)
 			{
@@ -143,7 +143,7 @@ package nl.iTouch.maze
 			addChild(refArray[index]);
 		}
 		
-		private function tileClicked(e:Event)
+		private function tileClicked(e:Event):void
 		{
 			trace('tile: '+e.target+' traced');
 		}

@@ -10,20 +10,20 @@ package nl.iTouch.maze
 	
 	public class Lucas extends MovieClip
 	{
-		var pathStartTile:int = 139;
-		var pathEndTile:int = 56;
-		var manualPath:Array;
-		var path:Array;
-		var maxSpeed:int = 500;
-		var speed:int;
-		var moveCounter:int = 0;
-		var gTilesObj:Array;
-		var rot:int;
-		var lucasMc:MovieClip;
+		public var pathStartTile:int = 139;
+		public var pathEndTile:int = 56;
+		public var manualPath:Array;
+		public var path:Array;
+		public var maxSpeed:int = 500;
+		public var speed:int;
+		public var moveCounter:int = 0;
+		public var gTilesObj:Array;
+		public var rot:int;
+		public var lucasMc:MovieClip;
 		// get matrix object from your MovieClip (mc) 
-		var orgWidth:int;
-		var orgHeight:int;
-		var m:Matrix;
+		public var orgWidth:int;
+		public var orgHeight:int;
+		public var m:Matrix;
 		
 		public function Lucas(startTile:int, endTile:int, speed:int)
 		{

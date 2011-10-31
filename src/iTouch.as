@@ -7,6 +7,7 @@ package
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.ui.Mouse;
 	import flash.utils.Timer;
 	
 	import flashx.textLayout.elements.InlineGraphicElement;
@@ -40,6 +41,9 @@ package
 		
 		public function iTouch(){
 			
+			Mouse.hide();
+			stage.displayState = StageDisplayState.FULL_SCREEN;
+			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
@@ -53,23 +57,8 @@ package
 			gui.addEventListener(Interface.START_SNAKE,startSnake);
 			gui.addEventListener(Interface.START_MAZE,startMaze);
 			gui.addEventListener(Interface.START_GUESS,startGuess);
-			//*
-			var hs:Highscore = new Highscore('TestGame');
-			/*
-			hs.submit("Qaz",0xFFFFFF*Math.random());
-			hs.submit("Wsx",0xFFFFFF*Math.random());
-			hs.submit("Edc",0xFFFFFF*Math.random());
-			hs.submit("Rfv",0xFFFFFF*Math.random());
-			hs.submit("Tgb",0xFFFFFF*Math.random());
-			hs.submit("Yhn",0xFFFFFF*Math.random());
-			hs.submit("Ujm",0xFFFFFF*Math.random());
-			hs.submit("Ik,",0xFFFFFF*Math.random());
-			hs.submit("Ol.",0xFFFFFF*Math.random());
-			hs.submit("P;/",0xFFFFFF*Math.random());
-			addChild(hs.highScoreList());
-			/* */
-			addChild(hs.submitHS(Math.random()*0xFFFFFF));
-			/* */
+			
+			
 			gh.addEventListener(MouseEvent.CLICK,clickUpdate);
 			eyeCatcher.addEventListener('CLICKED_EYECATCHER',clickUpdate);
 			
