@@ -69,9 +69,9 @@ package nl.iTouch.maze
 		
 		private function fillTubeTileHolder():void
 		{	
-			var prevHeight = 0;
+			var prevHeight:Number = 0;
 			//var prevY = 0;
-			var tmpTilePadding = 10;
+			var tmpTilePadding:Number = 10;
 
 			for(var i:int=0;i<5;i++)
 			{
