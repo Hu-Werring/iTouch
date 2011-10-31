@@ -28,6 +28,7 @@ package nl.iTouch.snake
 		private var _spawnRate:int = 1;
 		private var _deelX:Array = new Array();
 		private var _deelY:Array = new Array();
+		private var _score:uint;
 		
 		//== objecten ==
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
@@ -45,7 +46,7 @@ package nl.iTouch.snake
 		
 		//== highscore + DB varables/objecten ==
 		private var db:DataBase = DataBase.getInstance;
-		private var hs:Highscore;
+		private var hs:Highscore = new Highscore('Snake');
 		
 		//== main class function ==
 		public function Snake()
@@ -199,7 +200,7 @@ package nl.iTouch.snake
 				}
 				
 				//== score wordt hier opgetelt
-				//== TODO ==
+				_score += 10;
 			}
 			
 			placeTail();
@@ -349,6 +350,13 @@ package nl.iTouch.snake
 			splashScreen = new GameOverScreen();
 			splashScreen.splash.addEventListener(MouseEvent.CLICK, splashScreenTouch);
 			addChild(splashScreen);
+			
+			
+			var submit:Sprite = hs.submitHS(_score);
+			submit.x = (stage.stageWidth-submit.width)/2;
+			submit.y = (stage.stageHeight-submit.height)/2;
+			addChild(submit);
+			
 			_gameTimer.stop();
 		}
 		
@@ -386,6 +394,8 @@ package nl.iTouch.snake
 			nextRotation = 90;
 			
 			placeStudent();
+			
+			_score = 0;
 			
 			while(snakeParts.length>1)
 			{
