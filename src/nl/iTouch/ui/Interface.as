@@ -21,7 +21,7 @@ package nl.iTouch.ui
 			var button1:Button1 = new Button1();
 			var button2:Button2 = new Button2();
 			var button3:Button3 = new Button3();
-			var bgui:BackgroundUI=new BackgroundUI;	
+			var bgui:BackgroundUI= new BackgroundUI;	
 			
 			button1.setPos(70,570);
 			button2.setPos(980,759);
