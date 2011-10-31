@@ -1,10 +1,12 @@
 package nl.iTouch.snake
 {
+	import flash.display.Shader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.filters.ShaderFilter;
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
@@ -34,6 +36,9 @@ package nl.iTouch.snake
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		private var splashScreen:GameOverScreen = new GameOverScreen();
+		
+		//== effecten variables ==
+		private var shadow:ShaderFilter = new ShaderFilter(new Shader(;
 
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
@@ -57,7 +62,6 @@ package nl.iTouch.snake
 		public function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
 			
 			/*hs = new Highscore('snake');
 			hs.highScoreList()
