@@ -6,6 +6,8 @@ package nl.iTouch.snake
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import nl.iTouch.iButton;
+	
 	public class GameOverScreen extends Sprite
 	{
 		public var splash:SplashScreen = new SplashScreen();
@@ -22,6 +24,9 @@ package nl.iTouch.snake
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			
+			x = 22.5;
+			y = 52.5;
+			
 			background.alpha = 0;
 			addChild(background);
 			
@@ -29,12 +34,9 @@ package nl.iTouch.snake
 			splash.y = 457,5;
 			splash.scaleX = 0;
 			splash.scaleY = 0;
-			splash.addEventListener(MouseEvent.CLICK, onTouch);
 			addChild(splash);
 			
-			trace("werkt!! w00t");
-			
-			_fadeTimer = new Timer(40);
+			_fadeTimer = new Timer(20);
 			_fadeTimer.addEventListener(TimerEvent.TIMER, fadeIn);
 			_fadeTimer.start();
 		}
@@ -54,19 +56,43 @@ package nl.iTouch.snake
 				}
 				else
 				{
-					_fadeTimer.stop();
+					_fadeTimer.removeEventListener(TimerEvent.TIMER, fadeIn);
 				}
 			}
 		}
 		
-		public function fadeOut():void
+		public function fadeOut(te:TimerEvent):void
 		{
+			trace ("fading","|",background.alpha);
 			
+			if (background.alpha > 0)
+			{
+				background.alpha -= 0.05;
+			}
+			else if (background.alpha <= 0)
+			{
+				//removeEventListener(TimerEvent.TIMER, fadeOut);
+				
+				trace ("delete splash");
+				
+				var elder:Snake = this.parent as Snake;
+				trace (elder,this.parent);
+				elder.play();
+				
+				elder.removeChild(this);
+			}
+			
+			if (splash.scaleY > 0)
+			{
+				splash.scaleX -= 0.05;
+				splash.scaleY -= 0.05;
+			}
 		}
 		
-		public function onTouch(me:MouseEvent):void
+		public function deleteMe():void
 		{
-			
+			_fadeTimer.addEventListener(TimerEvent.TIMER, fadeOut);
+			_fadeTimer.start();
 		}
 	}
 }

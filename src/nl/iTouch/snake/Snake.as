@@ -145,8 +145,7 @@ package nl.iTouch.snake
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
 			
 			//== test ==
-			splashScreen.x = 22.5;
-			splashScreen.y = 52.5;
+			splashScreen.splash.addEventListener(MouseEvent.CLICK, splashScreenTouch);
 			addChild(splashScreen);
 		}
 		
@@ -347,6 +346,8 @@ package nl.iTouch.snake
 		
 		public function gameOver():void
 		{
+			splashScreen = new GameOverScreen();
+			splashScreen.splash.addEventListener(MouseEvent.CLICK, splashScreenTouch);
 			addChild(splashScreen);
 			_gameTimer.stop();
 		}
@@ -481,6 +482,14 @@ package nl.iTouch.snake
 				nextMoveX = 1;
 				nextMoveY = 0;
 				nextRotation = 90;
+			}
+		}
+		
+		public function splashScreenTouch(me:MouseEvent):void
+		{
+			if(_gameTimer.running == false)
+			{
+				splashScreen.deleteMe();
 			}
 		}
 	}
