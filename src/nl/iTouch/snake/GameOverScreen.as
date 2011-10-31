@@ -1,15 +1,22 @@
 package nl.iTouch.snake
 {
+	import com.greensock.TweenAlign;
+	import com.greensock.TweenLite;
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
+	import nl.iTouch.iButton;
+	
 	public class GameOverScreen extends Sprite
 	{
 		public var splash:SplashScreen = new SplashScreen();
 		public var background:GameOverBackground = new GameOverBackground();
+		
+		private var elder:Snake;
 		
 		public var _fadeTimer:Timer;
 		
@@ -21,6 +28,9 @@ package nl.iTouch.snake
 		public function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
+			elder = this.parent as Snake;
+			x = 22.5;
+			y = 52.5;
 			
 			background.alpha = 0;
 			addChild(background);
@@ -29,44 +39,55 @@ package nl.iTouch.snake
 			splash.y = 457,5;
 			splash.scaleX = 0;
 			splash.scaleY = 0;
-			splash.addEventListener(MouseEvent.CLICK, onTouch);
+			splash.alpha = 0;
 			addChild(splash);
 			
-			trace("werkt!! w00t");
-			
-			_fadeTimer = new Timer(40);
+			/*_fadeTimer = new Timer(20);
 			_fadeTimer.addEventListener(TimerEvent.TIMER, fadeIn);
-			_fadeTimer.start();
+			_fadeTimer.start();*/
+			TweenLite.to(background,1,{alpha:0.85,onComplete:function():void{
+					TweenLite.to(splash,1,{scaleX:1,scaleY:1,alpha:1})
+			}})
 		}
 		
-		public function fadeIn(te:TimerEvent):void
-		{
-			if(background.alpha < 0.85)
-			{
-				background.alpha += 0.025;
-			}
-			else if (background.alpha >= 0.85)
-			{
-				if(splash.scaleX < 1 && splash.scaleY < 1)
-				{
-					splash.scaleX += 0.05;
-					splash.scaleY += 0.05;
-				}
-				else
-				{
-					_fadeTimer.stop();
-				}
-			}
-		}
-		
-		public function fadeOut():void
+		/*public function fadeOut(te:TimerEvent):void
 		{
 			
-		}
-		
-		public function onTouch(me:MouseEvent):void
-		{
 			
+			trace ("fading","|",background.alpha);
+			
+			if (background.alpha > 0)
+			{
+				background.alpha -= 0.05;
+			}
+			else if (background.alpha <= 0)
+			{
+				removeEventListener(TimerEvent.TIMER, fadeOut);
+				trace ("delete splash");
+				
+				elder.play();
+				
+				this.visible = false
+			}
+			
+			if (splash.scaleY > 0)
+			{
+				splash.scaleX -= 0.05;
+				splash.scaleY -= 0.05;
+				splash.alpha -= 0.05;
+			}
+		}*/
+		
+		public function deleteMe():void
+		{
+			TweenLite.to(background,1,{alpha:0,onComplete: function():void{
+				elder.play();
+				
+				this.visible = false
+				}
+			});
+				
+			TweenLite.to(splash,1,{scaleX:0, scaleY:0, alpha:0});
 		}
 	}
 }
