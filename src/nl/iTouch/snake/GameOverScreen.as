@@ -50,34 +50,6 @@ package nl.iTouch.snake
 			}})
 		}
 		
-		/*public function fadeOut(te:TimerEvent):void
-		{
-			
-			
-			trace ("fading","|",background.alpha);
-			
-			if (background.alpha > 0)
-			{
-				background.alpha -= 0.05;
-			}
-			else if (background.alpha <= 0)
-			{
-				removeEventListener(TimerEvent.TIMER, fadeOut);
-				trace ("delete splash");
-				
-				elder.play();
-				
-				this.visible = false
-			}
-			
-			if (splash.scaleY > 0)
-			{
-				splash.scaleX -= 0.05;
-				splash.scaleY -= 0.05;
-				splash.alpha -= 0.05;
-			}
-		}*/
-		
 		public function deleteMe():void
 		{
 			TweenLite.to(background,1,{alpha:0,onComplete: function():void{
