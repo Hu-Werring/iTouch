@@ -41,7 +41,7 @@ package
 		
 		public function iTouch(){
 			
-			Mouse.hide();
+			//Mouse.hide();
 			stage.displayState = StageDisplayState.FULL_SCREEN;
 			
 			stage.align = StageAlign.TOP_LEFT;

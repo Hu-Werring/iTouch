@@ -159,9 +159,9 @@ package nl.iTouch.snake
 			snakeMoveY = nextMoveY;
 			snakeRotation = nextRotation;
 			
-			var nX:Number = snakeParts[0].x + snakeMoveX * _gridSize;
-			var nY:Number = snakeParts[0].y + snakeMoveY * _gridSize;
-			var nR:Number = 90;
+			var nX:int = snakeParts[0].x + snakeMoveX * _gridSize;
+			var nY:int = snakeParts[0].y + snakeMoveY * _gridSize;
+			var nR:int = 90;
 			
 			//== collision check  met wall ==
 			if (nX > (_wall['right'] + 15))
@@ -184,11 +184,11 @@ package nl.iTouch.snake
 				nY += 15;
 				gameOver();
 			}
-			else if(hitTail())
+			else if(hitTail(nX,nY))
 			{
 				gameOver();
 			}
-			else if (hitBoekenKast())
+			else if (hitBoekenKast(nX,nY))
 			{
 				gameOver();
 			}
@@ -514,17 +514,17 @@ package nl.iTouch.snake
 			}
 		}
 		
-		public function hitTail():Boolean
+		public function hitTail(nX:int,nY:int):Boolean
 		{
 			for(var i:int=1;i<snakeParts.length;i++) {
-				if ((snakeParts[0].x == snakeParts[i].x) && (snakeParts[0].y == snakeParts[i].y)) {
+				if ((nX == snakeParts[i].x) && (nY == snakeParts[i].y)) {
 					return true;
 				}
 			}
 			return false;
 		}
 		
-		public function hitBoekenKast():Boolean
+		public function hitBoekenKast(nX:int,nY:int):Boolean
 		{
 			var kast:BoekenKast;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
@@ -533,7 +533,7 @@ package nl.iTouch.snake
 				kast = _boekenkasten[j] as BoekenKast;
 				for (var k:int =0; k<kast.kastParts.length; k++){
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
-					if ((snakeParts[0].x == (kast.kastParts[k].x+kast.x)) && (snakeParts[0].y == (kast.kastParts[k].y+kast.y)))
+					if ((nX == (kast.kastParts[k].x+kast.x)) && (nY == (kast.kastParts[k].y+kast.y)))
 					{
 						return true;
 					}
