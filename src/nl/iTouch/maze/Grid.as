@@ -2,9 +2,9 @@ package nl.iTouch.maze
 {
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.*;
 	import flash.text.TextField;
 	import flash.utils.*;
-	import flash.events.*;
 	
 	public class Grid extends MovieClip
 	{
@@ -23,6 +23,7 @@ package nl.iTouch.maze
 		public var tilesObj:Array; //Het object dat alle tegels bevat. LET OP. tegel 1 = index 0, tegel2 = index 1, etc
 		public var tileWidth:int; //De breedte van een tegel
 		public var tileHeight:int; //De hoogte van een tegel
+		public var clickedTile:Object;
 		
 		public var curRow:int = -1; //Houd de rijen aan wanneer het grid word neer gelegd.
 		public var curCol:int;//Houd de colommen aan wanneer het grid word neer gelegd
@@ -52,7 +53,7 @@ package nl.iTouch.maze
 		//Verander een tegel
 		public function setTile(tile:Number, content:*):void
 		{
-			this.tilesObj[tile] = content;
+			this.tilesObj[tile].addChild(content);
 		}
 		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
@@ -73,6 +74,16 @@ package nl.iTouch.maze
 		public function setTileByCord(col:int, row:int):void
 		{
 			//
+		}
+		
+		public function setBookCase(tiles:Array):void
+		{
+			for(var i=0;i<tiles.length;i++)
+			{
+				this.setTile(tiles[i]-1, new maze_bookCase());
+				this.tilesObj[tiles[i]-1].solid = true;
+				trace(this.tilesObj[tiles[i]-1].toString());
+			}
 		}
 		
 		//Verander elke tegel van een kolom in de gekozen content (Bijv. een plaatje)
@@ -128,7 +139,8 @@ package nl.iTouch.maze
 				
 			}
 			
-			refArray[index] = new MovieClip(); //Maak tegel
+			//refArray[index] = new MovieClip(); //Maak tegel
+			refArray[index] = new Tile(index);
 			refArray[index].graphics.beginFill(0xFFFFFF, 0); //Witte doorzichtige tegel.
 			refArray[index].graphics.drawRect(0,0,tileWidth, tileHeight); //Geef in main functie berekende breedte en hoogte mee
 			refArray[index].graphics.endFill();
@@ -146,6 +158,8 @@ package nl.iTouch.maze
 		private function tileClicked(e:Event)
 		{
 			trace('tile: '+e.target+' traced');
+			this.clickedTile = e.target;
+			dispatchEvent(new Event('tileClicked'));
 		}
 		
 		public function showTileNrs(tileNrs:Array=null, realNr:Boolean=false):void

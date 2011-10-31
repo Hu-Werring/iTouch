@@ -2,7 +2,7 @@ package nl.iTouch.maze
 {
 	import flash.display.*;
 	import flash.display.Stage;
-	import flash.events.Event;
+	import flash.events.*;
 	
 	import nl.iTouch.*;
 	
@@ -45,6 +45,7 @@ package nl.iTouch.maze
 			colorGrid(this.grid);
 			addChild(this.grid);
 			//this.grid.showTileNrs();
+			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			
 			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
@@ -56,6 +57,14 @@ package nl.iTouch.maze
 			addChild(this.lucas);
 		}
 
+		private function placeTubeTile(e:Event)
+		{
+			//this.grid.setTile(this.grid.clickedTile.nr);
+			trace(e.target.toString());
+			trace(this.Control.tubeTilesOrder[0]);
+			this.grid.setTile(this.grid.clickedTile.tileNr, this.Control.tubeTilesOrder.shift());
+			trace(this.Control.tubeTilesHolder[this.Control.tubeTilesOrder[0]]);
+		}
 		
 		//Kleur het grid in zodat het een mediatheek lijkt.
 		private function colorGrid(G:Grid):void
@@ -66,6 +75,9 @@ package nl.iTouch.maze
 			G.setColomColor(8, 0x886644);
 			G.setColomColor(11, 0x886644);
 			G.setColomColor(14, 0x886644);
+			
+			G.setBookCase(new Array(1,15,29,43, 5,19,33,47, 8,22,36,50, 11,25,39,53, 14,28,42,56, 
+									85,99,113,127, 89,103,117,131, 92,106,120,134, 95,109,123,137, 98,112,126,140));
 			
 			//Teken blauwe ruimte
 			G.setColomColor(2, 0x2244FF, 0.5);
