@@ -1,10 +1,12 @@
 package nl.iTouch.snake
 {
+	import flash.display.Shader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.filters.ShaderFilter;
 	import flash.geom.Point;
 	import flash.utils.Timer;
 	
@@ -19,13 +21,13 @@ package nl.iTouch.snake
 		private const _gridSize:uint = 15;
 		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,510);//== beide punten moeten deelbaar zijn door gridSize (of 0)
-		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
+		private const _timerStartSpeed:int = 500;//200; //== begin snelheid van de gametimer
 		
 		//game variables ==
 		private var _wall:Array = new Array();
 		private var _boekenkasten:Array = new Array();
 		private var _gameTimer:Timer;
-		private var _spawnRate:int = 1;
+		private var _spawnRate:int = 10;
 		private var _deelX:Array = new Array();
 		private var _deelY:Array = new Array();
 		private var _score:uint;
@@ -34,6 +36,8 @@ package nl.iTouch.snake
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		private var splashScreen:GameOverScreen = new GameOverScreen();
+		
+		//== effecten variables ==
 
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
@@ -57,7 +61,6 @@ package nl.iTouch.snake
 		public function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			
 			
 			/*hs = new Highscore('snake');
 			hs.highScoreList()
@@ -161,9 +164,9 @@ package nl.iTouch.snake
 			var nR:Number = 90;
 			
 			//== collision check  met wall ==
-			if (nX > _wall['right'] + 15)
+			if (nX > (_wall['right'] + 15))
 			{
-				nX -= 15;
+				//nX -= 15;
 				gameOver();
 			}
 			else if (nX < _wall['left'])
@@ -179,6 +182,14 @@ package nl.iTouch.snake
 			else if (nY < _wall['up'])
 			{
 				nY += 15;
+				gameOver();
+			}
+			else if(hitTail())
+			{
+				gameOver();
+			}
+			else if (hitBoekenKast())
+			{
 				gameOver();
 			}
 			
@@ -311,7 +322,7 @@ package nl.iTouch.snake
 			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 			var nR:int = Math.random()*3;
 			
-			var kast:BoekenKast
+			var kast:BoekenKast;
 			var error:Boolean = false;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
 			{ 
@@ -331,7 +342,7 @@ package nl.iTouch.snake
 						placeStudent();
 						break;
 					}
-					trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					//trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
 					
 				}
 				if(error) break;
@@ -501,6 +512,35 @@ package nl.iTouch.snake
 			{
 				splashScreen.deleteMe();
 			}
+		}
+		
+		public function hitTail():Boolean
+		{
+			for(var i:int=1;i<snakeParts.length;i++) {
+				if ((snakeParts[0].x == snakeParts[i].x) && (snakeParts[0].y == snakeParts[i].y)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public function hitBoekenKast():Boolean
+		{
+			var kast:BoekenKast;
+			for(var j:uint=0;j<_boekenkasten.length;j++)
+			{ 
+				
+				kast = _boekenkasten[j] as BoekenKast;
+				for (var k:int =0; k<kast.kastParts.length; k++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((snakeParts[0].x == (kast.kastParts[k].x+kast.x)) && (snakeParts[0].y == (kast.kastParts[k].y+kast.y)))
+					{
+						return true;
+					}
+				}
+			}
+			
+			return false;
 		}
 	}
 }
