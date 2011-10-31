@@ -4,6 +4,7 @@ package nl.iTouch
 	
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.MouseEvent;
 	
 	public class GameHolder extends Sprite
 	{
@@ -39,6 +40,18 @@ package nl.iTouch
 			this.y = stage.stageHeight/2;
 			this.visible = false;
 			_status = GameHolder.ONSTAGE;
+			
+			var tmp:Sprite = new Sprite()
+			tmp.graphics.beginFill(0xFF0000);
+			tmp.graphics.drawCircle(50,50,25);
+			tmp.graphics.endFill();
+			tmp = new iButton(tmp);
+			tmp.addEventListener(MouseEvent.CLICK,killGame);
+			addChild(tmp);
+		}
+		private function killGame(e:MouseEvent):void
+		{
+			hide();
 		}
 		
 		public function addGame(obj:Class):void
@@ -49,7 +62,7 @@ package nl.iTouch
 				_game.stop(true);
 			}
 			_game = new obj();
-			addChild(_game);
+			addChildAt(_game,0);
 			if(visible){
 				_status = GameHolder.GAME_VISIBLE;
 			} else {
