@@ -38,7 +38,6 @@ package nl.iTouch.snake
 		private var splashScreen:GameOverScreen = new GameOverScreen();
 		
 		//== effecten variables ==
-		private var shadow:ShaderFilter = new ShaderFilter(new Shader(;
 
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
