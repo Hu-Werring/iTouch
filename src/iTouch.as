@@ -47,8 +47,9 @@ package
 			gui.addEventListener(Interface.START_SNAKE,startSnake);
 			gui.addEventListener(Interface.START_MAZE,startMaze);
 			gui.addEventListener(Interface.START_GUESS,startGuess);
+			//*
+			var hs:Highscore = new Highscore('TestGame');
 			/*
-			var hs:Highscore = new Highscore('test');
 			hs.submit("Qaz",0xFFFFFF*Math.random());
 			hs.submit("Wsx",0xFFFFFF*Math.random());
 			hs.submit("Edc",0xFFFFFF*Math.random());
@@ -60,7 +61,8 @@ package
 			hs.submit("Ol.",0xFFFFFF*Math.random());
 			hs.submit("P;/",0xFFFFFF*Math.random());
 			addChild(hs.highScoreList());
-			//addChild(hs.submitHS(Math.random()*0xFFFFFF));
+			/* */
+			addChild(hs.submitHS(Math.random()*0xFFFFFF));
 			/* */
 		}
 		
