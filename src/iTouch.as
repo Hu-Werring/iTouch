@@ -1,6 +1,5 @@
 package
 {
-	import com.fullsizeBackgroundImage.fullsizeBackgroundImage;
 	
 	import flash.display.*;
 	import flash.display.Loader;
