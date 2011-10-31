@@ -53,6 +53,10 @@ package nl.iTouch.maze
 		//Verander een tegel
 		public function setTile(tile:Number, content:*):void
 		{
+			content.width = 80;
+			content.height = 80;
+			content.x = 0;
+			content.y = 0;
 			this.tilesObj[tile].addChild(content);
 		}
 		
@@ -78,7 +82,7 @@ package nl.iTouch.maze
 		
 		public function setBookCase(tiles:Array):void
 		{
-			for(var i=0;i<tiles.length;i++)
+			for(var i:int=0;i<tiles.length;i++)
 			{
 				this.setTile(tiles[i]-1, new maze_bookCase());
 				this.tilesObj[tiles[i]-1].solid = true;

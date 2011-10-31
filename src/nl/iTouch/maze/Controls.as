@@ -1,5 +1,7 @@
 package nl.iTouch.maze
 {
+	import com.greensock.TweenLite;
+	
 	import flash.display.*;
 	import flash.events.MouseEvent;
 	
@@ -7,6 +9,7 @@ package nl.iTouch.maze
 	{
 		public var tubeTilesHolder:MovieClip;
 		public var tubeTilesOrder:Array = new Array();
+		public var tubeTilePadding:int = 10;
 		
 		public function Controls()
 		{
@@ -71,26 +74,52 @@ package nl.iTouch.maze
 		{	
 			var prevHeight:Number = 0;
 			//var prevY = 0;
-			var tmpTilePadding:Number = 10;
 
 			for(var i:int=0;i<5;i++)
 			{
 				var tmpTile:MovieClip = new maze_cross();
-				tmpTile.width = this.tubeTilesHolder.width - tmpTilePadding;
+				tmpTile.width = this.tubeTilesHolder.width - tubeTilePadding;
 				tmpTile.height = tmpTile.width;
-				tmpTile.x = tmpTilePadding/2;
-				tmpTile.y = (tmpTilePadding/2) + prevHeight;
+				tmpTile.x = tubeTilePadding/2;
+				tmpTile.y = (tubeTilePadding/2) + prevHeight;
 				if(i==4)
 				{
-					tmpTile.y += (tmpTilePadding/2);
+					tmpTile.y += (tubeTilePadding/2);
 				}
 				prevHeight = tmpTile.y + tmpTile.height ;
 				//prevY += tmpTile.y;
 				trace(prevHeight);
-				this.tubeTilesOrder.push(tmpTile);
+				this.tubeTilesOrder.unshift(tmpTile);
 				this.tubeTilesHolder.addChild(tmpTile);
 			}	
 			
+		}
+		
+		public function addTubeTile():void
+		{
+			var lastTubeTile:MovieClip = this.tubeTilesOrder[this.tubeTilesOrder.length-1];
+			var newTubeTile:MovieClip = new maze_cross();
+			newTubeTile.height = lastTubeTile.height;
+			newTubeTile.width = lastTubeTile.width;
+			newTubeTile.x = lastTubeTile.x;
+			newTubeTile.y = (lastTubeTile.y - lastTubeTile.height) - tubeTilePadding;
+			this.tubeTilesOrder.push(newTubeTile);
+			this.tubeTilesHolder.addChild(newTubeTile)
+			//this.moveTubeTiles();
+			this.tubeTilesOrder.forEach(moveTubeTile);
+			
+		}
+		
+		private function moveTubeTile(tile:MovieClip, index:int, refArray:Array):void
+		{
+			if(index==0)
+			{
+				TweenLite.to(tile,1,{y:tile.y+tile.height+ tubeTilePadding});
+			}
+			else
+			{
+				TweenLite.to(tile,1,{y:tile.y+tile.height+ (tubeTilePadding/2)});
+			}
 		}
 	}
 }
