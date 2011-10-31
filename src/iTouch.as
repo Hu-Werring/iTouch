@@ -7,6 +7,7 @@ package
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.ui.Mouse;
 	import flash.utils.Timer;
 	
 	import flashx.textLayout.elements.InlineGraphicElement;
@@ -39,6 +40,9 @@ package
 		private var eyeCatcher:Eyecatcher = new Eyecatcher();
 		
 		public function iTouch(){
+			
+			Mouse.hide();
+			stage.displayState = StageDisplayState.FULL_SCREEN;
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
