@@ -93,6 +93,17 @@ package nl.werringweb
 			return _pos;
 		}
 		
+		public function pause():void
+		{
+			//_pause = true;
+			_timer.stop();
+		}
+		public function resume():void
+		{
+			_timer.start();
+		}
+		
+		
 		//start spawning particles when Emitor is added to stage
 		//Load effects for particles
 		private function init(e:Event):void

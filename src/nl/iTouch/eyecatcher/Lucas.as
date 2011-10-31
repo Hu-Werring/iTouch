@@ -31,22 +31,22 @@ package nl.iTouch.eyecatcher
 		}
 		public function links():void
 		{
-				trace("Links");
+				
 				addEventListener(Event.ENTER_FRAME,beweegLucasLinks);	
 		}
 		public	function rechts():void
 		{
-				trace("Rechts");
+				
 				addEventListener(Event.ENTER_FRAME,beweegLucasRechts);
 		}
 		public	function onder():void
 		{
-				trace("Onder");
+				
 				addEventListener(Event.ENTER_FRAME,beweegLucasOnder);
 		}
 		public	function boven():void
 		{
-				trace("boven");
+				
 				addEventListener(Event.ENTER_FRAME,beweegLucasBoven);
 		}			
 		public function init(e:Event):void
@@ -80,7 +80,6 @@ package nl.iTouch.eyecatcher
 				a[Math.floor(Math.random() * a.length)]();
 				snelheid = Math.floor(Math.random() * 8 + 4);
 				//snelheid = 8;
-				trace('Random zijde');
 				
 				lucasRechts.y = Math.random() * 2200 + 100;	
 				lucasLinks.y = Math.random() * 1900 + 100;
@@ -102,7 +101,7 @@ package nl.iTouch.eyecatcher
 					if(lucasOnder.y >= 2100)
 					{
 						beweeg['onder'] = false;
-						trace("Verplaats");
+						
 						//lucasOnder.x = Math.random() * 2300;
 						//lucasOnder.y = 2100;
 						this.removeEventListener(Event.ENTER_FRAME,beweegLucasOnder);
@@ -126,7 +125,7 @@ package nl.iTouch.eyecatcher
 					if(lucasBoven.y <= 0)
 					{
 						beweeg['boven'] = false;
-						trace("Verplaats");
+						
 						//lucasBoven.x = Math.random() * 2300;	
 						//lucasBoven.y = 0;
 						this.removeEventListener(Event.ENTER_FRAME,beweegLucasBoven);
@@ -138,7 +137,7 @@ package nl.iTouch.eyecatcher
 			
 			public function beweegLucasLinks(e:Event):void
 			{			
-				trace(lucasLinks.x);
+				
 				if(beweeg['links'] == false){
 					
 					if(lucasLinks.x >= 250)
@@ -151,8 +150,7 @@ package nl.iTouch.eyecatcher
 				else if(beweeg['links'] == true){
 					if(lucasLinks.x <= -5)
 					{
-						beweeg['links'] = false;				
-						trace("Verplaats",lucasLinks.x);
+						beweeg['links'] = false;		
 						//lucasLinks.y = Math.random() * 1800;
 						//lucasLinks.x = 0;
 						this.removeEventListener(Event.ENTER_FRAME,beweegLucasLinks);
@@ -179,7 +177,6 @@ package nl.iTouch.eyecatcher
 					if(lucasRechts.x >= 2565)
 					{
 						beweeg['rechts'] = false;			
-						trace("Verplaats" + " x: " + lucasRechts.x + " y: " + lucasRechts.y);
 						//lucasRechts.y = Math.random() * 2300;	
 					//	lucasRechts.x= 2550;
 						this.removeEventListener(Event.ENTER_FRAME,beweegLucasRechts);					

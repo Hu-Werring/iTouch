@@ -9,13 +9,15 @@ package nl.iTouch.eyecatcher
 	{//All items that would like the mouse location are stored in here
 		//Not used in this app, since the requirement was that there would be no userinput (screensaver / VJ app)
 		private static var _mouseRequestList:Array = new Array();
+		public var emitor:Emitor = new Emitor(Emitor.RANDOM,8);
+		public var emitor2:Emitor = new Emitor(Emitor.RANDOM,8);
 		public function ParticleSystem()
 		{
-			var emitor:Emitor = new Emitor(Emitor.RANDOM,10);
+			
 			addChild(emitor);
 			emitor.setParticle = CDParticle;
 			
-			var emitor2:Emitor = new Emitor(Emitor.RANDOM,10);
+			
 			addChild(emitor2);
 			emitor2.setParticle = BoekParticle;
 			
@@ -25,11 +27,26 @@ package nl.iTouch.eyecatcher
 			
 			
 		}
+		
+		public function pause():void
+		{
+			emitor.pause();
+			emitor2.pause();
+					
+		}
+		
+		public function resume():void
+		{
+			emitor.resume();
+			emitor2.resume();
+			
+		}
+		
+		
 		//ask emitor to get the mouseLocation
 		public static function addMouseRequest(emitor:Emitor):void
 		{
 			_mouseRequestList.push(emitor);
-			trace("List:" + _mouseRequestList);
 		}
 		
 		
