@@ -40,7 +40,7 @@
 	<!-- <copyright></copyright> -->
 
 	<!-- Publisher ID. Used if you're updating an application created prior to 1.5.3 -->
-	<publisherID>nl.iTouch</publisherID>
+	<!--<publisherID>nl.iTouch</publisherID>-->
 
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
