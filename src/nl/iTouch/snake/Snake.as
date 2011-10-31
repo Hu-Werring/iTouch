@@ -32,7 +32,7 @@ package nl.iTouch.snake
 		//== objecten ==
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
-		private var gOscreen:GameOverScreen = new GameOverScreen();
+		private var splashScreen:GameOverScreen = new GameOverScreen();
 
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
@@ -109,7 +109,7 @@ package nl.iTouch.snake
 			btnRight.addEventListener(MouseEvent.CLICK,buttonRight);
 			addChild(new iButton(btnRight));
 			
-			//== create grid raster ==
+			//== create background ==
 			var background:SnakeBackground = new SnakeBackground();
 			addChild(background);
 			
@@ -145,9 +145,9 @@ package nl.iTouch.snake
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
 			
 			//== test ==
-			gOscreen.x = 22.5;
-			gOscreen.y = 52.5;
-			addChild(gOscreen);
+			splashScreen.x = 22.5;
+			splashScreen.y = 52.5;
+			addChild(splashScreen);
 		}
 		
 		public function moveSnake(te:TimerEvent):void
@@ -276,7 +276,11 @@ package nl.iTouch.snake
 			}
 			else if(ke.keyCode == 32) //== spatie
 			{
-				removeChild(gOscreen);
+				if(_gameTimer.running == false)
+				{
+					removeChild(splashScreen);
+				}
+				
 				play();
 			}
 		}
@@ -343,7 +347,7 @@ package nl.iTouch.snake
 		
 		public function gameOver():void
 		{
-			
+			addChild(splashScreen);
 			_gameTimer.stop();
 		}
 		

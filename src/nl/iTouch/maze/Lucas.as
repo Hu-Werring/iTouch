@@ -73,7 +73,7 @@ package nl.iTouch.maze
 		
 		private function walkPath():void
 		{
-			if(this.moveCounter <= this.path.length)
+			if(this.moveCounter < this.path.length)
 			{
 				var pointX:int = this.gTilesObj[this.path[this.moveCounter]-1].x;
 				var pointY:int = this.gTilesObj[this.path[this.moveCounter]-1].y;

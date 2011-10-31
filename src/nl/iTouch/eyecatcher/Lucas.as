@@ -9,7 +9,7 @@ package nl.iTouch.eyecatcher
 		
 		private var a:Array = [boven, onder, links, rechts];
 		private var snelheid:Number;
-		
+
 		public var lucasLinks:LucasImage = new LucasImage();
 		public var lucasRechts:LucasImage = new LucasImage();
 		public var lucasBoven:LucasImage = new LucasImage();
@@ -25,6 +25,8 @@ package nl.iTouch.eyecatcher
 			beweeg['rechts'] = false;	
 			beweeg['boven'] = false;	
 			beweeg['onder'] = false;
+			
+
 			addEventListener(Event.ADDED_TO_STAGE,init);
 		}
 		public function links():void
@@ -51,12 +53,12 @@ package nl.iTouch.eyecatcher
 		{		
 			removeEventListener(Event.ADDED_TO_STAGE,init);		
 			
-				lucasLinks.x = 0;
+				lucasLinks.x = -5;
 				lucasLinks.y = 0;
 				lucasLinks.rotation = 90;
 				addChild(lucasLinks);	
-				
-				lucasRechts.x= 2550;
+
+				lucasRechts.x= 2565;
 				lucasRechts.y= 0;
 				lucasRechts.rotation = 270;
 				addChild(lucasRechts);
@@ -79,6 +81,7 @@ package nl.iTouch.eyecatcher
 				snelheid = Math.floor(Math.random() * 8 + 4);
 				//snelheid = 8;
 				trace('Random zijde');
+				
 				lucasRechts.y = Math.random() * 2200 + 100;	
 				lucasLinks.y = Math.random() * 1900 + 100;
 				lucasBoven.x = Math.random() * 2200 + 100;	
@@ -142,11 +145,11 @@ package nl.iTouch.eyecatcher
 					{
 						beweeg['links'] = true;						
 					} else {
-						lucasLinks.x +=  snelheid;
+						lucasLinks.x +=  snelheid;						
 					}
 				}				
 				else if(beweeg['links'] == true){
-					if(lucasLinks.x <= 0)
+					if(lucasLinks.x <= -5)
 					{
 						beweeg['links'] = false;				
 						trace("Verplaats",lucasLinks.x);
@@ -173,7 +176,7 @@ package nl.iTouch.eyecatcher
 				}				
 				else if(beweeg['rechts'] == true){
 					lucasRechts.x +=  snelheid;					
-					if(lucasRechts.x >= 2550)
+					if(lucasRechts.x >= 2565)
 					{
 						beweeg['rechts'] = false;			
 						trace("Verplaats" + " x: " + lucasRechts.x + " y: " + lucasRechts.y);
