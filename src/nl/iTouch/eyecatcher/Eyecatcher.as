@@ -27,14 +27,17 @@ package nl.iTouch.eyecatcher
 			var backgroundGradient:Sprite = new Sprite();
 			var luuk:Sprite = new Lucas();
 			var gat:Sprite = new GatImage();
-			var timer:Timer = new Timer(200);
-			
+			var timer:Timer = new Timer(20);
+			var timer2:Timer = new Timer(200);
+
 			removeEventListener(Event.ADDED_TO_STAGE,init);			
 			
 			bord.y = stage.stageHeight / 2 - 500;
 			bord.x = stage.stageWidth / 2 - 265;
 			gat.x = stage.stageWidth / 2 - 140;
 			gat.y = stage.stageHeight / 2 - 230;
+			
+			
 			
 			addChild(backgroundGradient);			
 			addChild(luuk);		
@@ -76,9 +79,11 @@ package nl.iTouch.eyecatcher
 				endFill();
 			}				
 			
-			timer.addEventListener(TimerEvent.TIMER, knipperend);
+			timer2.addEventListener(TimerEvent.TIMER, knipperend);
 			timer.addEventListener(TimerEvent.TIMER, beweegbord);
 			timer.start();
+			timer2.start();
+
 		}			
 		
 		public function ganaar(e:Event):void{
@@ -105,16 +110,16 @@ package nl.iTouch.eyecatcher
 			trace("bord: " +bord.x);
 						
 			if(bordje == false){
-				bord.x -=  7;	
-				bord.rotation += 0.5
+				bord.x -=  2;	
+				bord.rotation += 0.14
 				if(bord.x <= 350)
 				{
 					bordje = true;						
 				}
 			}				
 			else if(bordje == true){
-				bord.x +=  7;			
-				bord.rotation -= 0.5;
+				bord.x +=  2;			
+				bord.rotation -= 0.14;
 				if(bord.x >= 400)
 				{
 					bordje = false;			

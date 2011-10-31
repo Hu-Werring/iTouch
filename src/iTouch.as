@@ -11,6 +11,7 @@ package
 	import nid.ui.controls.VirtualKeyBoard;
 	
 	import nl.iTouch.*;
+	import nl.iTouch.eyecatcher.Eyecatcher;
 	import nl.iTouch.guessgame.GuessGame;
 	import nl.iTouch.maze.Maze;
 	import nl.iTouch.snake.Snake;
@@ -39,8 +40,10 @@ package
 			
 			var gui:Interface = new Interface();
 			
-			addChild(gui);
-			addChild(gh);
+		//	addChild(gui);
+		//	addChild(gh);
+			var test:Eyecatcher = new Eyecatcher();
+			addChild(test);
 			gui.addEventListener(Interface.START_SNAKE,startSnake);
 			gui.addEventListener(Interface.START_MAZE,startMaze);
 			gui.addEventListener(Interface.START_GUESS,startGuess);
