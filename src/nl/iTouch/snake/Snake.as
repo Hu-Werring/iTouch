@@ -26,13 +26,14 @@ package nl.iTouch.snake
 		private var _boekenkasten:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 1;
-		
-		//== objecten ==
-		private var gamearea:PlayAreaGraphic = new PlayAreaGraphic();
-		private var student:Student = new Student();
 		private var _deelX:Array = new Array();
 		private var _deelY:Array = new Array();
 		
+		//== objecten ==
+		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
+		private var student:Student = new Student();
+		private var gOscreen:GameOverScreen = new GameOverScreen();
+
 		//== snake variables ==
 		private var snakeParts:Array = new Array();
 		private var snakeMoveX:int = 1;
@@ -123,9 +124,9 @@ package nl.iTouch.snake
 			}
 			
 			//== create gamearea sprite ==
-			gamearea.x = _wall['left'] - (_gridSize/2);
-			gamearea.y = _wall['up'] - (_gridSize/2);
-			addChild(gamearea);
+			gameArea.x = _wall['left'] - (_gridSize/2);
+			gameArea.y = _wall['up'] - (_gridSize/2);
+			addChild(gameArea);
 			
 			//== create first part of the snake ==
 			var firstSnakePart:SnakePart = new SnakePart();
@@ -136,12 +137,17 @@ package nl.iTouch.snake
 			
 			//== create book en set to random position ==
 			addChild(student);
+			student.visible = false;
 			placeStudent();
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
 			
+			//== test ==
+			gOscreen.x = 22.5;
+			gOscreen.y = 52.5;
+			addChild(gOscreen);
 		}
 		
 		public function moveSnake(te:TimerEvent):void
@@ -270,6 +276,7 @@ package nl.iTouch.snake
 			}
 			else if(ke.keyCode == 32) //== spatie
 			{
+				removeChild(gOscreen);
 				play();
 			}
 		}
@@ -336,6 +343,7 @@ package nl.iTouch.snake
 		
 		public function gameOver():void
 		{
+			
 			_gameTimer.stop();
 		}
 		
