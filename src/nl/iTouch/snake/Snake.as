@@ -26,7 +26,8 @@ package nl.iTouch.snake
 		//game variables ==
 		private var _wall:Array = new Array();
 		private var _boekenkasten:Array = new Array();
-		private var _tafels:Array = new Array();
+		private var _tafelsV:Array = new Array();
+		private var _tafelsH:Array = new Array();
 		private var _gameTimer:Timer;
 		private var _spawnRate:int = 10;
 		private var _deelX:Array = new Array();
@@ -137,7 +138,7 @@ package nl.iTouch.snake
 					tafelV.x = 105 + ((j*225)*2);
 					tafelV.y = 585 + (k*195);
 					addChild(tafelV);
-					_tafels.push(tafelV);
+					_tafelsV.push(tafelV);
 				}
 			}
 			
@@ -149,7 +150,7 @@ package nl.iTouch.snake
 					tafelH.x = 300 + ((l*225)*2);
 					tafelH.y = 570 + (m*135);
 					addChild(tafelH);
-					_tafels.push(tafelH);
+					_tafelsH.push(tafelH);
 				}
 			}
 			
@@ -356,6 +357,8 @@ package nl.iTouch.snake
 			var nR:int = Math.random()*3;
 			
 			var kast:BoekenKast;
+			var tafelH:TafelHorizontal;
+			var tafelV:TafelVertical;
 			var error:Boolean = false;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
 			{ 
@@ -364,6 +367,54 @@ package nl.iTouch.snake
 				for (var k:int =0; k<kast.kastParts.length; k++){
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
 					if ((nX == kast.kastParts[k].x+kast.x) && (nY == kast.kastParts[k].y+kast.y))
+					{
+						error  = true;
+						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
+						nR = Math.random()*3;
+						*/
+						
+						
+						placeStudent();
+						break;
+					}
+					//trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					
+				}
+				if(error) break;
+			}
+			
+			for(var l:uint=0;l<_boekenkasten.length;l++)
+			{ 
+				
+				tafelV = _tafelsV[l] as TafelVertical;
+				for (var m:int =0; m<tafelV.tafelParts.length; m++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((nX == tafelV.tafelParts[m].x+tafelV.x) && (nY == tafelV.tafelParts[m].y+tafelV.y))
+					{
+						error  = true;
+						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
+						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
+						nR = Math.random()*3;
+						*/
+						
+						
+						placeStudent();
+						break;
+					}
+					//trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					
+				}
+				if(error) break;
+			}
+			
+			for(var n:uint=0;n<_boekenkasten.length;n++)
+			{ 
+				
+				tafelH = _tafelsH[n] as TafelHorizontal;
+				for (var p:int =0; p<tafelH.tafelParts.length; p++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((nX == tafelH.tafelParts[p].x+tafelH.x) && (nY == tafelH.tafelParts[p].y+tafelH.y))
 					{
 						error  = true;
 						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
