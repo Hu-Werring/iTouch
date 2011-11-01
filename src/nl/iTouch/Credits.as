@@ -13,7 +13,7 @@ package nl.iTouch
 		private function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			var cred:Credits = new(Credits);
+			var cred:CreditsImage = new CreditsImage();
 			addChild(cred);			
 		}
 		
