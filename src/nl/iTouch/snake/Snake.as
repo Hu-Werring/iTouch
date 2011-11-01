@@ -8,7 +8,11 @@ package nl.iTouch.snake
 	import flash.events.TimerEvent;
 	import flash.filters.ShaderFilter;
 	import flash.geom.Point;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
+	
+	import flashx.textLayout.formats.TextAlign;
 	
 	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
@@ -42,6 +46,7 @@ package nl.iTouch.snake
 		private var student:Student = new Student();
 		private var splashScreen:GameOverScreen = new GameOverScreen();
 		private var timerBar:TimerBar = new TimerBar();
+		private var scoreField:TextField = new TextField();
 		
 		//== effecten variables ==
 
@@ -181,6 +186,18 @@ package nl.iTouch.snake
 			timerBar.y = 300;
 			addChild(timerBar);
 			
+			//== create scorefield ==
+			
+			scoreField.x = 975;
+			scoreField.y = 60;
+			scoreField.width = 270;
+			scoreField.height = 90;
+			scoreField.border = true;
+			scoreField.defaultTextFormat = new TextFormat("Avenir", 40,null,true);
+			scoreField.backgroundColor = 0xffffff;
+			scoreField.text = String(_counter);
+			addChild(scoreField);
+			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
@@ -269,6 +286,7 @@ package nl.iTouch.snake
 				
 				//== score wordt hier opgetelt
 				_score += ((snakeParts.length-1) * ((_counter/10)/4))*5;
+				scoreField.text = String(int(_score));
 				trace(_score);
 			}
 			
