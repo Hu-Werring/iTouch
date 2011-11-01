@@ -154,8 +154,10 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwB.text = "B: " + boek.antwoorden[1];
 			_bookHolder.AntwC.text = "C: " + boek.antwoorden[2];
 			_bookHolder.AntwD.text = "D: " + boek.antwoorden[3];
-			
-			
+			_bookHolder.AntwA.wordWrap = true;
+			_bookHolder.AntwB.wordWrap = true;
+			_bookHolder.AntwC.wordWrap = true;
+			_bookHolder.AntwD.wordWrap = true;
 			
 			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
 			
