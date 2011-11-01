@@ -10,6 +10,8 @@ package nl.iTouch.guessgame
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.filters.BlurFilter;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
@@ -29,6 +31,7 @@ package nl.iTouch.guessgame
 		private var _loaded:Boolean = false;
 		
 		private var _bookHolder:Sprite = new Sprite();
+		private var _hint:TextField = new TextField();
 		
 		private var _timeLeft:int;
 		
@@ -93,7 +96,7 @@ package nl.iTouch.guessgame
 
 			for(var i:int = 0;i<_boekenlijst.length;i++)
 			{
-				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, estimatedBytes:2400, container:_bookHolder, alpha:0, width:500, height:347, scaleMode:"proportionalInside"}));
+				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, estimatedBytes:2400, container:_bookHolder, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
 				trace(_boekenlijst[i].image);
 			}
 			_queue.load();			
@@ -135,10 +138,22 @@ package nl.iTouch.guessgame
 			var blurY:BlurFilter = new BlurFilter(0,15);
 			var blurX:BlurFilter = new BlurFilter(10,0);
 			_bookHolder.filters = [blurX,blurY];
-			_bookHolder.x = 300;
-			_bookHolder.y= 400;
+			
 			addChild(_bookHolder);
-			trace(boek.naam,boek.image,boek.author,boek.desc,boek.antwoorden);
+			
+			addChild(_hint);
+			_hint.height = 300;
+			_hint.width = 450;
+			
+			_hint.x = stage.stageWidth - _hint.width-100;
+			_hint.y = 200;
+			_hint.defaultTextFormat = new TextFormat("Avenir", 20,null,true);
+			_hint.wordWrap = true;
+			_hint.border = true;
+			_hint.text  = boek.author + "\n";
+			_hint.defaultTextFormat = new TextFormat("Avenir", 20,null,false);
+			_hint.appendText(boek.desc);
+			
 			
 			TweenLite.to(LoaderMax.getContent(boek.naam),1,{alpha: 1});
 			
@@ -148,7 +163,7 @@ package nl.iTouch.guessgame
 		
 		public function stop(force:Boolean = false):void
 		{
-			
+			_queue.unload();
 		}
 		
 		public function credits():void
