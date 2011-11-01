@@ -78,7 +78,7 @@ package
 		private function tick(e:TimerEvent):void
 		{
 			var currentTime:int = new Date().getTime()/1000;
-			if(currentTime - _lastClick > 30){
+			if(currentTime - _lastClick > 70){
 				eyeCatcher.show();
 			}
 		}
