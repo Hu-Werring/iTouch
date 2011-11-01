@@ -14,7 +14,9 @@ package nl.iTouch
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var cred:CreditsImage = new CreditsImage();
-			addChild(cred);			
+			addChild(cred);	
+			var back:HomeButton = new HomeButton();
+			addChild(back);
 		}
 		
 		public function play():void
