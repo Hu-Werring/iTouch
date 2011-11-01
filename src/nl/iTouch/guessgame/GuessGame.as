@@ -39,7 +39,7 @@ package nl.iTouch.guessgame
 			
 			/*Should become XML if there is time left*/
 			_boekenlijst.push({ naam:'Rapporteren voor techniek en ICT',
-				Image:'rapporteren_voor_techniek_en_ict',
+				image:'rapporteren_voor_techniek_en_ict',
 				author:'Marcel Heerink',
 				desc:'Dit boek is een praktische handleiding voor het opstellen van rapporten in een specifieke omgeving. Aan de hand van duidelijke voorbeelden bespreekt de auteur de belangrijkste aspecten van verschillende soorten rapporten met betrekking tot techniek. De auteur besteedt ruime aandacht aan project- en procesgerichte rapportage en geeft aan wat voor de uiteenlopende rapportvarianten essentieel is.',
 				antwoorden:['Rapporteren de basis','Rapporteren voor Techniek en ICT','Rapport over rapporteren','Ethiek voor Techniek en ICT']
@@ -59,34 +59,32 @@ package nl.iTouch.guessgame
 			_boekenlijst.push({ naam:'Zo doe je een onderzoek',
 				image: 'zo_doe_je_een_onderzoek',
 				author:'Roel Grit/Mark Julsing',
-				
 				desc:'Organisaties, zoals bedrijven, instellingen en overheden, laten geregeld onderzoeken uitvoeren. Een afgestudeerde van hogeschool of universiteit moet daarom beschikken over onderzoeksvaardigheden. Veel studenten krijgen daarom vanaf het begin tot het eind van hun studie opdrachten om een onderzoek uit te voeren. Het eindproduct van het onderzoek is een onderzoeksrapport of een scriptie. Met dit boek voer je in acht stappen een onderzoek uit.',
 				antwoorden:['Statistiek in onderzoek','Wat is onderzoek?','Methoden en technieken van onderzoek','Zo doe je een onderzoek']
 			});
 			
 			_boekenlijst.push({	naam:'Elektrische netwerken',
-				image:' electrische_netwerken',
+				image:'electrische_netwerken',
 				author:'Paul Holmes',
-				
-				desc:' Dit boek is een toegankelijke inleiding op de theorie en praktijk: de essentiële stof voor iedere elektrotechnicus. Het boek bestaat uit drie delen. Het accent van dit boek ligt op praktische toepasbaarheid. Modelvorming, aansluiting bij de praktijk, probleemaanpak en technisch inzicht krijgen dan ook meer aandacht dan formele theoretische bewijsvorming.',
+				desc:'Dit boek is een toegankelijke inleiding op de theorie en praktijk: de essentiële stof voor iedere elektrotechnicus. Het boek bestaat uit drie delen. Het accent van dit boek ligt op praktische toepasbaarheid. Modelvorming, aansluiting bij de praktijk, probleemaanpak en technisch inzicht krijgen dan ook meer aandacht dan formele theoretische bewijsvorming.',
 				antwoorden:['Elektrische installatie techniek','Elektrische netwerken','Management in netwerken','Het elektrische woud']
 			});
 			_boekenlijst.push({	naam:'Computersystemen en embedded systemen',
 				
-				image:' Computersystemen_en_embedded_systemen',
-				 author:'L.J.M. van Moergestel',
-				desc:' Dit boek biedt een gedegen basiskennis op het gebied van computertechnieken waarbij ook de embedded systemen aan de orde komen. Daarnaast worden andere belangrijke,nieuwe systemen besproken zoals digital signal processing, Harvard-architectuur, bussystemen die bij embedded systemen een rol spelen, grafische beeldweergave, transmissietechnieken (van TDM en FDM tot ADSL), dataopslag in netwerken (NAS, SAN), optische disks (DVD), 64-bits multiprocessoren, en realtime scheduling (voor embedded systemen). ',
+				image:'Computersystemen_en_embedded_systemen',
+				author:'L.J.M. van Moergestel',
+				desc:'Dit boek biedt een gedegen basiskennis op het gebied van computertechnieken waarbij ook de embedded systemen aan de orde komen. Daarnaast worden andere belangrijke,nieuwe systemen besproken zoals digital signal processing, Harvard-architectuur, bussystemen die bij embedded systemen een rol spelen, grafische beeldweergave, transmissietechnieken (van TDM en FDM tot ADSL), dataopslag in netwerken (NAS, SAN), optische disks (DVD), 64-bits multiprocessoren, en realtime scheduling (voor embedded systemen). ',
 				antwoorden:['Embedded elextronics','Inleiding computersystemen','Computersystemen en embedded systemen','Computertechniek']
 				});
 			_boekenlijst.push({	naam:' Constructieprincipes',
-				image:' constuctie_principes',
+				image:'constuctie_principes',
 				author:'M.P. Koster',
 				
 				desc:' Ontwerpen hangt samen met het bedenken van iets nieuws. De vraag is: kun je dat leren? Ondanks het feit dat het bedenken als proces niet als opvallend methodisch en systematisch wordt gekenmerkt, valt hier toch een grote verbetering te bereiken. Dit boek wil de rol spelen van de ontwerper met een rijke ervaring, die bovendien deze ervaring op een toegankelijke manier heeft geordend. Het boek bestrijkt het deelveld van de werktuigbouwkunde dat zich kenmerkt door nauwkeurigheid in beweging en plaats.',
 				antwoorden:['Constructieprincipes','Werktuigbouwkunde voor hto','Constructies','Mechanica van construcites']
 				});
 			_boekenlijst.push({	naam:' Analyse van bedrijfsprocessen',
-				image:' analyse_van_bedrijfsprocessen',
+				image:'analyse_van_bedrijfsprocessen',
 				author:'Jan in \'t Veld',
 
 				desc:' Dit boek beschrijft de theorie en de praktijk van het denken in systemen, modellen, processen en regelkringen. Dit systeem en procesdenken wordt toegepast bij het analyseren van processen, bij het bepalen van de noodzakelijke informatiestromen en bij het ontwerpen van organisatiestructuren. Het boek vormt de basis voor een goed begrip van de voordelen en beperkingen van procesgerichte managementtechnieken als Total Quality Management, Logistiek en Supply Chain Management, Business Process Redesign en Workflow Management.',
