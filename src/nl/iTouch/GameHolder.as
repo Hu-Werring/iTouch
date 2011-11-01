@@ -24,6 +24,12 @@ package nl.iTouch
 			_status = GameHolder.CREATED;
 			this.addEventListener(Event.ADDED_TO_STAGE,init);
 		}
+		
+		public function get game():*
+		{
+			return _game;
+		}
+		
 		private function init(e:Event):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE,init);
@@ -84,6 +90,7 @@ package nl.iTouch
 		{
 			if(_visible && !_animate){
 				_animate = true;
+				_game.stop(true);
 				TweenLite.to(this,1,{x:stage.stageWidth/2,y:stage.stageHeight/2,height:0,width:0,onComplete:function():void{_animate = false; _visible = false;this.visible = false;  _status = GameHolder.GAME_INVISIBLE; dispatchEvent(new Event(GameHolder.GAME_INVISIBLE));}});
 			}
 		}
