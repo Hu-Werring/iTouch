@@ -40,7 +40,7 @@
 	<!-- <copyright></copyright> -->
 
 	<!-- Publisher ID. Used if you're updating an application created prior to 1.5.3 -->
-	<!--<publisherID>nl.iTouch</publisherID>-->
+	<!--<publisherID></publisherID>-->
 
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
@@ -52,7 +52,7 @@
 		<title>iTouch Arcade</title>
 
 		<!-- The type of system chrome to use (either "standard" or "none"). Optional. Default standard. -->
-		<systemChrome>none</systemChrome>
+		<systemChrome>standard</systemChrome>
 
 		<!-- Whether the window is transparent. Only applicable when systemChrome is none. Optional. Default false. -->
 		<transparent>false</transparent>
