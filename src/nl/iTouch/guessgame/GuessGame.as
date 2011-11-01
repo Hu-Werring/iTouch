@@ -61,7 +61,7 @@ package nl.iTouch.guessgame
 
 			for(var i:int = 0;i<_boekenlijst.length;i++)
 			{
-				_queue.append(new ImageLoader(_boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, estimatedBytes:2400, container:_bookHolder, alpha:0, width:500, height:347, scaleMode:"proportionalInside"}));
+				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, estimatedBytes:2400, container:_bookHolder, alpha:0, width:500, height:347, scaleMode:"proportionalInside"}));
 				trace(_boekenlijst[i].image);
 			}
 			_queue.load();			
