@@ -22,7 +22,7 @@ package nl.iTouch.snake
 			b.alpha = 0.4;
 			addChild(b);
 			
-			for (var i:int = 0; i < 61; i++)
+			/*for (var i:int = 0; i < 61; i++)
 			{
 				var lineH:GridLine = new GridLine();
 				lineH.x = 22.5;
@@ -34,7 +34,7 @@ package nl.iTouch.snake
 				lineV.x = 22.5 + (i*15);
 				lineV.y = 52.5;
 				addChild(lineV);
-			}
+			}*/
 		}
 	}
 }
