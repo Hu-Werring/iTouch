@@ -6,6 +6,9 @@ package nl.iTouch.guessgame
 	import com.greensock.loading.LoaderMax;
 	import com.greensock.loading.display.ContentDisplay;
 	
+	import effects.TwirlEffect;
+	
+	import flash.display.Loader;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -34,7 +37,11 @@ package nl.iTouch.guessgame
 		private var _hint:TextField = new TextField();
 		
 		private var _timeLeft:int;
+		private var effect:TwirlEffect = new TwirlEffect();
+		private var effects:int;
 		
+		private var blurY:BlurFilter = new BlurFilter(0,15);
+		private var blurX:BlurFilter = new BlurFilter(10,0);
 		public function GuessGame()
 		{
 			_queue = new LoaderMax({name:'mainQueue',onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
@@ -96,7 +103,7 @@ package nl.iTouch.guessgame
 
 			for(var i:int = 0;i<_boekenlijst.length;i++)
 			{
-				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, estimatedBytes:2400, container:_bookHolder, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
+				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
 				trace(_boekenlijst[i].image);
 			}
 			_queue.load();			
@@ -135,8 +142,6 @@ package nl.iTouch.guessgame
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
 			var boek:Object = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
 			
-			var blurY:BlurFilter = new BlurFilter(0,15);
-			var blurX:BlurFilter = new BlurFilter(10,0);
 			_bookHolder.filters = [blurX,blurY];
 			
 			addChild(_bookHolder);
@@ -155,12 +160,33 @@ package nl.iTouch.guessgame
 			_hint.appendText(boek.desc);
 			
 			
-			TweenLite.to(LoaderMax.getContent(boek.naam),1,{alpha: 1});
+			
+			
+			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
+			
+			effect.x = (this.parent.width-effect.width)/2
+			effect.y = (this.parent.height-effect.height)/2
+			_bookHolder.addChild(effect);
+			effect.effectIn(loader.rawContent);
+			effects = 3;
+			_bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
 			
 		}
-		
-		
-		
+		private function disableEffects(e:MouseEvent):void
+		{
+			switch(effects){
+				case 3:
+					effect.disable();
+				break;
+				case 2:
+					_bookHolder.filters = [blurX];
+				break;
+				case 1:
+					_bookHolder.filters = [];
+				break;
+			}
+			effects--;
+		}
 		public function stop(force:Boolean = false):void
 		{
 			_queue.unload();
