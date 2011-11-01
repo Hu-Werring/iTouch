@@ -8,7 +8,7 @@ package nl.iTouch.ui
 	import nl.iTouch.Credits;
 	import nl.iTouch.iButton;
 	
-	public class Button3 extends Sprite
+	public class Button4 extends Sprite
 	{
 		private var knop:MovieClip;
 		public function Button4(){ 
@@ -21,7 +21,7 @@ package nl.iTouch.ui
 		
 		public function Buttonfunction(e:MouseEvent):void
 		{
-			this.parent.dispatchEvent(new Event(Interface.START_CREDIT));
+			this.parent.dispatchEvent(new Event(Interface.START_CREDITS));
 		}
 		
 		public function setPos(_x:int,_y:int):void

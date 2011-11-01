@@ -7,7 +7,6 @@ package nl.iTouch
 	{
 		public function Credits()
 		{
-			super();
 			addEventListener(Event.ADDED_TO_STAGE,init);
 		}
 		

@@ -8,7 +8,7 @@ package nl.iTouch.ui
 		public static const START_SNAKE:String = 'startSnake';
 		public static const START_MAZE:String = 'startMaze';
 		public static const START_GUESS:String = 'startGuess';
-		public static const START_CREDIT:String = 'startCredit';
+		public static const START_CREDITS:String = 'startCredits';
 		
 		public function Interface()
 		{
@@ -28,7 +28,7 @@ package nl.iTouch.ui
 			button1.setPos(305,368);
 			button2.setPos(562,379);
 			button3.setPos(820,380);
-			button4.setPos(1020,380);
+			button4.setPos(1087,368);
 			addChild( bgui);
 			addChild( button1);
 			addChild( button2);
