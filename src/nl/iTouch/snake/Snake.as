@@ -225,6 +225,11 @@ package nl.iTouch.snake
 				collisionCheck = true;
 				gameOver();
 			}
+			else if (hitTafel(nX,nY))
+			{
+				collisionCheck = true;
+				gameOver();
+			}
 			
 			//== collision check met student ==
 			if((nX == student.x) && (nY == student.y))
@@ -618,6 +623,39 @@ package nl.iTouch.snake
 				for (var k:int =0; k<kast.kastParts.length; k++){
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
 					if ((nX == (kast.kastParts[k].x+kast.x)) && (nY == (kast.kastParts[k].y+kast.y)))
+					{
+						return true;
+					}
+				}
+			}
+			
+			return false;
+		}
+		
+		public function hitTafel(nX:int,nY:int):Boolean
+		{
+			var tafelV:TafelVertical;
+			for(var j:uint=0;j<_boekenkasten.length;j++)
+			{ 
+				
+				tafelV = _tafelsV[j] as TafelVertical;
+				for (var k:int =0; k<tafelV.tafelParts.length; k++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((nX == (tafelV.tafelParts[k].x+tafelV.x)) && (nY == (tafelV.tafelParts[k].y+tafelV.y)))
+					{
+						return true;
+					}
+				}
+			}
+			
+			var tafelH:TafelHorizontal;
+			for(var l:uint=0;l<_tafelsH.length;l++)
+			{ 
+				
+				tafelH = _tafelsH[l] as TafelHorizontal;
+				for (var m:int = 0 ; m < tafelH.tafelParts.length; m++){
+					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
+					if ((nX == (tafelH.tafelParts[m].x+tafelH.x)) && (nY == (tafelH.tafelParts[m].y+tafelH.y)))
 					{
 						return true;
 					}
