@@ -21,7 +21,7 @@ package nl.iTouch.snake
 		private const _gridSize:uint = 15;
 		private const _areaSize:uint = 885; //== moet deelbaar zijn door gridSize ==
 		private const _snakeStartPoint:Point = new Point(465,510);//== beide punten moeten deelbaar zijn door gridSize (of 0)
-		private const _timerStartSpeed:int = 200; //== begin snelheid van de gametimer
+		private const _timerStartSpeed:int = 250; //== begin snelheid van de gametimer
 		
 		//game variables ==
 		private var _wall:Array = new Array();
@@ -29,7 +29,10 @@ package nl.iTouch.snake
 		private var _tafelsV:Array = new Array();
 		private var _tafelsH:Array = new Array();
 		private var _gameTimer:Timer;
-		private var _spawnRate:int = 10;
+		private var _counter:uint;
+		private var _counterLenght:uint = 200;
+		private var _studentTimer:Timer;
+		private var _spawnRate:int = 1;
 		private var _deelX:Array = new Array();
 		private var _deelY:Array = new Array();
 		private var _score:uint;
@@ -38,6 +41,7 @@ package nl.iTouch.snake
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
 		private var student:Student = new Student();
 		private var splashScreen:GameOverScreen = new GameOverScreen();
+		private var timerBar:TimerBar = new TimerBar();
 		
 		//== effecten variables ==
 
@@ -171,9 +175,19 @@ package nl.iTouch.snake
 			student.visible = false;
 			placeStudent();
 			
+			//== create timer bar ==
+			_counter = _counterLenght;
+			timerBar.x = 975;
+			timerBar.y = 300;
+			addChild(timerBar);
+			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
+			
+			//== student timer ==
+			_studentTimer = new Timer(100);
+			_studentTimer.addEventListener(TimerEvent.TIMER, pickUpCounter);
 			
 			//== test ==
 			splashScreen.splash.addEventListener(MouseEvent.CLICK, splashScreenTouch);
@@ -248,8 +262,14 @@ package nl.iTouch.snake
 					_gameTimer.delay -= 2;
 				}
 				
+				if(_counterLenght >= 100)
+				{
+					_counterLenght -= 2;
+				}
+				
 				//== score wordt hier opgetelt
-				_score += 10;
+				_score += ((snakeParts.length-1) * ((_counter/10)/4))*5;
+				trace(_score);
 			}
 			
 			placeTail();
@@ -357,6 +377,8 @@ package nl.iTouch.snake
 		
 		public function placeStudent():void
 		{
+			_counter = _counterLenght;;
+			
 			var nX:int = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
 			var nY:int = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
 			var nR:int = Math.random()*3;
@@ -448,6 +470,7 @@ package nl.iTouch.snake
 			submit.y = (stage.stageHeight-submit.height)/2;
 			addChild(submit);
 			
+			_studentTimer.stop();
 			_gameTimer.stop();
 		}
 		
@@ -456,6 +479,7 @@ package nl.iTouch.snake
 			if (!_gameTimer.running)
 			{
 				resetSnake();
+				_studentTimer.start();
 				_gameTimer.start();
 			}
 		}
@@ -652,6 +676,18 @@ package nl.iTouch.snake
 			}
 			
 			return false;
+		}
+		
+		public function pickUpCounter(te:TimerEvent):void
+		{
+			_counter--;
+			
+			if(_counter == 0)
+			{
+				placeStudent();
+			}
+			
+			timerBar.scaleX = _counter/_counterLenght;
 		}
 	}
 }
