@@ -5,7 +5,7 @@ package nl.iTouch.ui
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	//import nl.iTouch.credit.Credit;
+	import nl.iTouch.Credits;
 	import nl.iTouch.iButton;
 	
 	public class Button3 extends Sprite
@@ -21,7 +21,7 @@ package nl.iTouch.ui
 		
 		public function Buttonfunction(e:MouseEvent):void
 		{
-			this.parent.dispatchEvent(new Event(Interface.START_GUESS));
+			this.parent.dispatchEvent(new Event(Interface.START_CREDIT));
 		}
 		
 		public function setPos(_x:int,_y:int):void
