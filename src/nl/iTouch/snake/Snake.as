@@ -133,25 +133,25 @@ package nl.iTouch.snake
 			{
 				for(var k:int = 0;k<2;k++)
 				{
-					var tafel:TafelVertical = new TafelVertical();
-					tafel.x = 105 + ((j*225)*2);
-					tafel.y = 585 + (k*195);
-					addChild(tafel);
-					_tafels.push(tafel);
+					var tafelV:TafelVertical = new TafelVertical();
+					tafelV.x = 105 + ((j*225)*2);
+					tafelV.y = 585 + (k*195);
+					addChild(tafelV);
+					_tafels.push(tafelV);
 				}
 			}
 			
-			/*for(var j:int = 0;j<2;j++)
+			for(var l:int = 0;l<2;l++)
 			{
-				for(var k:int = 0;k<2;k++)
+				for(var m:int = 0;m<3;m++)
 				{
-					var tafel:tafel
-					tafel.x = 105 + ((j*225)*2);
-					tafel.y = 585 + (k*195);
-					addChild(tafel);
-					_tafels.push(tafel);
+					var tafelH:TafelHorizontal = new TafelHorizontal();
+					tafelH.x = 300 + ((l*225)*2);
+					tafelH.y = 570 + (m*135);
+					addChild(tafelH);
+					_tafels.push(tafelH);
 				}
-			}*/
+			}
 			
 			//== create gamearea sprite ==
 			gameArea.x = _wall['left'] - (_gridSize/2);
