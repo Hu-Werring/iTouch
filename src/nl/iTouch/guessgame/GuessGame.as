@@ -33,8 +33,7 @@ package nl.iTouch.guessgame
 		private var _queue:LoaderMax;
 		private var _loaded:Boolean = false;
 		
-		private var _bookHolder:Sprite = new Sprite();
-		private var _hint:TextField = new TextField();
+		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
 		private var _timeLeft:int;
 		private var effect:TwirlEffect = new TwirlEffect();
@@ -115,6 +114,7 @@ package nl.iTouch.guessgame
 			removeEventListener(Event.ADDED_TO_STAGE,init);
 			if(_loaded) play();
 			
+			addChild(_bookHolder);
 			
 		}
 		
@@ -142,34 +142,27 @@ package nl.iTouch.guessgame
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
 			var boek:Object = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
 			
-			_bookHolder.filters = [blurX,blurY];
+			_bookHolder.bookHolder.filters = [blurX,blurY];
 			
-			addChild(_bookHolder);
+			_bookHolder.authorTF.text = boek.author;
+			_bookHolder.descTF.text = boek.desc;
 			
-			addChild(_hint);
-			_hint.height = 300;
-			_hint.width = 450;
+			trace(boek.author,boek.desc);
 			
-			_hint.x = stage.stageWidth - _hint.width-100;
-			_hint.y = 200;
-			_hint.defaultTextFormat = new TextFormat("Avenir", 20,null,true);
-			_hint.wordWrap = true;
-			_hint.border = true;
-			_hint.text  = boek.author + "\n";
-			_hint.defaultTextFormat = new TextFormat("Avenir", 20,null,false);
-			_hint.appendText(boek.desc);
 			
+			_bookHolder.AntwA.text = "A: " + boek.antwoorden[0];
+			_bookHolder.AntwB.text = "B: " + boek.antwoorden[1];
+			_bookHolder.AntwC.text = "C: " + boek.antwoorden[2];
+			_bookHolder.AntwD.text = "D: " + boek.antwoorden[3];
 			
 			
 			
 			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
 			
-			effect.x = (this.parent.width-effect.width)/2
-			effect.y = (this.parent.height-effect.height)/2
-			_bookHolder.addChild(effect);
+			_bookHolder.bookHolder.addChild(effect);
 			effect.effectIn(loader.rawContent);
 			effects = 3;
-			_bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
+			_bookHolder.bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
 			
 		}
 		private function disableEffects(e:MouseEvent):void
@@ -179,10 +172,10 @@ package nl.iTouch.guessgame
 					effect.disable();
 				break;
 				case 2:
-					_bookHolder.filters = [blurX];
+					_bookHolder.bookHolder.filters = [blurX];
 				break;
 				case 1:
-					_bookHolder.filters = [];
+					_bookHolder.bookHolder.filters = [];
 				break;
 			}
 			effects--;

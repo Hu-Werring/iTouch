@@ -40,6 +40,7 @@ package nl.iTouch.snake
 		private var _deelX:Array = new Array();
 		private var _deelY:Array = new Array();
 		private var _score:uint;
+		private var _hints:Array = new Array();
 		
 		//== objecten ==
 		private var gameArea:PlayAreaGraphic = new PlayAreaGraphic();
@@ -47,6 +48,7 @@ package nl.iTouch.snake
 		private var splashScreen:GameOverScreen = new GameOverScreen();
 		private var timerBar:TimerBar = new TimerBar();
 		private var scoreField:TextField = new TextField();
+		private var hintField:TextField = new TextField();
 		
 		//== effecten variables ==
 
@@ -78,6 +80,18 @@ package nl.iTouch.snake
 				
 			var list:Sprite = hs.highScoreList();
 			addChild(list);*/
+			
+			_hints.push("Lucas is een boek aan het zoeken in de afdeling Studio"); //== blauw boven ==
+			_hints.push("hint 2"); //== zilver boven ==
+			_hints.push("hint 3"); //== oranje boven ==
+			_hints.push("hint 4"); //== rood boven ==
+			
+			_hints.push("Lucas is aan het werk bij de computers van Studio"); //== blauw onder ==
+			_hints.push("hint 6"); //== zilver onder ==
+			_hints.push("hint 7"); //== oranje onder ==
+			_hints.push("hint 8"); //== rood onder ==
+			
+			_hints.push("hint 9"); //== gangpad ==
 			
 			_deelX.push(2 * _gridSize - (_gridSize/2));
 			_deelX.push(17 * _gridSize - (_gridSize/2));
@@ -195,8 +209,18 @@ package nl.iTouch.snake
 			scoreField.border = true;
 			scoreField.defaultTextFormat = new TextFormat("Avenir", 40,null,true);
 			scoreField.backgroundColor = 0xffffff;
-			scoreField.text = String(_counter);
+			scoreField.text = String(_score);
 			addChild(scoreField);
+			
+			hintField.x = 975;
+			hintField.y = 350;
+			hintField.width = 270;
+			hintField.height = 135;
+			hintField.border = true;
+			hintField.defaultTextFormat = new TextFormat("Avenir", 20,null,true);
+			hintField.backgroundColor = 0xffffff;
+			//hintField.text = String(_score);
+			addChild(hintField);
 			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
@@ -473,6 +497,49 @@ package nl.iTouch.snake
 				student.x = nX;
 				student.y = nY;
 				student.rotation = 90 * nR;
+				
+				if ((student.y > _deelY[0]) && (student.y < _deelY[1]))
+				{
+					if ((student.x > _deelX[0]) && (student.x < _deelX[1]))
+					{
+						hintField.text = _hints[0];
+					}
+					else if ((student.x > _deelX[1]) && (student.x < _deelX[2]))
+					{
+						hintField.text = _hints[1];
+					}
+					else if ((student.x > _deelX[2]) && (student.x < _deelX[3]))
+					{
+						hintField.text = _hints[2];
+					}
+					else if ((student.x > _deelX[3]) && (student.x < _deelX[4]))
+					{
+						hintField.text = _hints[3];
+					}
+				}
+				else if ((student.y > _deelY[1]) && (student.y < _deelY[2]))
+				{
+					hintField.text = _hints[8];
+				}
+				else if ((student.y > _deelY[2]) && (student.y < _deelY[3]))
+				{
+					if ((student.x > _deelX[0]) && (student.x < _deelX[1]))
+					{
+						hintField.text = _hints[4];
+					}
+					else if ((student.x > _deelX[1]) && (student.x < _deelX[2]))
+					{
+						hintField.text = _hints[5];
+					}
+					else if ((student.x > _deelX[2]) && (student.x < _deelX[3]))
+					{
+						hintField.text = _hints[6];
+					}
+					else if ((student.x > _deelX[3]) && (student.x < _deelX[4]))
+					{
+						hintField.text = _hints[7];
+					}
+				}
 			}
 		}
 		

@@ -42,7 +42,7 @@ package
 		public function iTouch(){
 			
 			//Mouse.hide();
-			//stage.displayState = StageDisplayState.FULL_SCREEN;
+			stage.displayState = StageDisplayState.FULL_SCREEN;
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -78,7 +78,7 @@ package
 		private function tick(e:TimerEvent):void
 		{
 			var currentTime:int = new Date().getTime()/1000;
-			if(currentTime - _lastClick > 30){
+			if(currentTime - _lastClick > 70){
 				eyeCatcher.show();
 			}
 		}
