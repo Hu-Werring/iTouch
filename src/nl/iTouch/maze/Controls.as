@@ -37,7 +37,6 @@ package nl.iTouch.maze
 			this.tubeTilesHolder.x = 20;
 			this.tubeTilesHolder.y = 20;
 			addChild(this.tubeTilesHolder);
-			trace(this.tubeTilesHolder.width);
 			
 			var nextTubeTileBtn:MovieClip = new MovieClip();
 			nextTubeTileBtn.graphics.beginFill(0xFF0000);
@@ -68,6 +67,8 @@ package nl.iTouch.maze
 		private function nextTubeTile(e:MouseEvent):void
 		{
 			trace('nexttubetile');
+			this.tubeTilesHolder.removeChild(this.tubeTilesOrder.shift());
+			this.addTubeTile();
 		}
 		
 		private function trashTubeTile(e:MouseEvent):void
@@ -133,7 +134,6 @@ package nl.iTouch.maze
 			TweenLite.killTweensOf(tile);
 			if(index==0)
 			{
-				trace('ty'+this.tubeTilesHolder.y);
 				TweenLite.to(tile,1,{y:this.tubeTilesY[index]});
 			}
 			else

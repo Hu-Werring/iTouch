@@ -87,9 +87,6 @@ package nl.iTouch.maze
 				this.setTile(tiles[i]-1, new maze_bookCase());
 				this.tilesObj[tiles[i]-1].solid = true;
 				this.tilesObj[tiles[i]-1].removeEventListener(MouseEvent.CLICK, tileClicked);
-				trace(tilesObj[tiles[i]-1].solid);
-
-				trace(this.tilesObj[tiles[i]-1].toString());
 			}
 		}
 		
@@ -164,7 +161,6 @@ package nl.iTouch.maze
 		
 		private function tileClicked(e:Event):void
 		{
-			trace('tile: '+e.target+' traced');
 			this.clickedTile = e.target;
 			dispatchEvent(new Event('tileClicked'));
 		}
