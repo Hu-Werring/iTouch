@@ -171,7 +171,7 @@ package nl.iTouch.snake
 			student.visible = false;
 			placeStudent();
 			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
+			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
 			_gameTimer.addEventListener(TimerEvent.TIMER, moveSnake);
 			
@@ -364,6 +364,7 @@ package nl.iTouch.snake
 			var kast:BoekenKast;
 			var tafelH:TafelHorizontal;
 			var tafelV:TafelVertical;
+			
 			var error:Boolean = false;
 			for(var j:uint=0;j<_boekenkasten.length;j++)
 			{ 
@@ -389,7 +390,7 @@ package nl.iTouch.snake
 				if(error) break;
 			}
 			
-			for(var l:uint=0;l<_boekenkasten.length;l++)
+			for(var l:uint=0;l<_tafelsV.length;l++)
 			{ 
 				
 				tafelV = _tafelsV[l] as TafelVertical;
@@ -398,11 +399,6 @@ package nl.iTouch.snake
 					if ((nX == tafelV.tafelParts[m].x+tafelV.x) && (nY == tafelV.tafelParts[m].y+tafelV.y))
 					{
 						error  = true;
-						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
-						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
-						nR = Math.random()*3;
-						*/
-						
 						
 						placeStudent();
 						break;
@@ -413,7 +409,7 @@ package nl.iTouch.snake
 				if(error) break;
 			}
 			
-			for(var n:uint=0;n<_boekenkasten.length;n++)
+			for(var n:uint=0;n<_tafelsH.length;n++)
 			{ 
 				
 				tafelH = _tafelsH[n] as TafelHorizontal;
@@ -422,16 +418,11 @@ package nl.iTouch.snake
 					if ((nX == tafelH.tafelParts[p].x+tafelH.x) && (nY == tafelH.tafelParts[p].y+tafelH.y))
 					{
 						error  = true;
-						/*nX = Math.floor(Math.random() * (_wall['right'] - _wall['left']) / _gridSize) * _gridSize + _wall['left'];
-						nY = Math.floor(Math.random() * (_wall['down'] - _wall['up']) / _gridSize) * _gridSize + _wall['up'];
-						nR = Math.random()*3;
-						*/
-						
-						
+								
 						placeStudent();
 						break;
 					}
-					//trace ("nx",nX, 'kast',kast.kastParts[k].x+kast.x,'ny',nY,'kast',kast.kastParts[k].y+kast.y);
+					//trace ("nx",nX, 'tafelH',tafelH.tafelParts[p].x+tafelH.x,'ny',nY,'tafelH',tafelH.tafelParts[p].y+tafelH.y);
 					
 				}
 				if(error) break;
@@ -439,9 +430,9 @@ package nl.iTouch.snake
 			
 			if(!error)
 			{
-			student.x = nX;
-			student.y = nY;
-			student.rotation = 90 * nR;
+				student.x = nX;
+				student.y = nY;
+				student.rotation = 90 * nR;
 			}
 		}
 		
@@ -635,9 +626,8 @@ package nl.iTouch.snake
 		public function hitTafel(nX:int,nY:int):Boolean
 		{
 			var tafelV:TafelVertical;
-			for(var j:uint=0;j<_boekenkasten.length;j++)
+			for(var j:uint=0;j<_tafelsV.length;j++)
 			{ 
-				
 				tafelV = _tafelsV[j] as TafelVertical;
 				for (var k:int =0; k<tafelV.tafelParts.length; k++){
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
@@ -651,7 +641,6 @@ package nl.iTouch.snake
 			var tafelH:TafelHorizontal;
 			for(var l:uint=0;l<_tafelsH.length;l++)
 			{ 
-				
 				tafelH = _tafelsH[l] as TafelHorizontal;
 				for (var m:int = 0 ; m < tafelH.tafelParts.length; m++){
 					//trace("kast =",j,"| x",kast.kastParts[k].x+kast.x,"| y",kast.kastParts[k].y+kast.y);
