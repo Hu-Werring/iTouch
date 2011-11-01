@@ -13,7 +13,7 @@ package nl.iTouch.maze
 		public var tubetilesholderheight:int;
 		private var prevY:int = 0;
 		private var tubeTilesY:Array = new Array();
-		private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble);
+		private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble1, maze_curveDouble2, maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
 		
 		public function Controls()
 		{
@@ -23,8 +23,6 @@ package nl.iTouch.maze
 			this.x = 1120;
 			this.y = 0;
 			
-			var tubeTiles:Array = new Array(maze_cross,maze_curveDouble);
-
 			this.tubeTilesHolder = new MovieClip();
 			this.tubeTilesHolder.graphics.beginFill(0xFF0000);
 			this.tubeTilesHolder.graphics.drawRect(0,0,this.width-40, this.height-439);
