@@ -5,6 +5,8 @@ package nl.iTouch.maze
 	import flash.events.*;
 	
 	import nl.iTouch.*;
+	import com.greensock.TweenLite;
+
 	
 	public class Maze extends Sprite implements Game 
 	{
@@ -57,13 +59,19 @@ package nl.iTouch.maze
 			addChild(this.lucas);
 		}
 
-		private function placeTubeTile(e:Event)
+		private function placeTubeTile(e:Event):void
 		{
-			//this.grid.setTile(this.grid.clickedTile.nr);
-			trace(e.target.toString());
-			trace(this.Control.tubeTilesOrder[0]);
-			this.grid.setTile(this.grid.clickedTile.tileNr, this.Control.tubeTilesOrder.shift());
-			trace(this.Control.tubeTilesHolder[this.Control.tubeTilesOrder[0]]);
+				var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
+				tmpMc.width = 80;
+				tmpMc.width = 80;
+				TweenLite.killTweensOf(tmpMc);
+				tmpMc.x = this.grid.clickedTile.x;
+				tmpMc.y = this.grid.clickedTile.y;
+				tmpMc.tileNr = this.grid.clickedTile.tileNr;
+				tmpMc.alpha = 0.5
+				//this.grid.colorTile(this.grid.clickedTile.tileNr, 0xFFFFFF);
+				this.grid.setTile(this.grid.clickedTile.tileNr, tmpMc);
+				this.Control.addTubeTile();
 		}
 		
 		//Kleur het grid in zodat het een mediatheek lijkt.
