@@ -32,7 +32,7 @@ package nl.iTouch.guessgame
 		
 		private var _queue:LoaderMax;
 		private var _loaded:Boolean = false;
-		
+		private var boek:Object;
 		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
 		private var _timeLeft:int;
@@ -83,7 +83,7 @@ package nl.iTouch.guessgame
 				image:'Computersystemen_en_embedded_systemen',
 				author:'L.J.M. van Moergestel',
 				desc:'Dit boek biedt een gedegen basiskennis op het gebied van computertechnieken waarbij ook de embedded systemen aan de orde komen. Daarnaast worden andere belangrijke,nieuwe systemen besproken zoals digital signal processing, Harvard-architectuur, bussystemen die bij embedded systemen een rol spelen, grafische beeldweergave, transmissietechnieken (van TDM en FDM tot ADSL), dataopslag in netwerken (NAS, SAN), optische disks (DVD), 64-bits multiprocessoren, en realtime scheduling (voor embedded systemen). ',
-				antwoorden:['Embedded elextronics','Inleiding computersystemen','Computersystemen en embedded systemen','Computertechniek']
+				antwoorden:['Embedded electronics','Inleiding computersystemen','Computersystemen en embedded systemen','Computertechniek']
 				});
 			_boekenlijst.push({	naam:' Constructieprincipes',
 				image:'constuctie_principes',
@@ -115,7 +115,12 @@ package nl.iTouch.guessgame
 			if(_loaded) play();
 			
 			addChild(_bookHolder);
-			
+			_bookHolder.AntwA.text = "";
+			_bookHolder.AntwB.text = "";
+			_bookHolder.AntwC.text = "";
+			_bookHolder.AntwD.text = "";
+			_bookHolder.authorTF.text = "";
+			_bookHolder.descTF.text = "";
 		}
 		
 		private function completeHandler(e:LoaderEvent):void
@@ -140,8 +145,7 @@ package nl.iTouch.guessgame
 		private function startGame(e:MouseEvent):void
 		{
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
-			var boek:Object = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
-			
+			boek = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
 			_bookHolder.bookHolder.filters = [blurX,blurY];
 			
 			_bookHolder.authorTF.text = boek.author;
@@ -158,6 +162,13 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwB.wordWrap = true;
 			_bookHolder.AntwC.wordWrap = true;
 			_bookHolder.AntwD.wordWrap = true;
+			_bookHolder.AntwA.addEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwB.addEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwC.addEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwD.addEventListener(MouseEvent.CLICK,answerQ);
+			
+			
+			
 			
 			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
 			
@@ -167,6 +178,15 @@ package nl.iTouch.guessgame
 			_bookHolder.bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
 			
 		}
+		
+		private function answerQ(e:MouseEvent):void
+		{
+			var tf:TextField = e.currentTarget as TextField;
+			
+			trace(tf.text.substr(3),boek.naam);
+			if(tf.text.substr(3) == boek.naam) trace('Match!');
+		}
+		
 		private function disableEffects(e:MouseEvent):void
 		{
 			switch(effects){
@@ -174,7 +194,7 @@ package nl.iTouch.guessgame
 					effect.disable();
 				break;
 				case 2:
-					_bookHolder.bookHolder.filters = [blurX];
+					_bookHolder.bookHolder.filters = [blurY];
 				break;
 				case 1:
 					_bookHolder.bookHolder.filters = [];
