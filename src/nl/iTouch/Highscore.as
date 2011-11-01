@@ -160,7 +160,7 @@ package nl.iTouch
 		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{
-			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Naam" };
+			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Je hebt de highscore behaald,\nType je naam." };
 		}
 		private function hideKB():void
 		{
