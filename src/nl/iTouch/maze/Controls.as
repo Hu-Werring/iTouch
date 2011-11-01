@@ -10,6 +10,10 @@ package nl.iTouch.maze
 		public var tubeTilesHolder:MovieClip;
 		public var tubeTilesOrder:Array = new Array();
 		public var tubeTilePadding:int = 10;
+		public var tubetilesholderheight:int;
+		private var prevY:int = 0;
+		private var tubeTilesY:Array = new Array();
+		private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble);
 		
 		public function Controls()
 		{
@@ -29,6 +33,7 @@ package nl.iTouch.maze
 			this.tubeTilesHolder.graphics.endFill();
 			this.tubeTilesHolder.width = this.width - 40;
 			this.tubeTilesHolder.height = this.height - 439;
+			this.tubetilesholderheight = this.tubeTilesHolder.height;
 			this.tubeTilesHolder.x = 20;
 			this.tubeTilesHolder.y = 20;
 			addChild(this.tubeTilesHolder);
@@ -72,15 +77,25 @@ package nl.iTouch.maze
 		
 		private function fillTubeTileHolder():void
 		{	
-			var prevHeight:Number = 0;
 			//var prevY = 0;
 
 			for(var i:int=0;i<5;i++)
 			{
-				var tmpTile:MovieClip = new maze_cross();
+				var tmpTile:MovieClip = new this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]();
 				tmpTile.width = this.tubeTilesHolder.width - tubeTilePadding;
 				tmpTile.height = tmpTile.width;
 				tmpTile.x = tubeTilePadding/2;
+				if(i==0)
+				{
+					tmpTile.y = this.tubetilesholderheight - tmpTile.height - (tubeTilePadding/2);
+					prevY = tmpTile.y - (tubeTilePadding/2);
+				}
+				else
+				{
+					tmpTile.y = prevY - tmpTile.height - (tubeTilePadding/2);
+					prevY = tmpTile.y
+				}
+				/*tmpTile.x = tubeTilePadding/2;
 				tmpTile.y = (tubeTilePadding/2) + prevHeight;
 				if(i==4)
 				{
@@ -88,21 +103,24 @@ package nl.iTouch.maze
 				}
 				prevHeight = tmpTile.y + tmpTile.height ;
 				//prevY += tmpTile.y;
-				trace(prevHeight);
-				this.tubeTilesOrder.unshift(tmpTile);
+				trace(prevHeight);*/
+				this.tubeTilesOrder.push(tmpTile);
 				this.tubeTilesHolder.addChild(tmpTile);
+				
+				this.tubeTilesY.push(tmpTile.y);
 			}	
+			
 			
 		}
 		
 		public function addTubeTile():void
 		{
 			var lastTubeTile:MovieClip = this.tubeTilesOrder[this.tubeTilesOrder.length-1];
-			var newTubeTile:MovieClip = new maze_cross();
+			var newTubeTile:MovieClip = new this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]();
 			newTubeTile.height = lastTubeTile.height;
 			newTubeTile.width = lastTubeTile.width;
 			newTubeTile.x = lastTubeTile.x;
-			newTubeTile.y = (lastTubeTile.y - lastTubeTile.height) - tubeTilePadding;
+			newTubeTile.y = (lastTubeTile.y - lastTubeTile.height) + tubeTilePadding/2;
 			this.tubeTilesOrder.push(newTubeTile);
 			this.tubeTilesHolder.addChild(newTubeTile)
 			//this.moveTubeTiles();
@@ -112,13 +130,15 @@ package nl.iTouch.maze
 		
 		private function moveTubeTile(tile:MovieClip, index:int, refArray:Array):void
 		{
+			TweenLite.killTweensOf(tile);
 			if(index==0)
 			{
-				TweenLite.to(tile,1,{y:tile.y+tile.height+ tubeTilePadding});
+				trace('ty'+this.tubeTilesHolder.y);
+				TweenLite.to(tile,1,{y:this.tubeTilesY[index]});
 			}
 			else
 			{
-				TweenLite.to(tile,1,{y:tile.y+tile.height+ (tubeTilePadding/2)});
+				TweenLite.to(tile,1,{y:tubeTilesY[index]});
 			}
 		}
 	}
