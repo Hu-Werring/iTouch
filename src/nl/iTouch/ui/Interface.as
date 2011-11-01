@@ -24,7 +24,7 @@ package nl.iTouch.ui
 			var bgui:BackgroundUI= new BackgroundUI;	
 			
 			button1.setPos(305,368);
-			button2.setPos(450,380);
+			button2.setPos(562,379);
 			button3.setPos(820,380);
 			addChild( bgui);
 			addChild( button1);
