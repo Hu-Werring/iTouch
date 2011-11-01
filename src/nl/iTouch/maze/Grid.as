@@ -159,7 +159,7 @@ package nl.iTouch.maze
 			addChild(refArray[index]);
 		}
 		
-		private function tileClicked(e:Event):void
+		public function tileClicked(e:Event):void
 		{
 			this.clickedTile = e.target;
 			dispatchEvent(new Event('tileClicked'));

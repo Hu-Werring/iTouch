@@ -1,11 +1,13 @@
 package nl.iTouch.maze
 {
+	import com.greensock.TweenLite;
+	
 	import flash.display.*;
 	import flash.display.Stage;
 	import flash.events.*;
+	import flash.geom.Point;
 	
 	import nl.iTouch.*;
-	import com.greensock.TweenLite;
 
 	
 	public class Maze extends Sprite implements Game 
@@ -57,6 +59,7 @@ package nl.iTouch.maze
 			this.lucas = new Lucas(129, 84, 10);
 			this.lucas.setGridTiles(this.grid.tilesObj);
 			addChild(this.lucas);
+			drawPath();
 		}
 
 		private function placeTubeTile(e:Event):void
@@ -68,10 +71,39 @@ package nl.iTouch.maze
 				tmpMc.x = this.grid.clickedTile.x;
 				tmpMc.y = this.grid.clickedTile.y;
 				tmpMc.tileNr = this.grid.clickedTile.tileNr;
-				tmpMc.alpha = 0.5
+				tmpMc.alpha = 0.5;
+				this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
 				//this.grid.colorTile(this.grid.clickedTile.tileNr, 0xFFFFFF);
 				this.grid.setTile(this.grid.clickedTile.tileNr, tmpMc);
 				this.Control.addTubeTile();
+		}
+		
+		private function drawPath():void
+		{
+			var startTile = this.grid.tilesObj[this.lucas.pathStartTile-1];
+			
+			var tempMc:Sprite = new Sprite();
+			tempMc.graphics.lineStyle(5, 0x444444,1,false,"normal",null, JointStyle.ROUND);
+			tempMc.graphics.moveTo(startTile.x + (startTile.width/2), startTile.y + (startTile.height/2));
+			//tempMc.graphics.lineTo(this.grid.tilesObj[this.lucas.pathStartTile].x+10, this.grid.tilesObj[this.lucas.pathStartTile].y+100);
+			//tempMc.graphics.curveTo(startTile.x + (startTile.width/2), startTile.y - (startTile.height/2), startTile.x + startTile.width, startTile.y - (startTile.height/2));
+				
+			for(var i:int=0;i<this.lucas.path.length-1;i++)
+			{
+				if(i==0){ continue }
+				var curTile = this.grid.tilesObj[this.lucas.path[i]-1];
+				var prevTile = this.grid.tilesObj[this.lucas.path[i-1]-1];
+				var nextTile = this.grid.tilesObj[this.lucas.path[i+1]-1];
+				var fromPoint:Point = new Point(curTile.x + (curTile.width / 2), curTile.y + (curTile.height/2));
+				var toPoint:Point = new Point(nextTile.x + (nextTile.width / 2), nextTile.y + (nextTile.height/2));
+				
+				//tempMc.graphics.moveTo(fromPoint.x, fromPoint.y);
+				tempMc.graphics.lineTo(toPoint.x, toPoint.y);
+			
+				
+			}
+			
+			addChild(tempMc);
 		}
 		
 		//Kleur het grid in zodat het een mediatheek lijkt.
