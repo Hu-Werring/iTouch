@@ -15,9 +15,7 @@ package nl.iTouch
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var cred:CreditsImage = new CreditsImage();
-			cred.width = 1300;
-			cred.height = 1024;
-			cred.x=25;
+
 			addChild(cred);	
 			var Logo:LogoImage = new LogoImage();
 			Logo.x = 550;
