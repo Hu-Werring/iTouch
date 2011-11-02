@@ -1,6 +1,10 @@
 package nl.iTouch.maze
 {
+	import com.greensock.layout.ScaleMode;
+	
+	import flash.display.CapsStyle;
 	import flash.display.Graphics;
+	import flash.display.JointStyle;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.geom.Point;
@@ -9,7 +13,8 @@ package nl.iTouch.maze
 	{
 		private var _naam:Class;
 		public var tileNr:int;
-		public var hasTubeTile:Boolean = false;		
+		public var hasTubeTile:Boolean = false;	
+		public var curTubeTile:MovieClip;
 		public var left:String = 'false';
 		public var right:String = 'false';
 		public var top:String = 'false';
@@ -26,7 +31,10 @@ package nl.iTouch.maze
 		public function TubeTile(name:Class)
 		{
 			_naam = name;
-			addChild(new _naam());
+			curTubeTile = new _naam();
+			curTubeTile.width = 80;
+			curTubeTile.height = 80;
+			addChild(curTubeTile);
 			this.graphics
 			switch(this.naam)
 			{
@@ -107,21 +115,30 @@ package nl.iTouch.maze
 			}
 		}
 		
+		public function checkStroom():void
+		{
+			var leftTile:int;
+			var rightTile:int;
+			var topTile:int;
+			var bottomTile:int;
+			
+		}
+		
 		public function stroom(from:String):void
 		{
 			var fromPoint:Point;
 			var toPoint:Point;
 			var noStroom:Boolean = false;
 			var tempLine:Sprite = new Sprite();
-			tempLine.scaleX = 4;
-			tempLine.scaleY = 4;
 			trace(this.width, this.height);
-			tempLine.x = this.x;
-			tempLine.y = this.y;
-			this.graphics.beginFill(0xFFFFFF);
-			this.graphics.drawRect(0,0,this.width, this.height);
-			this.graphics.endFill();
-			tempLine.graphics.lineStyle(7, 0x00FF00);
+			tempLine.x = 0;
+			tempLine.y = 0;
+			tempLine.graphics.beginFill(0xFF0000);
+			tempLine.graphics.drawRect(0,0,this.width, this.height);
+			tempLine.graphics.endFill();
+			tempLine.graphics.lineStyle(5, 0x00FF00, 1, false, "normal", CapsStyle.NONE);
+			tempLine.width = this.width;
+			tempLine.height = this.height;
 
 			switch(from)
 			{
@@ -203,6 +220,7 @@ package nl.iTouch.maze
 				}
 				
 				addChildAt(tempLine, this.numChildren);
+				this.curTubeTile.visible = false;
 				trace('childAdded');
 				//tempLine.width = this.width;
 				//tempLine.height= this.height;

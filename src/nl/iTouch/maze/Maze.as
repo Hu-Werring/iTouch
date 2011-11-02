@@ -50,6 +50,8 @@ package nl.iTouch.maze
 			addChild(this.grid);
 			//this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
+			this.grid.setPowerStartTile(29);
+			this.grid.setPowerEndTile(42);
 			
 			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
@@ -70,30 +72,23 @@ package nl.iTouch.maze
 				if(this.grid.clickedTile.hasTubeTile == false)
 				{
 					var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
-					/*var mcName = tmpMc.toString();
-					
-					switch(mcName)
-					{
-						default:
-							//
-							break;
-						
-						case '[object ,maze_cross]':
-							trace('maze_cross');
-							break;
-						
-						case
-					}*/
-					
+					tmpMc.tileNr = this.grid.clickedTile.tileNr;
 					//tmpMc.width = 80;
 					//tmpMc.height = 80;
 					TweenLite.killTweensOf(tmpMc);
 					tmpMc.x = 0;
 					tmpMc.y = 0;
 					//	tmpMc.alpha = 0.5;
-
+					
 					this.grid.clickedTile.setTubeTile(tmpMc);
-					this.grid.clickedTile.curTubeTile.stroom('left');
+					
+					trace(this.grid.clickedTile.tileNr, this.grid.powerStartTile);
+					if(this.grid.clickedTile.tileNr == this.grid.powerStartTile)
+					{
+						trace('powerSTART');
+						this.grid.clickedTile.curTubeTile.stroom('left');
+					}
+					
 					this.Control.addTubeTile();
 				}
 			}
