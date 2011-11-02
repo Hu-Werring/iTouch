@@ -107,7 +107,7 @@ package nl.iTouch.maze
 			}
 		}
 		
-		public function stroom(from:String)
+		public function stroom(from:String):void
 		{
 			var fromPoint:Point;
 			var toPoint:Point;
