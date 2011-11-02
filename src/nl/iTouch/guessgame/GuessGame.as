@@ -12,9 +12,11 @@ package nl.iTouch.guessgame
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
 	import flash.filters.BlurFilter;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import flash.utils.Timer;
 	
 	import nl.iTouch.DataBase;
 	import nl.iTouch.Game;
@@ -36,18 +38,22 @@ package nl.iTouch.guessgame
 		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
 		private var _timeLeft:int;
-		private var effect:TwirlEffect = new TwirlEffect();
+		private var timer:Timer = new Timer(1000);
+		private var effect:TwirlEffect;
 		private var effects:int;
 		
 		private var blurY:BlurFilter = new BlurFilter(0,15);
 		private var blurX:BlurFilter = new BlurFilter(10,0);
+		
+		private var score:int =0;
+		
 		public function GuessGame()
 		{
 			_queue = new LoaderMax({name:'mainQueue',onProgress:progressHandler, onComplete:completeHandler, onError:errorHandler});
 			addEventListener(Event.ADDED_TO_STAGE,init);
 			
 			/*Should become XML if there is time left*/
-			_boekenlijst.push({ naam:'Rapporteren voor techniek en ICT',
+			_boekenlijst.push({ naam:'Rapporteren voor Techniek en ICT',
 				image:'rapporteren_voor_techniek_en_ict',
 				author:'Marcel Heerink',
 				desc:'Dit boek is een praktische handleiding voor het opstellen van rapporten in een specifieke omgeving. Aan de hand van duidelijke voorbeelden bespreekt de auteur de belangrijkste aspecten van verschillende soorten rapporten met betrekking tot techniek. De auteur besteedt ruime aandacht aan project- en procesgerichte rapportage en geeft aan wat voor de uiteenlopende rapportvarianten essentieel is.',
@@ -85,25 +91,23 @@ package nl.iTouch.guessgame
 				desc:'Dit boek biedt een gedegen basiskennis op het gebied van computertechnieken waarbij ook de embedded systemen aan de orde komen. Daarnaast worden andere belangrijke,nieuwe systemen besproken zoals digital signal processing, Harvard-architectuur, bussystemen die bij embedded systemen een rol spelen, grafische beeldweergave, transmissietechnieken (van TDM en FDM tot ADSL), dataopslag in netwerken (NAS, SAN), optische disks (DVD), 64-bits multiprocessoren, en realtime scheduling (voor embedded systemen). ',
 				antwoorden:['Embedded electronics','Inleiding computersystemen','Computersystemen en embedded systemen','Computertechniek']
 				});
-			_boekenlijst.push({	naam:' Constructieprincipes',
+			_boekenlijst.push({	naam:'Constructieprincipes',
 				image:'constuctie_principes',
 				author:'M.P. Koster',
-				
 				desc:' Ontwerpen hangt samen met het bedenken van iets nieuws. De vraag is: kun je dat leren? Ondanks het feit dat het bedenken als proces niet als opvallend methodisch en systematisch wordt gekenmerkt, valt hier toch een grote verbetering te bereiken. Dit boek wil de rol spelen van de ontwerper met een rijke ervaring, die bovendien deze ervaring op een toegankelijke manier heeft geordend. Het boek bestrijkt het deelveld van de werktuigbouwkunde dat zich kenmerkt door nauwkeurigheid in beweging en plaats.',
 				antwoorden:['Constructieprincipes','Werktuigbouwkunde voor hto','Constructies','Mechanica van construcites']
 				});
-			_boekenlijst.push({	naam:' Analyse van bedrijfsprocessen',
+			_boekenlijst.push({	naam:'Analyse van bedrijfsprocessen',
 				image:'analyse_van_bedrijfsprocessen',
 				author:'Jan in \'t Veld',
 
 				desc:' Dit boek beschrijft de theorie en de praktijk van het denken in systemen, modellen, processen en regelkringen. Dit systeem en procesdenken wordt toegepast bij het analyseren van processen, bij het bepalen van de noodzakelijke informatiestromen en bij het ontwerpen van organisatiestructuren. Het boek vormt de basis voor een goed begrip van de voordelen en beperkingen van procesgerichte managementtechnieken als Total Quality Management, Logistiek en Supply Chain Management, Business Process Redesign en Workflow Management.',
-				antwoorden:['Management van processen','Presteren met processen','Kijk op bedrijfprocessen','Analyse  van bedrijfsprocessen']
+				antwoorden:['Management van processen','Presteren met processen','Kijk op bedrijfprocessen','Analyse van bedrijfsprocessen']
 				});
 
 			for(var i:int = 0;i<_boekenlijst.length;i++)
 			{
 				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
-				trace(_boekenlijst[i].image);
 			}
 			_queue.load();			
 		}
@@ -142,26 +146,43 @@ package nl.iTouch.guessgame
 			this.parent.addEventListener(MouseEvent.CLICK,startGame);
 		}
 		
-		private function startGame(e:MouseEvent):void
+		private function startGame(e:MouseEvent=null):void
 		{
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
+			_timeLeft = _totaltime;
+			timer.start();
+			timer.addEventListener(TimerEvent.TIMER,tick);
+			
+			
 			boek = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
+			for(var i:int = _bookHolder.bookHolder.numChildren; i>0;i--){
+				_bookHolder.bookHolder.removeChildAt(i-1);
+			}
 			_bookHolder.bookHolder.filters = [blurX,blurY];
 			
 			_bookHolder.authorTF.text = boek.author;
 			_bookHolder.descTF.text = boek.desc;
 			
-			trace(boek.author,boek.desc);
 			
+			var antw:Array = mixArray(boek.antwoorden);
 			
-			_bookHolder.AntwA.text = "A: " + boek.antwoorden[0];
-			_bookHolder.AntwB.text = "B: " + boek.antwoorden[1];
-			_bookHolder.AntwC.text = "C: " + boek.antwoorden[2];
-			_bookHolder.AntwD.text = "D: " + boek.antwoorden[3];
+			_bookHolder.AntwA.text = "A: " + antw[0];
+			_bookHolder.AntwB.text = "B: " + antw[1];
+			_bookHolder.AntwC.text = "C: " + antw[2];
+			_bookHolder.AntwD.text = "D: " + antw[3];
 			_bookHolder.AntwA.wordWrap = true;
 			_bookHolder.AntwB.wordWrap = true;
 			_bookHolder.AntwC.wordWrap = true;
 			_bookHolder.AntwD.wordWrap = true;
+			_bookHolder.AntwA.alpha=1;
+			_bookHolder.AntwB.alpha=1;
+			_bookHolder.AntwC.alpha=1;
+			_bookHolder.AntwD.alpha=1;
+			_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
+
 			_bookHolder.AntwA.addEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwB.addEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwC.addEventListener(MouseEvent.CLICK,answerQ);
@@ -171,7 +192,7 @@ package nl.iTouch.guessgame
 			
 			
 			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
-			
+			effect = new TwirlEffect();
 			_bookHolder.bookHolder.addChild(effect);
 			effect.effectIn(loader.rawContent);
 			effects = 3;
@@ -179,31 +200,92 @@ package nl.iTouch.guessgame
 			
 		}
 		
+		private function tick(e:TimerEvent):void
+		{
+			switch(effects){
+				case 3:
+					if(_timeLeft<=20){
+						disableEffects();
+						_timeLeft = 20;
+					}
+				break;
+				case 2:
+					if(_timeLeft<=10){
+						disableEffects();
+						_timeLeft = 10;
+					}
+				break;
+				default:
+					if(_timeLeft<=0){
+						disableEffects();
+						timer.stop();
+						timer.removeEventListener(TimerEvent.TIMER,tick);
+						var sl:Array = _hs.getList('Month');
+						if(sl!=null && sl.length >= 20 && sl[19].score > score){
+							trace('no entry! :(');
+							
+						} else {
+							var sw:Sprite = _hs.submitHS(score);
+							sw.x = (this.width - sw.width)/2;
+							sw.y = 100;
+							addChild(sw);
+						}
+						
+						
+						
+					}
+			}
+			
+			_timeLeft--;
+		}
+		
 		private function answerQ(e:MouseEvent):void
 		{
 			var tf:TextField = e.currentTarget as TextField;
 			
-			trace(tf.text.substr(3),boek.naam);
-			if(tf.text.substr(3) == boek.naam) trace('Match!');
+			if(tf.text.substr(3) == boek.naam) goed();
+			else fout(tf);
+			
+			
 		}
 		
-		private function disableEffects(e:MouseEvent):void
+		private function goed():void
+		{
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER,tick);
+			score+=_timeLeft;
+			
+			startGame();
+		}
+		private function fout(tf:TextField):void
+		{
+			disableEffects();
+			tf.removeEventListener(MouseEvent.CLICK,answerQ);
+			tf.alpha = 0.5;
+		}
+		
+		private function disableEffects(e:MouseEvent=null):void
 		{
 			switch(effects){
 				case 3:
 					effect.disable();
+					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 2:
 					_bookHolder.bookHolder.filters = [blurY];
+					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 1:
 					_bookHolder.bookHolder.filters = [];
+					_timeLeft = 0;
 				break;
 			}
 			effects--;
 		}
 		public function stop(force:Boolean = false):void
 		{
+			timer.stop();
+			timer.removeEventListener(TimerEvent.TIMER,tick);
 			_queue.unload();
 		}
 		
@@ -215,6 +297,20 @@ package nl.iTouch.guessgame
 		public function highscore():void
 		{
 			
+		}
+		private function mixArray(array:Array):Array {
+			var _length:Number = array.length; 
+			var mixed:Array = array.slice();
+			var rn:Number;
+			var it:Number;
+			var el:Object;
+			for (it = 0; it<_length; it++) {
+				el = mixed[it];
+				rn = Math.floor(Math.random()*_length)
+				mixed[it] = mixed[rn];
+				mixed[rn] = el;
+			}
+			return mixed;
 		}
 	}
 }
