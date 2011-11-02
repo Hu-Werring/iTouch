@@ -14,19 +14,21 @@ package nl.iTouch
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var cred:CreditsImage = new CreditsImage();
+			cred.width = 1280;
+			cred.height = 1024;
 			addChild(cred);	
 			var back:HomeButton = new HomeButton();
-			back.x = 700;
-			back.y = 600;
+			back.x = 900;
+			back.y = 800;
 			back.width = 200;
 			back.height = 90;
 			new iButton(back);
 			addChild(back);
 			var Logo:LogoImage = new LogoImage();
-			Logo.x = 500;
-			Logo.width = 300;
-			Logo.height = 230;
-			Logo.y = 300;
+			Logo.x = 600;
+			Logo.width = 400;
+			Logo.height = 330;
+			Logo.y = 400;
 			addChild(Logo);
 		}
 		
