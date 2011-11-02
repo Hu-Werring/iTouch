@@ -1,6 +1,7 @@
 package nl.iTouch.guessgame
 {
 	import com.greensock.TweenLite;
+	import com.greensock.easing.Linear;
 	import com.greensock.events.LoaderEvent;
 	import com.greensock.loading.ImageLoader;
 	import com.greensock.loading.LoaderMax;
@@ -25,7 +26,7 @@ package nl.iTouch.guessgame
 		private const _totaltime:int = 30;
 		
 		
-		
+		private var timerBar:Sprite = new Sprite();
 		private var _db:DataBase = DataBase.getInstance;
 		private var _hs:Highscore = new Highscore('ChaosBoeken');
 		private var _boekenlijst:Array = new Array();
@@ -46,6 +47,7 @@ package nl.iTouch.guessgame
 		private var blurX:BlurFilter = new BlurFilter(10,0);
 		
 		private var score:int =0;
+		private var correctTotal:int =0;
 		
 		private var _noGame:Boolean  =false;
 		
@@ -112,7 +114,11 @@ package nl.iTouch.guessgame
 				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
 			}
 			_queue.load();		
-			bookIndex = Math.floor(Math.random()*_boekenlijst.length)
+			bookIndex = Math.floor(Math.random()*_boekenlijst.length);
+			timerBar.graphics.beginFill(0x00FF00);
+			timerBar.graphics.drawRect(0,0,600,50);
+			timerBar.graphics.endFill();
+				
 		}
 		
 		
@@ -122,6 +128,9 @@ package nl.iTouch.guessgame
 			if(_loaded) play();
 			
 			addChild(_bookHolder);
+			timerBar.x = (this.width-timerBar.width)/2;
+			timerBar.y = (this.height-timerBar.height)-50;
+			addChild(timerBar);
 			_bookHolder.AntwA.text = "";
 			_bookHolder.AntwB.text = "";
 			_bookHolder.AntwC.text = "";
@@ -151,7 +160,7 @@ package nl.iTouch.guessgame
 		
 		private function startGame(e:MouseEvent=null):void
 		{
-			
+			TweenLite.to(timerBar,0.5,{width:600,ease:Linear.easeOut});
 			bookIndex=(bookIndex+1)%_boekenlijst.length;
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
 			if(_noGame) return;
@@ -197,6 +206,7 @@ package nl.iTouch.guessgame
 			
 			
 			
+			
 			var loader:ImageLoader =LoaderMax.getLoader(boek.naam) as ImageLoader; 
 			effect = new TwirlEffect();
 			_bookHolder.bookHolder.addChild(effect);
@@ -232,13 +242,11 @@ package nl.iTouch.guessgame
 								sw.y = 100;
 								addChild(sw);
 							}
-						
-						
-						
 					}
 			}
 			
 			_timeLeft--;
+			TweenLite.to(timerBar,1,{width:20*_timeLeft,ease:Linear.easeNone});
 		}
 		
 		private function answerQ(e:MouseEvent):void
@@ -256,8 +264,17 @@ package nl.iTouch.guessgame
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER,tick);
 			score+=_timeLeft;
-			
-			startGame();
+			correctTotal++;
+			if(correctTotal<_boekenlijst.length){
+				startGame();
+			} else {
+				var sw:Sprite = _hs.submitHS(score*2);
+				if(sw !=null){
+					sw.x = (this.width - sw.width)/2;
+					sw.y = 100;
+					addChild(sw);
+				}
+			}
 		}
 		private function fout(tf:TextField):void
 		{
