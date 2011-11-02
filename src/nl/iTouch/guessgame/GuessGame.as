@@ -220,16 +220,12 @@ package nl.iTouch.guessgame
 						disableEffects();
 						timer.stop();
 						timer.removeEventListener(TimerEvent.TIMER,tick);
-						var sl:Array = _hs.getList('Month');
-						if(sl!=null && sl.length >= 20 && sl[19].score > score){
-							trace('no entry! :(');
-							
-						} else {
 							var sw:Sprite = _hs.submitHS(score);
-							sw.x = (this.width - sw.width)/2;
-							sw.y = 100;
-							addChild(sw);
-						}
+							if(sw !=null){
+								sw.x = (this.width - sw.width)/2;
+								sw.y = 100;
+								addChild(sw);
+							}
 						
 						
 						
@@ -289,7 +285,7 @@ package nl.iTouch.guessgame
 			_queue.unload();
 		}
 		
-		public function credits():void
+		public function howTo():void
 		{
 			
 		}
