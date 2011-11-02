@@ -20,9 +20,9 @@ package nl.iTouch
 			cred.x=25;
 			addChild(cred);	
 			var Logo:LogoImage = new LogoImage();
-			Logo.x = 600;
-			Logo.width = 400;
-			Logo.height = 330;
+			Logo.x = 550;
+			Logo.scaleY = 3;
+			Logo.scaleX = 3;
 			Logo.y = 400;
 			addChild(Logo);
 		}

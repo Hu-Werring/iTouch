@@ -28,7 +28,7 @@ package nl.iTouch.ui
 			button1.setPos(305,368);
 			button2.setPos(562,379);
 			button3.setPos(820,380);
-			button4.setPos(615,905);
+			button4.setPos(1100,920);
 			addChild( bgui);
 			addChild( button1);
 			addChild( button2);

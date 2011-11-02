@@ -13,8 +13,8 @@ package nl.iTouch.ui
 		private var knop:Sprite;
 		public function Button4(){ 
 			knop = new LogoImage();
-			knop.scaleX=0.5;
-			knop.scaleY=0.5;
+			knop.scaleX=0.6;
+			knop.scaleY=0.6;
 			addChild(new iButton (knop));
 			
 			knop.addEventListener(MouseEvent.CLICK, Buttonfunction);
