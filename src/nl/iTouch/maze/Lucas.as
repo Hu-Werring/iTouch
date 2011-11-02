@@ -39,7 +39,7 @@ package nl.iTouch.maze
 			removeEventListener(Event.ADDED_TO_STAGE,initLucas);
 			trace('added');
 			//Maak lucas en plaats.
-			this.lucasMc = new maze_lucas();
+			this.lucasMc = new maze_lucasMoving();
 			this.lucasMc.x = 0;
 			this.lucasMc.y = 0;
 			this.x = 160;
