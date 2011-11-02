@@ -9,6 +9,7 @@ package
 	import flash.events.TimerEvent;
 	import flash.ui.Mouse;
 	import flash.utils.Timer;
+	import flash.utils.getTimer;
 	
 	import flashx.textLayout.elements.InlineGraphicElement;
 	
@@ -41,7 +42,7 @@ package
 		public function iTouch(){
 			
 			//Mouse.hide();
-			stage.displayState = StageDisplayState.FULL_SCREEN;
+			//stage.displayState = StageDisplayState.FULL_SCREEN;
 			
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -50,18 +51,9 @@ package
 			
 			var gui:Interface = new Interface();
 			
-			
-
-			
-			
 			addChild(gui);
 			addChild(gh);
 			addChild(eyeCatcher);
-			var test:Credits = new Credits();
-			//addChild(test);			
-			
-		
-			
 			gui.addEventListener(Interface.START_SNAKE,startSnake);
 			gui.addEventListener(Interface.START_MAZE,startMaze);
 			gui.addEventListener(Interface.START_GUESS,startGuess);
@@ -74,7 +66,7 @@ package
 			eyeCatcher.addEventListener('CLICKED_EYECATCHER',killTheEye);
 			gui.addEventListener(MouseEvent.CLICK,clickUpdate);
 			
-			var timer:Timer = new Timer(30000);
+			var timer:Timer = new Timer(10000);
 			timer.addEventListener(TimerEvent.TIMER,tick);
 			timer.start();
 		}
@@ -86,9 +78,11 @@ package
 		
 		private function tick(e:TimerEvent):void
 		{
-			var currentTime:int = new Date().getTime()/1000;
-			if(currentTime - _lastClick > 30){
+			
+			var currentTime:int = getTimer()/1000;
+			if(currentTime - _lastClick > 120){
 				eyeCatcher.show();
+				gh.hide();
 			}
 		}
 		
@@ -117,7 +111,7 @@ package
 		
 		private function clickUpdate(e:Event):void
 		{
-			_lastClick = new Date().getTime()/1000;
+			_lastClick = getTimer()/1000;
 		}
 		public function startSnake(e:Event):void
 		{
