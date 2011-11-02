@@ -89,7 +89,7 @@ package nl.iTouch.maze
 
 			for(var i:int=0;i<5;i++)
 			{
-				var tmpTile:MovieClip = new this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]();
+				var tmpTile:MovieClip = new TubeTile(this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]);
 				tmpTile.width = this.tubeTilesHolder.width - tubeTilePadding;
 				tmpTile.height = tmpTile.width;
 				tmpTile.x = tubeTilePadding/2;
@@ -124,7 +124,7 @@ package nl.iTouch.maze
 		public function addTubeTile():void
 		{
 			var lastTubeTile:MovieClip = this.tubeTilesOrder[this.tubeTilesOrder.length-1];
-			var newTubeTile:MovieClip = new this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]();
+			var newTubeTile:MovieClip = new TubeTile(this.tubeTiles[Math.floor(Math.random()*this.tubeTiles.length)]);
 			newTubeTile.height = lastTubeTile.height;
 			newTubeTile.width = lastTubeTile.width;
 			newTubeTile.x = lastTubeTile.x;
