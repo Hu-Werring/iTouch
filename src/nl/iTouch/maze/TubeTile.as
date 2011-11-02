@@ -19,6 +19,7 @@ package nl.iTouch.maze
 		public var right:String = 'false';
 		public var top:String = 'false';
 		public var bottom:String = 'false';
+		public var powerPoint:String = 'false';
 		
 		public function get naam():String
 		{
@@ -38,6 +39,10 @@ package nl.iTouch.maze
 			this.graphics
 			switch(this.naam)
 			{
+				case 'powerStart':
+					powerPoint = 'right';
+					break;
+				
 				case 'maze_cross':
 				{
 					

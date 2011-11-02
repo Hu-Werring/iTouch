@@ -85,7 +85,7 @@ package nl.iTouch.maze
 		
 		public function setPowerStartTile(p:int):void
 		{
-			var tmpMc:MovieClip = new maze_bookCaseElectricPoint();
+			var tmpMc:MovieClip = new TubeTile(maze_bookCaseElectricPoint);
 			this.powerStartTile = p;
 			this.setTile(p-1, tmpMc);
 			//this.tilesObj[p-1].addChild(tmpMc);
