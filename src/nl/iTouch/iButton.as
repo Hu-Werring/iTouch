@@ -43,7 +43,7 @@ package nl.iTouch
 			bevel.quality = BitmapFilterQuality.HIGH;
 			
 			var glow:GlowFilter = new GlowFilter();
-			glow.color=0xE63028;
+			glow.color=0x02AEAE;
 			glow.blurX=20;
 			glow.blurY=20;
 			glow.strength=2;
