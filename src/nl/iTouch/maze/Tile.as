@@ -37,6 +37,7 @@ package nl.iTouch.maze
 		public function removeTubeTile():void
 		{
 			this.removeChild(this.curTubeTile);
+			this.hasTubeTile = false;
 		}
 	}
 }
