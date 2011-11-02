@@ -33,9 +33,9 @@ package nl.iTouch.guessgame
 		
 		private var _queue:LoaderMax;
 		private var _loaded:Boolean = false;
-		private var boek:Object;
 		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
+		private var boek:Object;
 		private var bookIndex:int;
 		
 		private var _timeLeft:int;
@@ -137,6 +137,7 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwD.text = "";
 			_bookHolder.authorTF.text = "";
 			_bookHolder.descTF.text = "";
+			_bookHolder.bord.stop();
 		}
 		
 		private function completeHandler(e:LoaderEvent):void
@@ -212,7 +213,7 @@ package nl.iTouch.guessgame
 			_bookHolder.bookHolder.addChild(effect);
 			effect.effectIn(loader.rawContent);
 			effects = 3;
-			_bookHolder.bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
+			_bookHolder.bord.addEventListener(MouseEvent.CLICK,disableEffects);
 			
 		}
 		
@@ -223,6 +224,7 @@ package nl.iTouch.guessgame
 					if(_timeLeft<=20){
 						disableEffects();
 						_timeLeft = 20;
+						_bookHolder.bord.gotoAndStop(2);
 					}
 				break;
 				case 2:
