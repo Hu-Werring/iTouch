@@ -18,9 +18,7 @@ package nl.iTouch.guessgame
 	import flash.text.TextFormat;
 	import flash.utils.Timer;
 	
-	import nl.iTouch.DataBase;
-	import nl.iTouch.Game;
-	import nl.iTouch.Highscore;
+	import nl.iTouch.*;
 	
 	public class GuessGame extends Sprite implements Game
 	{
@@ -37,6 +35,8 @@ package nl.iTouch.guessgame
 		private var boek:Object;
 		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
+		private var bookIndex:int;
+		
 		private var _timeLeft:int;
 		private var timer:Timer = new Timer(1000);
 		private var effect:TwirlEffect;
@@ -46,6 +46,8 @@ package nl.iTouch.guessgame
 		private var blurX:BlurFilter = new BlurFilter(10,0);
 		
 		private var score:int =0;
+		
+		private var _noGame:Boolean  =false;
 		
 		public function GuessGame()
 		{
@@ -104,12 +106,13 @@ package nl.iTouch.guessgame
 				desc:' Dit boek beschrijft de theorie en de praktijk van het denken in systemen, modellen, processen en regelkringen. Dit systeem en procesdenken wordt toegepast bij het analyseren van processen, bij het bepalen van de noodzakelijke informatiestromen en bij het ontwerpen van organisatiestructuren. Het boek vormt de basis voor een goed begrip van de voordelen en beperkingen van procesgerichte managementtechnieken als Total Quality Management, Logistiek en Supply Chain Management, Business Process Redesign en Workflow Management.',
 				antwoorden:['Management van processen','Presteren met processen','Kijk op bedrijfprocessen','Analyse van bedrijfsprocessen']
 				});
-
+			_boekenlijst= mixArray(_boekenlijst);
 			for(var i:int = 0;i<_boekenlijst.length;i++)
 			{
 				_queue.append(new ImageLoader("img/"+ _boekenlijst[i].image + '.jpg',{name:_boekenlijst[i].naam, alpha:0, width:500, height:347,x:0,y:0, scaleMode:"proportionalInside"}));
 			}
-			_queue.load();			
+			_queue.load();		
+			bookIndex = Math.floor(Math.random()*_boekenlijst.length)
 		}
 		
 		
@@ -148,13 +151,16 @@ package nl.iTouch.guessgame
 		
 		private function startGame(e:MouseEvent=null):void
 		{
+			
+			bookIndex=(bookIndex+1)%_boekenlijst.length;
 			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
+			if(_noGame) return;
 			_timeLeft = _totaltime;
 			timer.start();
 			timer.addEventListener(TimerEvent.TIMER,tick);
 			
 			
-			boek = _boekenlijst[Math.floor(Math.random()*_boekenlijst.length)];
+			boek = _boekenlijst[bookIndex];
 			for(var i:int = _bookHolder.bookHolder.numChildren; i>0;i--){
 				_bookHolder.bookHolder.removeChildAt(i-1);
 			}
@@ -220,16 +226,12 @@ package nl.iTouch.guessgame
 						disableEffects();
 						timer.stop();
 						timer.removeEventListener(TimerEvent.TIMER,tick);
-						var sl:Array = _hs.getList('Month');
-						if(sl!=null && sl.length >= 20 && sl[19].score > score){
-							trace('no entry! :(');
-							
-						} else {
 							var sw:Sprite = _hs.submitHS(score);
-							sw.x = (this.width - sw.width)/2;
-							sw.y = 100;
-							addChild(sw);
-						}
+							if(sw !=null){
+								sw.x = (this.width - sw.width)/2;
+								sw.y = 100;
+								addChild(sw);
+							}
 						
 						
 						
@@ -287,9 +289,10 @@ package nl.iTouch.guessgame
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER,tick);
 			_queue.unload();
+			_noGame  =true;
 		}
 		
-		public function credits():void
+		public function howTo():void
 		{
 			
 		}

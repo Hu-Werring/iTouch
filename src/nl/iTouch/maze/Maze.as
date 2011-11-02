@@ -64,6 +64,8 @@ package nl.iTouch.maze
 
 		private function placeTubeTile(e:Event):void
 		{
+			if(this.Control.trashMode == false)
+			{
 				var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
 				tmpMc.width = 80;
 				tmpMc.width = 80;
@@ -71,16 +73,27 @@ package nl.iTouch.maze
 				tmpMc.x = this.grid.clickedTile.x;
 				tmpMc.y = this.grid.clickedTile.y;
 				tmpMc.tileNr = this.grid.clickedTile.tileNr;
-				tmpMc.alpha = 0.5;
-				this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
+				tmpMc.hasTubeTile = true;
+			//	tmpMc.alpha = 0.5;
+				//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
 				//this.grid.colorTile(this.grid.clickedTile.tileNr, 0xFFFFFF);
 				this.grid.setTile(this.grid.clickedTile.tileNr, tmpMc);
 				this.Control.addTubeTile();
+			}
+			else
+			{
+				if(this.grid.clickedTile.hasTubeTile==true)
+				{
+					//Remove tubetile.
+					this.grid.tilesObj[this.grid.clickedTile.tileNr].removeChild(this.grid.clickedTile);
+					//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
+				}
+			}
 		}
 		
 		private function drawPath():void
 		{
-			var startTile = this.grid.tilesObj[this.lucas.pathStartTile-1];
+			var startTile:* = this.grid.tilesObj[this.lucas.pathStartTile-1];
 			
 			var tempMc:Sprite = new Sprite();
 			tempMc.graphics.lineStyle(5, 0x444444,1,false,"normal",null, JointStyle.ROUND);
@@ -91,9 +104,9 @@ package nl.iTouch.maze
 			for(var i:int=0;i<this.lucas.path.length-1;i++)
 			{
 				if(i==0){ continue }
-				var curTile = this.grid.tilesObj[this.lucas.path[i]-1];
-				var prevTile = this.grid.tilesObj[this.lucas.path[i-1]-1];
-				var nextTile = this.grid.tilesObj[this.lucas.path[i+1]-1];
+				var curTile:* = this.grid.tilesObj[this.lucas.path[i]-1];
+				var prevTile:* = this.grid.tilesObj[this.lucas.path[i-1]-1];
+				var nextTile:* = this.grid.tilesObj[this.lucas.path[i+1]-1];
 				var fromPoint:Point = new Point(curTile.x + (curTile.width / 2), curTile.y + (curTile.height/2));
 				var toPoint:Point = new Point(nextTile.x + (nextTile.width / 2), nextTile.y + (nextTile.height/2));
 				
@@ -152,7 +165,7 @@ package nl.iTouch.maze
 			
 		}
 		
-		public function credits():void
+		public function howTo():void
 		{
 			
 		}

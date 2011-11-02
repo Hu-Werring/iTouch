@@ -557,9 +557,11 @@ package nl.iTouch.snake
 			
 			
 			var submit:Sprite = hs.submitHS(_score);
+			if(submit != null){
 			submit.x = (stage.stageWidth-submit.width)/2;
 			submit.y = (stage.stageHeight-submit.height)/2;
 			addChild(submit);
+			}
 			
 			_studentTimer.stop();
 			_gameTimer.stop();
@@ -580,7 +582,7 @@ package nl.iTouch.snake
 			_gameTimer.stop();
 		}
 		
-		public function credits():void
+		public function howTo():void
 		{
 			
 		}

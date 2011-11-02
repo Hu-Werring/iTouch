@@ -16,6 +16,7 @@ package nl.iTouch
 			var cred:CreditsImage = new CreditsImage();
 			addChild(cred);	
 			var back:HomeButton = new HomeButton();
+	
 			addChild(back);
 		}
 		

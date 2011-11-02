@@ -105,14 +105,20 @@ package nl.iTouch
 		
 		public function submitHS(score:uint):Sprite
 		{
+			var sl:Array = getList('Week');
+			var sw:ScoreWindow;
+			if((sl==null  || sl.length <20 || sl[19].score < score) && score > 0){
+				sw = new ScoreWindow();
+				sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
+				sw.TFScore.text = score.toString();
+				sw.sendKnop.buttonMode = true;
+				sw.noSendKnop.buttonMode = true;
+				sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScoreMouse);
+				sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);	
+			} else {
+				sw = null;
+			}
 			
-			var sw:ScoreWindow = new ScoreWindow();
-			sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
-			sw.TFScore.text = score.toString();
-			sw.sendKnop.buttonMode = true;
-			sw.noSendKnop.buttonMode = true;
-			sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScoreMouse);
-			sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);
 			
 			VirtualKeyBoard.getInstance().addEventListener(KeyBoardEvent.ENTER,sendScoreKb)
 			

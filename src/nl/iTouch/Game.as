@@ -6,7 +6,7 @@ package nl.iTouch
 		function play():void;
 		function stop(force:Boolean = false):void;
 		
-		function credits():void;
+		function howTo():void;
 		function highscore():void;
  
 	}

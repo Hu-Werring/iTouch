@@ -27,7 +27,6 @@ package
 	
 	
 	
-	
 	[SWF(frameRate='24',backgroundColor='0xffffff', width="1280", height="1024")]
 	public class iTouch extends Sprite
 	{
@@ -58,7 +57,8 @@ package
 			gui.addEventListener(Interface.START_SNAKE,startSnake);
 			gui.addEventListener(Interface.START_MAZE,startMaze);
 			gui.addEventListener(Interface.START_GUESS,startGuess);
-			
+			gui.addEventListener(Interface.START_CREDITS,startCredits);
+
 			
 			gh.addEventListener(MouseEvent.CLICK,clickUpdate);
 			eyeCatcher.addEventListener('CLICKED_EYECATCHER',clickUpdate);
@@ -66,7 +66,7 @@ package
 			eyeCatcher.addEventListener('CLICKED_EYECATCHER',killTheEye);
 			gui.addEventListener(MouseEvent.CLICK,clickUpdate);
 			
-			var timer:Timer = new Timer(60000);
+			var timer:Timer = new Timer(10000);
 			timer.addEventListener(TimerEvent.TIMER,tick);
 			timer.start();
 		}
@@ -106,9 +106,7 @@ package
 					break;
 				case GameHolder.CREATED:
 					throw(new Error('First add GameHolder to stage before adding a game!'));
-			}
-			
-			
+			}				
 		}
 		
 		private function clickUpdate(e:Event):void
@@ -127,6 +125,10 @@ package
 		public function startGuess(e:Event):void
 		{
 			startGame(GuessGame);
+		}
+		public function startCredits(e:Event):void
+		{
+			startGame(Credits);
 		}
 	}
 }
