@@ -82,16 +82,16 @@ package nl.iTouch.snake
 			addChild(list);*/
 			
 			_hints.push("Lucas is een boek aan het zoeken in de afdeling Studio"); //== blauw boven ==
-			_hints.push("hint 2"); //== zilver boven ==
-			_hints.push("hint 3"); //== oranje boven ==
-			_hints.push("hint 4"); //== rood boven ==
+			_hints.push("Lucas zoekt een boek in de afdeling Platform"); //== zilver boven ==
+			_hints.push("Lucas is een boek aan het zoeken in de afdeling De Plaats"); //== oranje boven ==
+			_hints.push("Lucas zoekt een boek in de afdeling het Lab"); //== rood boven ==
 			
 			_hints.push("Lucas is aan het werk bij de computers van Studio"); //== blauw onder ==
-			_hints.push("hint 6"); //== zilver onder ==
-			_hints.push("hint 7"); //== oranje onder ==
-			_hints.push("hint 8"); //== rood onder ==
+			_hints.push("Lucas is aan het werk aan de tafels van de afdeling Platform"); //== zilver onder ==
+			_hints.push("Lucas is aan het werk bij de computers van De Plaats"); //== oranje onder ==
+			_hints.push("Lucas is aan het werk bij de computers van Het Lab"); //== rood onder ==
 			
-			_hints.push("hint 9"); //== gangpad ==
+			_hints.push("Lucas is op een andere student aan het wachten op het gang pad"); //== gangpad ==
 			
 			_deelX.push(2 * _gridSize - (_gridSize/2));
 			_deelX.push(17 * _gridSize - (_gridSize/2));
@@ -201,13 +201,15 @@ package nl.iTouch.snake
 			addChild(timerBar);
 			
 			//== create scorefield ==
+			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 40,null,true);
+			txtFrmtScore.align = TextAlign.RIGHT;
 			
 			scoreField.x = 975;
 			scoreField.y = 60;
 			scoreField.width = 270;
 			scoreField.height = 90;
 			scoreField.border = true;
-			scoreField.defaultTextFormat = new TextFormat("Avenir", 40,null,true);
+			scoreField.defaultTextFormat = txtFrmtScore;
 			scoreField.backgroundColor = 0xffffff;
 			scoreField.text = String(_score);
 			addChild(scoreField);
@@ -217,7 +219,11 @@ package nl.iTouch.snake
 			hintField.width = 270;
 			hintField.height = 135;
 			hintField.border = true;
-			hintField.defaultTextFormat = new TextFormat("Avenir", 20,null,true);
+			hintField.wordWrap = true;
+			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
+			txtFrmtHint.align = TextAlign.JUSTIFY;
+			hintField.defaultTextFormat = txtFrmtHint;
+			
 			hintField.backgroundColor = 0xffffff;
 			//hintField.text = String(_score);
 			addChild(hintField);
