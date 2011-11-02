@@ -290,9 +290,12 @@ package nl.iTouch.guessgame
 			switch(effects){
 				case 3:
 					effect.disable();
+					_bookHolder.bord.gotoAndStop(2);
 					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 2:
+					_bookHolder.bord.gotoAndStop(3);
+					_bookHolder.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
 					_bookHolder.bookHolder.filters = [blurY];
 					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
