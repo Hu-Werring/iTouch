@@ -53,7 +53,7 @@ package nl.iTouch
 		//	tmp.graphics.endFill();
 			var back:Sprite = new HomeButton();
 			back = new iButton(back);
-			back.x = 950;
+			back.x = 940;
 			back.y = 100;
 			back.scaleX = 0.4;
 			back.scaleY= 0.4;
