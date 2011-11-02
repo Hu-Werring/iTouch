@@ -19,7 +19,7 @@ package nl.iTouch.snake
 			var b:PlayAreaBackground = new PlayAreaBackground();
 			b.x = 22.5;
 			b.y = 52.5;
-			b.alpha = 0.4;
+			b.alpha = 1;
 			addChild(b);
 			
 			/*for (var i:int = 0; i < 61; i++)
