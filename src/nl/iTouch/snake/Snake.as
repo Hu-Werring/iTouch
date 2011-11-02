@@ -189,7 +189,7 @@ package nl.iTouch.snake
 			snakeParts.push(firstSnakePart);
 			addChild(firstSnakePart);
 			
-			//== create book en set to random position ==
+			//== create student en set to random position ==
 			addChild(student);
 			student.visible = false;
 			placeStudent();
@@ -227,6 +227,8 @@ package nl.iTouch.snake
 			hintField.backgroundColor = 0xffffff;
 			//hintField.text = String(_score);
 			addChild(hintField);
+			
+			placeStudent();
 			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
 			_gameTimer = new Timer(_timerStartSpeed);
