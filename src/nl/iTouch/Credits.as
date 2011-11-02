@@ -17,14 +17,8 @@ package nl.iTouch
 			var cred:CreditsImage = new CreditsImage();
 			cred.width = 1300;
 			cred.height = 1024;
+			cred.x=25;
 			addChild(cred);	
-			var back:HomeButton = new HomeButton();
-			back.x = 900;
-			back.y = 800;
-			back.width = 200;
-			back.height = 90;
-			new iButton(back);
-			addChild(back);
 			var Logo:LogoImage = new LogoImage();
 			Logo.x = 600;
 			Logo.width = 400;
@@ -43,6 +37,11 @@ package nl.iTouch
 		
 		public function howTo():void
 		{
+		}
+		
+		public function gotoHome(e:MouseEvent):void
+		{
+			dispatchEvent(new Event('BACK'));
 		}
 		
 		public function highscore():void

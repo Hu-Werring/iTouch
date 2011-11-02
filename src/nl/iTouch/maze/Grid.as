@@ -28,6 +28,9 @@ package nl.iTouch.maze
 		public var curRow:int = -1; //Houd de rijen aan wanneer het grid word neer gelegd.
 		public var curCol:int;//Houd de colommen aan wanneer het grid word neer gelegd
 		
+		public var powerStartTile:int;
+		public var powerEndTile:int;
+		
 		//Main functie. Geef hier de breedte en hoogte mee die het grid moet hebben, en hoeveel kolommen en rijen het grid moet hebben. Dit wordt vanzelf uitgerekend
 		public function Grid(gWidth:int, gHeight:int, cols:int, rows:int)
 		{
@@ -57,7 +60,7 @@ package nl.iTouch.maze
 			content.height = 80;
 			content.x = 0;
 			content.y = 0;
-			this.tilesObj[tile].setChild(content);
+			this.tilesObj[tile].addChild(content);
 		}
 		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
@@ -78,6 +81,23 @@ package nl.iTouch.maze
 		public function setTileByCord(col:int, row:int):void
 		{
 			//
+		}
+		
+		public function setPowerStartTile(p:int):void
+		{
+			var tmpMc:Sprite = new Sprite();
+			this.powerStartTile = p;
+			tmpMc.graphics.beginFill(0x00FF00);
+			tmpMc.graphics.drawCircle(0, 0, 20);
+			tmpMc.graphics.endFill();
+			tmpMc.x = this.tileWidth/2;
+			tmpMc.y = this.tileHeight/2;
+			this.tilesObj[p-1].addChild(tmpMc);
+		}
+		
+		public function setPowerEndTile(p:int):void
+		{
+			this.powerEndTile = p;
 		}
 		
 		public function setBookCase(tiles:Array):void

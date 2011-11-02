@@ -10,9 +10,11 @@ package nl.iTouch.ui
 	
 	public class Button4 extends Sprite
 	{
-		private var knop:MovieClip;
+		private var knop:Sprite;
 		public function Button4(){ 
-			knop = new CreditButton();
+			knop = new LogoImage();
+			knop.scaleX=0.5;
+			knop.scaleY=0.5;
 			addChild(new iButton (knop));
 			
 			knop.addEventListener(MouseEvent.CLICK, Buttonfunction);

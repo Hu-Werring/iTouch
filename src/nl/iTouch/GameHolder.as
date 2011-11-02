@@ -47,13 +47,18 @@ package nl.iTouch
 			this.visible = false;
 			_status = GameHolder.ONSTAGE;
 			
-			var tmp:Sprite = new Sprite()
-			tmp.graphics.beginFill(0xFF0000);
-			tmp.graphics.drawCircle(50,50,25);
-			tmp.graphics.endFill();
-			tmp = new iButton(tmp);
-			tmp.addEventListener(MouseEvent.CLICK,killGame);
-			addChild(tmp);
+			//var tmp:Sprite = new Sprite()
+			//tmp.graphics.beginFill(0xFF0000);
+			//tmp.graphics.drawCircle(50,50,25);
+		//	tmp.graphics.endFill();
+			var back:Sprite = new HomeButton();
+			back = new iButton(back);
+			back.x = -200;
+			back.y = 90;
+			back.scaleX = 0.4;
+			back.scaleY= 0.4;
+			back.addEventListener(MouseEvent.CLICK,killGame);
+			addChild(back);
 		}
 		private function killGame(e:MouseEvent):void
 		{
@@ -68,6 +73,7 @@ package nl.iTouch
 				_game.stop(true);
 			}
 			_game = new obj();
+			_game.addEventListener('BACK',hide)
 			addChildAt(_game,0);
 			if(visible){
 				_status = GameHolder.GAME_VISIBLE;
@@ -86,7 +92,7 @@ package nl.iTouch
 			}
 		}
 		
-		public function hide():void
+		public function hide(e:MouseEvent = null):void
 		{
 			if(_visible && !_animate){
 				_animate = true;

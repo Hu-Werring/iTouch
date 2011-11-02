@@ -18,7 +18,7 @@ package nl.iTouch
 			
 			
 			var glow:GlowFilter = new GlowFilter();
-			glow.color=0x00A1E1;
+			glow.color=0x02AEAE;
 			glow.blurX=20;
 			glow.blurY=20;
 			glow.strength=2;
