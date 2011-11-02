@@ -127,6 +127,7 @@ package nl.iTouch
 				hideKB();
 				hideSubmit(obj);
 				submit(naam,score);
+				obj.dispatchEvent(new Event('scoreSubmit'));
 			} else {
 				obj.TFName.borderColor = 0xFF0000;
 				obj.TFName.backgroundColor = 0xFFCCCC;
