@@ -23,7 +23,7 @@ package nl.iTouch.maze
 		public var tilesObj:Array; //Het object dat alle tegels bevat. LET OP. tegel 1 = index 0, tegel2 = index 1, etc
 		public var tileWidth:int; //De breedte van een tegel
 		public var tileHeight:int; //De hoogte van een tegel
-		public var clickedTile:Object;
+		public var clickedTile:Object; 
 		
 		public var curRow:int = -1; //Houd de rijen aan wanneer het grid word neer gelegd.
 		public var curCol:int;//Houd de colommen aan wanneer het grid word neer gelegd
