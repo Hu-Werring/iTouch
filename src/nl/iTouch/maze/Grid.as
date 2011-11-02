@@ -85,14 +85,10 @@ package nl.iTouch.maze
 		
 		public function setPowerStartTile(p:int):void
 		{
-			var tmpMc:Sprite = new Sprite();
+			var tmpMc:MovieClip = new maze_bookCaseElectricPoint();
 			this.powerStartTile = p;
-			tmpMc.graphics.beginFill(0x00FF00);
-			tmpMc.graphics.drawCircle(0, 0, 20);
-			tmpMc.graphics.endFill();
-			tmpMc.x = this.tileWidth/2;
-			tmpMc.y = this.tileHeight/2;
-			this.tilesObj[p-1].addChild(tmpMc);
+			this.setTile(p-1, tmpMc);
+			//this.tilesObj[p-1].addChild(tmpMc);
 		}
 		
 		public function setPowerEndTile(p:int):void
