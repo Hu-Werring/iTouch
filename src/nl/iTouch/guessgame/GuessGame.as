@@ -214,7 +214,6 @@ package nl.iTouch.guessgame
 			effect.effectIn(loader.rawContent);
 			effects = 3;
 			_bookHolder.bord.addEventListener(MouseEvent.CLICK,disableEffects);
-			
 		}
 		
 		private function tick(e:TimerEvent):void
@@ -321,7 +320,11 @@ package nl.iTouch.guessgame
 		
 		public function highscore():void
 		{
+			var hsL:Sprite = _hs.highScoreList();
+			hsL.x = (this.width-hsL.width)/2;
+			hsL.y = (this.height-hsL.height)/2;
 			
+			addChild(hsL);
 		}
 		private function mixArray(array:Array):Array {
 			var _length:Number = array.length; 

@@ -74,22 +74,23 @@ package nl.iTouch
 		
 		private function closeHSList(e:MouseEvent):void
 		{
-			
+			trace(e.currentTarget);
 		}
 		private function switchHSType(e:MouseEvent):void
 		{
-			
+			trace(e.currentTarget);
 		}
 		
 		private function generateScore(type:String):Array
 		{
 			var list:Array = getList(type);
-			
 			var names:String = "";
 			var scores:String = "";
-			for (var i:uint = 0; i<list.length;i++){
-				names += formatName(list[i],i);
-				scores+= list[i].score + "\n";
+			if(list != null){
+				for (var i:uint = 0; i<list.length;i++){
+					names += formatName(list[i],i);
+					scores+= list[i].score + "\n";
+				}
 			}
 			
 			return [names,scores];
