@@ -28,7 +28,7 @@ package nl.iTouch
 		{
 		}
 		
-		public function credits():void
+		public function howTo():void
 		{
 		}
 		
