@@ -67,7 +67,18 @@ package nl.iTouch
 			var score:Array = generateScore('Week');
 			hsList.ScoreList.text = score[1];
 			hsList.NameList.text = score[0];
+			hsList.SluitKnop.addEventListener(MouseEvent.CLICK,closeHSList);
+			hsList.ToggleHSTypeKnop.addEventListener(MouseEvent.CLICK,switchHSType);
 			return hsList;
+		}
+		
+		private function closeHSList(e:MouseEvent):void
+		{
+			
+		}
+		private function switchHSType(e:MouseEvent):void
+		{
+			
 		}
 		
 		private function generateScore(type:String):Array
