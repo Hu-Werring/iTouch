@@ -11,6 +11,7 @@ package nl.iTouch.maze
 		public var tubeTilesOrder:Array = new Array();
 		public var tubeTilePadding:int = 10;
 		public var tubetilesholderheight:int;
+		public var trashMode:Boolean = false;
 		private var prevY:int = 0;
 		private var tubeTilesY:Array = new Array();
 		private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble1, maze_curveDouble2, maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
@@ -72,6 +73,14 @@ package nl.iTouch.maze
 		private function trashTubeTile(e:MouseEvent):void
 		{
 			trace('trashed');
+			if(this.trashMode == true)
+			{
+				this.trashMode = false;
+			}
+			else
+			{
+				this.trashMode = true;
+			}
 		}
 		
 		private function fillTubeTileHolder():void

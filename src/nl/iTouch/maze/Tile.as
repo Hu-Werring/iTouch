@@ -5,6 +5,7 @@ package nl.iTouch.maze
 	public class Tile extends MovieClip
 	{
 		public var solid:Boolean = false;
+		public var hasTubeTile:Boolean = false;
 		public var tileNr:int;
 		public var tileIndexNr:int;
 		

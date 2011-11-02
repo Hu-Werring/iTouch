@@ -64,6 +64,8 @@ package nl.iTouch.maze
 
 		private function placeTubeTile(e:Event):void
 		{
+			if(this.Control.trashMode == false)
+			{
 				var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
 				tmpMc.width = 80;
 				tmpMc.width = 80;
@@ -71,11 +73,22 @@ package nl.iTouch.maze
 				tmpMc.x = this.grid.clickedTile.x;
 				tmpMc.y = this.grid.clickedTile.y;
 				tmpMc.tileNr = this.grid.clickedTile.tileNr;
-				tmpMc.alpha = 0.5;
-				this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
+				tmpMc.hasTubeTile = true;
+			//	tmpMc.alpha = 0.5;
+				//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
 				//this.grid.colorTile(this.grid.clickedTile.tileNr, 0xFFFFFF);
 				this.grid.setTile(this.grid.clickedTile.tileNr, tmpMc);
 				this.Control.addTubeTile();
+			}
+			else
+			{
+				if(this.grid.clickedTile.hasTubeTile==true)
+				{
+					//Remove tubetile.
+					this.grid.tilesObj[this.grid.clickedTile.tileNr].removeChild(this.grid.clickedTile);
+					//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
+				}
+			}
 		}
 		
 		private function drawPath():void
