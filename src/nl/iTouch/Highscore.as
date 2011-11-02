@@ -107,7 +107,7 @@ package nl.iTouch
 		{
 			var sl:Array = getList('Week');
 			var sw:ScoreWindow;
-			if(sl!=null && sl.length >= 20 && sl[19].score > score){
+			if((sl==null  || sl.length <20 || sl[19].score < score) && score > 0){
 				sw = new ScoreWindow();
 				sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
 				sw.TFScore.text = score.toString();
