@@ -16,8 +16,18 @@ package nl.iTouch
 			var cred:CreditsImage = new CreditsImage();
 			addChild(cred);	
 			var back:HomeButton = new HomeButton();
-	
+			back.x = 700;
+			back.y = 600;
+			back.width = 200;
+			back.height = 90;
+			new iButton(back);
 			addChild(back);
+			var Logo:LogoImage = new LogoImage();
+			Logo.x = 500;
+			Logo.width = 300;
+			Logo.height = 230;
+			Logo.y = 300;
+			addChild(Logo);
 		}
 		
 		public function play():void
