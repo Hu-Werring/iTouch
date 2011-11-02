@@ -1,7 +1,8 @@
 package nl.iTouch
 {
 	import flash.display.Sprite;
-	import flash.events.*;	 
+	import flash.events.*;
+	
 	
 	public class Credits extends Sprite implements Game
 	{
@@ -14,7 +15,7 @@ package nl.iTouch
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var cred:CreditsImage = new CreditsImage();
-			cred.width = 1280;
+			cred.width = 1300;
 			cred.height = 1024;
 			addChild(cred);	
 			var back:HomeButton = new HomeButton();
