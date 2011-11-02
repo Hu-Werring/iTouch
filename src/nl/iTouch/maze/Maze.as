@@ -65,24 +65,35 @@ package nl.iTouch.maze
 		private function placeTubeTile(e:Event):void
 		{
 			trace('hastubetile: '+this.grid.clickedTile.hasTubeTile);
-
 			if(this.Control.trashMode == false)
 			{
-				trace('hastubetile: '+this.grid.clickedTile.hasTubeTile);
 				if(this.grid.clickedTile.hasTubeTile == false)
 				{
 					var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
-					tmpMc.width = 80;
-					tmpMc.width = 80;
+					/*var mcName = tmpMc.toString();
+					
+					switch(mcName)
+					{
+						default:
+							//
+							break;
+						
+						case '[object ,maze_cross]':
+							trace('maze_cross');
+							break;
+						
+						case
+					}*/
+					
+					//tmpMc.width = 80;
+					//tmpMc.height = 80;
 					TweenLite.killTweensOf(tmpMc);
-					tmpMc.x = this.grid.clickedTile.x;
-					tmpMc.y = this.grid.clickedTile.y;
-					tmpMc.tileNr = this.grid.clickedTile.tileNr;
-					tmpMc.hasTubeTile = true;
+					tmpMc.x = 0;
+					tmpMc.y = 0;
 					//	tmpMc.alpha = 0.5;
-					//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
-					//this.grid.colorTile(this.grid.clickedTile.tileNr, 0xFFFFFF);
-					this.grid.setTile(this.grid.clickedTile.tileNr, tmpMc);
+
+					this.grid.clickedTile.setTubeTile(tmpMc);
+					this.grid.clickedTile.curTubeTile.stroom('left');
 					this.Control.addTubeTile();
 				}
 			}
@@ -91,8 +102,8 @@ package nl.iTouch.maze
 				if(this.grid.clickedTile.hasTubeTile==true)
 				{
 					//Remove tubetile.
-					this.grid.tilesObj[this.grid.clickedTile.tileNr].removeChild(this.grid.clickedTile);
-					//this.grid.clickedTile.removeEventListener(MouseEvent.CLICK, this.grid.tileClicked);
+					trace(this.grid.clickedTile);
+					this.grid.clickedTile.removeTubeTile();
 				}
 			}
 		}

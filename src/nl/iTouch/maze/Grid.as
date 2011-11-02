@@ -57,7 +57,7 @@ package nl.iTouch.maze
 			content.height = 80;
 			content.x = 0;
 			content.y = 0;
-			this.tilesObj[tile].addChild(content);
+			this.tilesObj[tile].setChild(content);
 		}
 		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
@@ -159,9 +159,10 @@ package nl.iTouch.maze
 			addChild(refArray[index]);
 		}
 		
-		public function tileClicked(e:Event):void
+		public function tileClicked(e:MouseEvent):void
 		{
-			this.clickedTile = e.target;
+			this.clickedTile = e.currentTarget;
+			trace(e.currentTarget.toString());
 			dispatchEvent(new Event('tileClicked'));
 		}
 		
