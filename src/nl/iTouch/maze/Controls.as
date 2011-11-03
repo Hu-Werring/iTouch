@@ -38,10 +38,10 @@ package nl.iTouch.maze
 			this.tubeTilesHolder.y = 120;
 			addChild(this.tubeTilesHolder);
 			
-			var nextTubeTileBtn:MovieClip = new MovieClip();
-			nextTubeTileBtn.graphics.beginFill(0xFF0000);
-			nextTubeTileBtn.graphics.drawRect(0,0,this.width-40, this.width-40);
-			nextTubeTileBtn.graphics.endFill();
+			var nextTubeTileBtn:MovieClip = new maze_refresh();
+			//nextTubeTileBtn.graphics.beginFill(0xFF0000);
+			//nextTubeTileBtn.graphics.drawRect(0,0,this.width-40, this.width-40);
+			//nextTubeTileBtn.graphics.endFill();
 			nextTubeTileBtn.width = this.width - 40;
 			nextTubeTileBtn.height = this.width - 40;
 			nextTubeTileBtn.x = tubeTilesHolder.x;
@@ -59,9 +59,15 @@ package nl.iTouch.maze
 			addChild(trashBin);
 			
 			nextTubeTileBtn.addEventListener(MouseEvent.CLICK, nextTubeTile);
+			nextTubeTileBtn.addEventListener(MouseEvent.MOUSE_DOWN, press);
 			trashBin.addEventListener(MouseEvent.CLICK, trashTubeTile);
 			
 			fillTubeTileHolder();
+		}
+		
+		private function press(e:MouseEvent):void
+		{
+			//e.target.addChild()
 		}
 		
 		private function nextTubeTile(e:MouseEvent):void
