@@ -197,10 +197,6 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwB.alpha=1;
 			_bookHolder.AntwC.alpha=1;
 			_bookHolder.AntwD.alpha=1;
-			_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
 
 			_bookHolder.AntwA.addEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwB.addEventListener(MouseEvent.CLICK,answerQ);
@@ -241,16 +237,20 @@ package nl.iTouch.guessgame
 						disableEffects();
 						timer.stop();
 						timer.removeEventListener(TimerEvent.TIMER,tick);
-							var sw:Sprite = _hs.submitHS(score);
-							if(sw !=null){
-								sw.x = (this.width - sw.width)/2;
-								sw.y = 100;
-								addChild(sw);
-								sw.addEventListener('closedSubmit',closed);
-								
-							} else {
-								highscore();
-							}
+						_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
+						var sw:Sprite = _hs.submitHS(score);
+						if(sw !=null){
+							sw.x = (this.width - sw.width)/2;
+							sw.y = 100;
+							TweenLite.delayedCall(3,addChild,[sw]);
+							sw.addEventListener('closedSubmit',closed);
+							
+						} else {
+							highscore();
+						}
 					}
 			}
 			
@@ -276,6 +276,10 @@ package nl.iTouch.guessgame
 		{
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER,tick);
+			_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
 			score+=_timeLeft;
 			correctTotal++;
 			effect.disable();
