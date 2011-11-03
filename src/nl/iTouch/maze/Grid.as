@@ -71,7 +71,7 @@ package nl.iTouch.maze
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
 		public function colorTile(tile:Number, color:uint, alpha:Number=1):void
 		{
-			var tmpsprite = new Sprite();
+			var tmpsprite:Sprite = new Sprite();
 			tmpsprite.graphics.beginFill(color, alpha);
 			tmpsprite.graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
 			tmpsprite.graphics.endFill();

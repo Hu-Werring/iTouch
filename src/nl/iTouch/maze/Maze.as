@@ -54,7 +54,7 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
-			this.grid.showTileNrs();
+			//this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
 			this.grid.setPowerEndTile(56);
@@ -68,15 +68,16 @@ package nl.iTouch.maze
 			this.lucas = new Lucas(129, 84, 10);
 			this.lucas.setGridTiles(this.grid.tilesObj);
 			drawPath();
+			this.lucas.addEventListener('endGame', endGame);
 			addChild(this.lucas);
 			
 		}
 		
-		private function endGame():void
+		private function endGame(e:Event=null):void
 		{
 			this.lucas.lucasMc.stop();
 			this.lucas.gameEnd = true;
-			for(var i=0;i<this.grid.tilesObj.length;i++)
+			for(var i:int=0;i<this.grid.tilesObj.length;i++)
 			{
 				var tmpT:Tile = this.grid.returnTile(i,true);
 				if(tmpT.hasTubeTile == true)
@@ -103,7 +104,7 @@ package nl.iTouch.maze
 			}
 		}
 		
-		private function closed(e:Event)
+		private function closed(e:Event):void
 		{
 			highscore();
 		}
