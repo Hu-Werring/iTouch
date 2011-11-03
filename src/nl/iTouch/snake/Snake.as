@@ -276,6 +276,8 @@ package nl.iTouch.snake
 			hintLabel.text = "Hint:";
 			addChild(hintLabel);
 			
+			//== highScore button ==
+			
 			placeStudent();
 			
 			//stage.addEventListener(KeyboardEvent.KEY_DOWN, keyDownFunction);
@@ -605,7 +607,6 @@ package nl.iTouch.snake
 			splashScreen.splash.addEventListener(MouseEvent.CLICK, splashScreenTouch);
 			addChild(splashScreen);
 			
-			
 			var submit:Sprite = hs.submitHS(_score);
 			if(submit != null){
 			submit.x = (stage.stageWidth-submit.width)/2;
@@ -633,9 +634,9 @@ package nl.iTouch.snake
 			_gameTimer.stop();
 		}
 		
-		public function howTo():void
+		public function howTo():String
 		{
-			
+			return "";
 		}
 		
 		public function highscore():void
