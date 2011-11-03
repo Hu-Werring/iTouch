@@ -6,6 +6,7 @@ package nl.iTouch
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class GameHolder extends Sprite
 	{
@@ -76,9 +77,18 @@ package nl.iTouch
 			holder.x = (howToScreen.width-holder.width)/2;
 			holder.y = 80;
 			tf.x = 15;
-			tf.y = 15;
+			tf.y = 65;
 			tf.width = 370;
-			tf.height = 570;
+			tf.height = 520;
+			tf.defaultTextFormat = new TextFormat('_sans',18);
+			var title:TextField = new TextField();
+			title.defaultTextFormat = new TextFormat('_sans',30,0,true);
+			title.x = 15;
+			title.y = 15;
+			title.height = 50;
+			title.width = 370;
+			title.text = 'How to play?';
+			holder.addChild(title);
 			holder.addChild(tf);
 			
 			howToScreen.addChild(holder);
