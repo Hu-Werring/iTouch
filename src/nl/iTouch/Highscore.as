@@ -145,9 +145,9 @@ package nl.iTouch
 				sw.TFName.addEventListener(MouseEvent.CLICK,toggleKeyboard);
 				sw.TFScore.text = score.toString();
 				sw.sendKnop.buttonMode = true;
-				sw.noSendKnop.buttonMode = true;
+				sw._noSendKnop.buttonMode = true;
 				sw.sendKnop.addEventListener(MouseEvent.CLICK,sendScoreMouse);
-				sw.noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);	
+				sw._noSendKnop.addEventListener(MouseEvent.CLICK,noSendScore);	
 			} else {
 				sw = null;
 			}
@@ -185,13 +185,13 @@ package nl.iTouch
 		
 		private function noSendScore(e:MouseEvent):void
 		{
-			hideSubmit(e.target.parent as ScoreWindow);
+			hideSubmit(e.currentTarget.parent as ScoreWindow);
 		}
 
 		
 		private function hideSubmit(object:ScoreWindow):void
 		{
-			object.noSendKnop.removeEventListener(MouseEvent.CLICK,noSendScore);
+			object._noSendKnop.removeEventListener(MouseEvent.CLICK,noSendScore);
 			object.sendKnop.removeEventListener(MouseEvent.CLICK,sendScore);
 			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,x:object.width/2+object.x,y:object.height/2+object.y,onComplete:function():void{ 
 				object.parent.removeChild(object);
