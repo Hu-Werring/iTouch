@@ -57,7 +57,8 @@ package nl.iTouch.maze
 			this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
-			this.grid.setPowerEndTile(42);
+			this.grid.setPowerEndTile(56);
+			this.grid.setTile(98-1, new maze_port2());
 			
 			//Maak een instance van controls en voeg toe aan stage.
 			this.Control = new Controls();
@@ -66,8 +67,9 @@ package nl.iTouch.maze
 			//Maak lucas en zet op het veld.
 			this.lucas = new Lucas(129, 84, 10);
 			this.lucas.setGridTiles(this.grid.tilesObj);
-			addChild(this.lucas);
 			drawPath();
+			addChild(this.lucas);
+			
 		}
 		
 		private function endGame():void
@@ -123,6 +125,7 @@ package nl.iTouch.maze
 					TweenLite.killTweensOf(tmpMc);
 					tmpMc.x = 0;
 					tmpMc.y = 0;
+					tmpMc.removeChild(tmpMc.background);
 					//	tmpMc.alpha = 0.5;
 					
 					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].setTubeTile(tmpMc);
@@ -454,20 +457,22 @@ package nl.iTouch.maze
 			G.setColom(4, maze_tapijtblauw);
 			
 			//Teken zilvere ruimte
-			G.setColomColor(6, 0xDDDDDD, 0.5);
-			G.setColomColor(7, 0xDDDDDD, 0.5);
+			G.setColom(6, maze_tapijtzilver);
+			G.setColom(7, maze_tapijtzilver);
 			
 			//Teken oranje ruimte
-			G.setColomColor(9, 0xFF9933, 0.5);
-			G.setColomColor(10, 0xFF9933, 0.5);
+			G.setColom(9, maze_tapijtoranje);
+			G.setColom(10, maze_tapijtoranje);
 			
 			//Teken rode ruimte
-			G.setColomColor(12, 0xFF0000, 0.5);
-			G.setColomColor(13, 0xFF0000, 0.5);
+			G.setColom(12, maze_tapijtrood);
+			G.setColom(13, maze_tapijtrood);
 
 			//Teken gangpad
-			G.setRowColor(5, 0x555555);
-			G.setRowColor(6, 0x555555);
+			G.setRow(5, maze_hall);
+			G.setRow(6, maze_hall);
+			//G.setRowColor(5, 0x555555);
+			//G.setRowColor(6, 0x555555);
 		}
 		
 		
