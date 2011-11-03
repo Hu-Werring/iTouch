@@ -136,28 +136,28 @@ package nl.iTouch.snake
 			btnUp.y = 740;
 			btnUp.rotation = 0;
 			btnUp.addEventListener(MouseEvent.CLICK,buttonUp);
-			addChild(btnUp);
+			addChild(new iButton(btnUp));
 			
 			var btnDown:ButtonArrow = new ButtonArrow();
 			btnDown.x = 1115;
 			btnDown.y = 930;
 			btnDown.rotation = 180;
 			btnDown.addEventListener(MouseEvent.CLICK,buttonDown);
-			addChild(btnDown);
+			addChild(new iButton(btnDown));
 			
 			var btnLeft:ButtonArrow = new ButtonArrow();
 			btnLeft.x = 1020;
 			btnLeft.y = 835;
 			btnLeft.rotation = -90;
 			btnLeft.addEventListener(MouseEvent.CLICK,buttonLeft);
-			addChild(btnLeft);
+			addChild(new iButton(btnLeft));
 			
 			var btnRight:ButtonArrow = new ButtonArrow();
 			btnRight.x = 1210;
 			btnRight.y = 835;
 			btnRight.rotation = 90;
 			btnRight.addEventListener(MouseEvent.CLICK,buttonRight);
-			addChild(btnRight);
+			addChild(new iButton(btnRight));
 			
 			//== create background ==
 			var background:SnakeBackground = new SnakeBackground();
