@@ -167,6 +167,7 @@ package nl.iTouch.snake
 			var btnHigh:HighScoreButton = new HighScoreButton();
 			btnHigh.x = 1065;
 			btnHigh.y = 50;
+			btnHigh.addEventListener(MouseEvent.CLICK, closed);
 			addChild(new iButton(btnHigh));
 			
 			//== Create boeken kasten ==

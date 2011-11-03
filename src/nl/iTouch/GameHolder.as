@@ -5,6 +5,8 @@ package nl.iTouch
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	
 	public class GameHolder extends Sprite
 	{
@@ -14,7 +16,7 @@ package nl.iTouch
 		public static const GAME_VISIBLE:String = 'Gv';
 		
 		public var  howToScreen:Sprite = new Sprite();
-		
+		private var tf:TextField = new TextField();
 		private var _game:* = null;
 		private var _addedToStage:Boolean = false;
 		private var _visible:Boolean = false;
@@ -68,6 +70,29 @@ package nl.iTouch
 			howToScreen.graphics.endFill();
 			addChild(howToScreen);
 			howToScreen.visible = false;
+			var holder:Sprite = new Sprite();
+			holder.graphics.beginFill(0xFFFFFF);
+			holder.graphics.drawRoundRect(0,0,600,400,15);
+			holder.graphics.endFill();
+			holder.x = (howToScreen.width-holder.width)/2;
+			holder.y = 80;
+			tf.x = 15;
+			tf.y = 65;
+			tf.width = 520;
+			tf.height = 370;
+			tf.wordWrap = true;
+			tf.defaultTextFormat = new TextFormat('_sans',18);
+			var title:TextField = new TextField();
+			title.defaultTextFormat = new TextFormat('_sans',30,0,true);
+			title.x = 15;
+			title.y = 15;
+			title.height = 50;
+			title.width = 370;
+			title.text = 'How to play?';
+			holder.addChild(title);
+			holder.addChild(tf);
+			
+			howToScreen.addChild(holder);
 			
 			//back.scaleX = 0.4;
 			//back.scaleY= 0.4;
@@ -83,6 +108,7 @@ package nl.iTouch
 		private function displayHowTo(e:MouseEvent):void
 		{
 			howToScreen.visible = !howToScreen.visible;
+			tf.text = _game.howTo();
 		}
 		
 		public function addGame(obj:Class):void
@@ -117,7 +143,8 @@ package nl.iTouch
 			if(_visible && !_animate){
 				_animate = true;
 				_game.stop(true);
-				TweenLite.to(this,1,{x:stage.stageWidth/2,y:stage.stageHeight/2,height:0,width:0,onComplete:function():void{_animate = false; _visible = false;this.visible = false;  _status = GameHolder.GAME_INVISIBLE; dispatchEvent(new Event(GameHolder.GAME_INVISIBLE));}});
+				
+				TweenLite.to(this,1,{x:stage.stageWidth/2,y:stage.stageHeight/2,height:0,width:0,onComplete:function():void{_animate = false; _visible = false;this.visible = false;howToScreen.visible = false;  _status = GameHolder.GAME_INVISIBLE; dispatchEvent(new Event(GameHolder.GAME_INVISIBLE));}});
 			}
 		}
 		public function get status():String
