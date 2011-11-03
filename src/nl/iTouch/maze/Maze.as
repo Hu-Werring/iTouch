@@ -80,14 +80,10 @@ package nl.iTouch.maze
 					tmpMc.y = 0;
 					//	tmpMc.alpha = 0.5;
 					
-					this.grid.clickedTile.setTubeTile(tmpMc);
-					
-					trace(this.grid.clickedTile.tileNr, this.grid.powerStartTile);
-					if(this.grid.clickedTile.tileNr == this.grid.powerStartTile)
-					{
-						trace('powerSTART');
-						this.grid.clickedTile.curTubeTile.stroom('left');
-					}
+					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].setTubeTile(tmpMc);
+					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].hasTubeTile = true;
+					trace('-------------------goandcheckpower-------------------');
+					this.checkPower(this.grid.clickedTile.tileNr);
 					
 					this.Control.addTubeTile();
 				}
@@ -101,6 +97,155 @@ package nl.iTouch.maze
 					this.grid.clickedTile.removeTubeTile();
 				}
 			}
+		}
+		
+		private function checkPower(tileNr:int):void
+		{
+			trace('checking power of '+ tileNr);
+			var curTile:Tile = this.grid.returnTile(tileNr);
+			trace(curTile);
+			trace(curTile.hasTubeTile);
+			if(curTile.hasTubeTile == true)
+			{
+				trace('checking power realy');
+				var curTubeTile:TubeTile = curTile.curTubeTile;
+				var curTileNr:int = curTile.tileNr;
+				
+				var surroundingTiles:Object = this.grid.getSurroundingTiles(curTileNr);
+				
+				var tileLeft:Tile = surroundingTiles.tileLeft;
+				var tileTop:Tile = surroundingTiles.tileTop;
+				var tileRight:Tile = surroundingTiles.tileRight;
+				var tileBottom:Tile = surroundingTiles.tileBottom;
+				var inputPoint:String;
+				
+				//check links
+				if(tileLeft != null)
+				{
+					trace('left', tileLeft.hasTubeTile);
+					if(tileLeft.hasTubeTile == true)
+					{
+						trace('lefthastubetile');
+						if(tileLeft.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileLeft.curTubeTile.powerPoint);
+							if(curTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromleft');
+								curTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check rechts
+				if(tileRight != null)
+				{
+					trace('right');
+					if(tileRight.hasTubeTile == true)
+					{
+						trace('righthastubetile');
+						if(tileRight.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileRight.curTubeTile.powerPoint);
+							if(curTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromright');
+								curTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check onder
+				if(tileBottom != null)
+				{
+					trace('bottom');
+					if(tileBottom.hasTubeTile == true)
+					{
+						trace('bottomhastubetile');
+						if(tileBottom.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileBottom.curTubeTile.powerPoint);
+							if(curTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfrombottom');
+								curTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check boven
+				if(tileTop != null)
+				{
+					trace('top');
+					if(tileTop.hasTubeTile == true)
+					{
+						trace('tophastubetile');
+						if(tileTop.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileTop.curTubeTile.powerPoint);
+							if(curTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromtop');
+								curTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				switch(curTubeTile.powerPoint)
+				{
+					case 'left':
+						checkPower(tileLeft.tileNr);
+						break;
+					case 'right':
+						checkPower(tileRight.tileNr);
+						break;
+					case 'top':
+						checkPower(tileTop.tileNr);
+						break;
+					case 'bottom':
+						checkPower(tileBottom.tileNr);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+		
+		private function mirrorOutput2input(output:String):String
+		{
+			var input:String;
+			
+			switch(output)
+			{
+				case 'left':
+					input = 'right';
+					break;
+				
+				case 'right':
+					input = 'left';
+					break;
+				
+				case 'top':
+					input = 'bottom';
+					break;
+				
+				case 'bottom':
+					input = 'top';
+					break;
+				
+				default:
+					break;
+			}
+			
+			return input;
 		}
 		
 		private function drawPath():void

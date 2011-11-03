@@ -13,7 +13,7 @@ package nl.iTouch.maze
 	{
 		private var _naam:Class;
 		public var tileNr:int;
-		public var hasTubeTile:Boolean = false;	
+		//public var hasTubeTile:Boolean = false;	
 		public var curTubeTile:MovieClip;
 		public var left:String = 'false';
 		public var right:String = 'false';
@@ -39,8 +39,9 @@ package nl.iTouch.maze
 			this.graphics
 			switch(this.naam)
 			{
-				case 'powerStart':
+				case 'maze_bookCaseElectricPoint':
 					powerPoint = 'right';
+					//hasTubeTile = true;
 					break;
 				
 				case 'maze_cross':
@@ -138,12 +139,12 @@ package nl.iTouch.maze
 			trace(this.width, this.height);
 			tempLine.x = 0;
 			tempLine.y = 0;
-			tempLine.graphics.beginFill(0xFF0000);
-			tempLine.graphics.drawRect(0,0,this.width, this.height);
-			tempLine.graphics.endFill();
+		//	tempLine.graphics.beginFill(0xFF0000);
+			//tempLine.graphics.drawRect(0,0,this.width, this.height);
+			//tempLine.graphics.endFill();
 			tempLine.graphics.lineStyle(5, 0x00FF00, 1, false, "normal", CapsStyle.NONE);
-			tempLine.width = this.width;
-			tempLine.height = this.height;
+			//tempLine.width = this.width;
+			//tempLine.height = this.height;
 
 			switch(from)
 			{
@@ -181,24 +182,28 @@ package nl.iTouch.maze
 				case 'bottom':
 				{
 					toPoint = new Point(this.width / 2, this.height);
+					powerPoint = 'bottom';
 					break
 				}
 					
 				case 'top':
 				{
 					toPoint = new Point(this.width / 2, 0);
+					powerPoint = 'top';
 					break;
 				}
 					
 				case 'left':
 				{
 					toPoint = new Point(0, this.height / 2);
+					powerPoint = 'left';
 					break;
 				}
 					
 				case 'right':
 				{
 					toPoint = new Point(this.width, this.height / 2);
+					powerPoint = 'right';
 					break;
 				}
 					
@@ -206,6 +211,7 @@ package nl.iTouch.maze
 					noStroom = true;
 					break
 			}
+			
 			
 			if(noStroom == false)
 			{

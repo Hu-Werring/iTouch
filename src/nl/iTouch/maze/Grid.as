@@ -63,6 +63,11 @@ package nl.iTouch.maze
 			this.tilesObj[tile].addChild(content);
 		}
 		
+		public function setTileAttr(tile:Number, name:String, value:*):void
+		{
+			this.tilesObj[tile-1][name] = value;
+		}
+		
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
 		public function colorTile(tile:Number, color:uint, alpha:Number=1):void
 		{
@@ -72,9 +77,16 @@ package nl.iTouch.maze
 		}
 		
 		//Geef een tegel terug. (VERANDEREN IN getTile)
-		public function returnTile(tile:int):MovieClip
+		public function returnTile(tile:int, trueNr:Boolean=false):Tile
 		{
-			return this.tilesObj[tile];
+			if(trueNr == true)
+			{
+				return this.tilesObj[tile];
+			}
+			else
+			{
+				return this.tilesObj[tile-1];
+			}
 		}
 		
 		//Verander een tegel door middel van de coordinaten
@@ -85,9 +97,13 @@ package nl.iTouch.maze
 		
 		public function setPowerStartTile(p:int):void
 		{
-			var tmpMc:MovieClip = new TubeTile(maze_bookCaseElectricPoint);
+			var tmpMc:TubeTile = new TubeTile(maze_bookCaseElectricPoint);
+			//trace(tmpMc.TileNr);
+			//tmpMc.hasTubeTile = true;
 			this.powerStartTile = p;
-			this.setTile(p-1, tmpMc);
+			//this.setTile(p-1, tmpMc);
+			this.tilesObj[p-1].setTubeTile(tmpMc);
+			//this.setTileAttr(p-1, 'hasTubeTile', true);
 			//this.tilesObj[p-1].addChild(tmpMc);
 		}
 		
@@ -102,6 +118,7 @@ package nl.iTouch.maze
 			{
 				this.setTile(tiles[i]-1, new maze_bookCase());
 				this.tilesObj[tiles[i]-1].solid = true;
+				this.tilesObj[tiles[i]-1].hasTubeTile = false;
 				this.tilesObj[tiles[i]-1].removeEventListener(MouseEvent.CLICK, tileClicked);
 			}
 		}
@@ -160,7 +177,7 @@ package nl.iTouch.maze
 			}
 			
 			//refArray[index] = new MovieClip(); //Maak tegel
-			refArray[index] = new Tile(index);
+			refArray[index] = new Tile(TileNr);
 			refArray[index].graphics.beginFill(0xFFFFFF, 0); //Witte doorzichtige tegel.
 			refArray[index].graphics.drawRect(0,0,tileWidth, tileHeight); //Geef in main functie berekende breedte en hoogte mee
 			refArray[index].graphics.endFill();
@@ -178,7 +195,6 @@ package nl.iTouch.maze
 		public function tileClicked(e:MouseEvent):void
 		{
 			this.clickedTile = e.currentTarget;
-			trace(e.currentTarget.toString());
 			dispatchEvent(new Event('tileClicked'));
 		}
 		
@@ -198,6 +214,60 @@ package nl.iTouch.maze
 				}
 				this.tilesObj[i].addChild(txtBox);
 			}
+		}
+		
+		public function getSurroundingTiles(tileNr:int):Object
+		{
+			var tileLeft:Tile;
+			var tileTop:Tile;
+			var tileRight:Tile;
+			var tileBottom:Tile;
+			
+			//bereken lefttile nr.
+			if(tileNr == 1 || (tileNr-1)%this.cols == 0)
+			{
+				tileNr = -1;
+			}
+			else
+			{
+				tileLeft = this.returnTile(tileNr - 1);
+			}
+			
+			//bereken lefttile nr.
+			if(tileNr == 1 || tileNr%this.cols == 0)
+			{
+				tileRight = null;
+			}
+			else
+			{
+				tileRight = this.returnTile(tileNr + 1);
+			}
+			
+			//bereken toptile nr.
+			if(tileNr - this.cols > 0)
+			{
+				tileTop = this.returnTile(tileNr - this.cols);
+			}
+			else
+			{
+				tileTop = null;
+			}
+			
+			//bereken bottomtile nr.
+			if(tileNr + this.cols > this.tiles)
+			{
+				tileBottom = null;
+			}
+			else
+			{
+				tileBottom = this.returnTile(tileNr + this.cols);
+			}
+			
+			var tmpObj:Object = {	'tileLeft':tileLeft, 
+									'tileTop':tileTop, 
+									'tileRight':tileRight, 
+									'tileBottom':tileBottom};
+			return tmpObj;
 		}
 	}
 }
