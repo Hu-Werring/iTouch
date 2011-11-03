@@ -207,11 +207,11 @@ package nl.iTouch.snake
 			
 			_counter = _counterLenght;
 			timerBar.x = 975;
-			timerBar.y = 300;
+			timerBar.y = 350;
 			addChild(timerBar);
 			
 			timerBarLine.x = 975;
-			timerBarLine.y = 300;
+			timerBarLine.y = 350;
 			addChild(timerBarLine);
 			
 			//== create scorefield ==
@@ -235,7 +235,7 @@ package nl.iTouch.snake
 			addChild(scoreField);
 			
 			hintField.x = 975;
-			hintField.y = 370;
+			hintField.y = 420;
 			hintField.width = 270;
 			hintField.height = 135;
 			hintField.border = true;
@@ -247,7 +247,7 @@ package nl.iTouch.snake
 			addChild(hintField);
 			
 			timerLabel.x = 975;
-			timerLabel.y = 245;
+			timerLabel.y = 295;
 			timerLabel.width = 270;
 			timerLabel.height = 70;
 			timerLabel.border = false;
@@ -256,7 +256,7 @@ package nl.iTouch.snake
 			addChild(timerLabel);
 			
 			hintLabel.x = 975;
-			hintLabel.y = 340;
+			hintLabel.y = 390;
 			hintLabel.width = 270;
 			hintLabel.height = 70;
 			hintLabel.border = false;
