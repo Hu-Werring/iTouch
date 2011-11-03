@@ -26,7 +26,7 @@ package nl.iTouch.maze
 		
 		public function Controls()
 		{
-			graphics.beginFill(0xFFFFFF);
+			graphics.beginFill(0x333333);
 			graphics.drawRect(0,0,160,1024);
 			graphics.endFill();
 			this.x = 1120;
@@ -98,10 +98,7 @@ package nl.iTouch.maze
 		private function pressTrashUp(e:MouseEvent):void
 		{
 			this.trashMode = !this.trashMode;
-			if(this.trashMode == false)
-			{
-				trashBin.removeChild(trashBinP);
-			}
+			trashBin.removeChild(trashBinP);
 		}
 		
 		private function fillTubeTileHolder():void

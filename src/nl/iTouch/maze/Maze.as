@@ -35,11 +35,11 @@ package nl.iTouch.maze
 			beginTime = getTimer();
 			//this.width = mazeWidth;
 			//this.height = mazeHeight;
-			/*
-			this.graphics.beginFill(0xFF0000);
-			this.graphics.drawRect(0,0,100,100);
+			
+			this.graphics.beginFill(0x333333);
+			this.graphics.drawRect(0,0,stage.stageWidth,stage.stageHeight);
 			this.graphics.endFill();
-			*/
+			
 			//_db = DataBase.getInstance;
 			
 			//Plaats het spel in de linker bovenhoek van de game area.
