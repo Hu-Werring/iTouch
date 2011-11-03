@@ -68,17 +68,17 @@ package nl.iTouch
 			hsList.ScoreList.text = score[1];
 			hsList.NameList.text = score[0];
 			hsList.SluitKnop.addEventListener(MouseEvent.CLICK,closeHSList);
-			hsList.ToggleHSTypeKnop.addEventListener(MouseEvent.CLICK,switchHSType);
+			hsList.switchKnop.addEventListener(MouseEvent.CLICK,switchHSType);
 			return hsList;
 		}
 		
 		private function closeHSList(e:MouseEvent):void
 		{
-			trace(e.currentTarget);
+			trace(e.currentTarget.parent);
 		}
 		private function switchHSType(e:MouseEvent):void
 		{
-			trace(e.currentTarget);
+			trace(e.currentTarget.parent);
 		}
 		
 		private function generateScore(type:String):Array
