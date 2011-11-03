@@ -226,6 +226,10 @@ package nl.iTouch.snake
 			timerBarLine.y = 350;
 			addChild(timerBarLine);
 			
+			//== highScore button ==
+			
+			//trace ("hallo baviaan",highBtn.parent);
+			
 			//== create scorefield ==
 			var txtFrmtScore:TextFormat = new TextFormat("_sans", 60,null,true);
 			txtFrmtScore.align = TextAlign.RIGHT;
@@ -275,8 +279,6 @@ package nl.iTouch.snake
 			hintLabel.defaultTextFormat = txtFrmtLabel;
 			hintLabel.text = "Hint:";
 			addChild(hintLabel);
-			
-			//== highScore button ==
 			
 			placeStudent();
 			
