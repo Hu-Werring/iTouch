@@ -15,13 +15,13 @@ package nl.iTouch
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 45;
 			bevel.quality = BitmapFilterQuality.HIGH;
-			
+			bevel.strength = 0.5;
 			
 			var glow:GlowFilter = new GlowFilter();
 			glow.color=0x02AEAE;
-			glow.blurX=20;
-			glow.blurY=20;
-			glow.strength=2;
+			glow.blurX=10;
+			glow.blurY=10;
+			glow.strength=1.5;
 			
 			_sprite.filters = [bevel,glow];
 			
@@ -41,12 +41,13 @@ package nl.iTouch
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 225;
 			bevel.quality = BitmapFilterQuality.HIGH;
+			bevel.strength = 0.5;
 			
 			var glow:GlowFilter = new GlowFilter();
 			glow.color=0xE63028;
-			glow.blurX=20;
-			glow.blurY=20;
-			glow.strength=2;
+			glow.blurX=10;
+			glow.blurY=10;
+			glow.strength=1.5;
 			
 			_sprite.filters = [bevel,glow];
 			
@@ -56,12 +57,13 @@ package nl.iTouch
 			var bevel:BevelFilter = new BevelFilter();
 			bevel.angle = 45;
 			bevel.quality = BitmapFilterQuality.HIGH;
+			bevel.strength = 0.5;
 			
 			var glow:GlowFilter = new GlowFilter();
 			glow.color=0x02AEAE;
-			glow.blurX=20;
-			glow.blurY=20;
-			glow.strength=2;
+			glow.blurX=10;
+			glow.blurY=10;
+			glow.strength=1.5;
 			
 			_sprite.filters = [bevel,glow];
 			
