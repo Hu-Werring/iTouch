@@ -241,6 +241,11 @@ package nl.iTouch.guessgame
 						_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
 						_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
 						_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
+						(_bookHolder.AntwA.text.substr(3) == boek.naam) ? true : _bookHolder.AntwA.alpha = 0.3; 
+						(_bookHolder.AntwB.text.substr(3) == boek.naam) ? true : _bookHolder.AntwB.alpha = 0.3;
+						(_bookHolder.AntwC.text.substr(3) == boek.naam) ? true : _bookHolder.AntwC.alpha = 0.3;
+						(_bookHolder.AntwD.text.substr(3) == boek.naam) ? true : _bookHolder.AntwD.alpha = 0.3;
+						trace(_bookHolder.AntwA.text,_bookHolder.AntwB.text,_bookHolder.AntwC.text,_bookHolder.AntwD.text, boek.naam)
 						var sw:Sprite = _hs.submitHS(score);
 						if(sw !=null){
 							sw.x = (this.width - sw.width)/2;
@@ -280,6 +285,12 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
+			
+			(_bookHolder.AntwA.text.substr(3) == boek.naam) ? true : _bookHolder.AntwA.alpha = 0.3; 
+			(_bookHolder.AntwB.text.substr(3) == boek.naam) ? true : _bookHolder.AntwB.alpha = 0.3;
+			(_bookHolder.AntwC.text.substr(3) == boek.naam) ? true : _bookHolder.AntwC.alpha = 0.3;
+			(_bookHolder.AntwD.text.substr(3) == boek.naam) ? true : _bookHolder.AntwD.alpha = 0.3;
+			trace(_bookHolder.AntwA.text,_bookHolder.AntwB.text,_bookHolder.AntwC.text,_bookHolder.AntwD.text, boek.naam)
 			score+=_timeLeft;
 			correctTotal++;
 			effect.disable();
@@ -287,7 +298,8 @@ package nl.iTouch.guessgame
 			if(correctTotal<_boekenlijst.length){
 				TweenLite.delayedCall(3,startGame);
 			} else {
-				var sw:Sprite = _hs.submitHS(score*2);
+				var sw:Sprite = _hs.submitHS(score+50);
+				_hs.message = "Je hebt alle boeken goed gekozen, je krijgt 50 punten extra!\n"+ _hs.message 
 				if(sw !=null){
 					sw.x = (this.width - sw.width)/2;
 					sw.y = 100;
@@ -312,13 +324,14 @@ package nl.iTouch.guessgame
 				case 3:
 					effect.disable();
 					_bookHolder.lucas.bord.gotoAndStop(2);
-					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
+					if(timeSub) _timeLeft = Math.ceil(3/4 * _timeLeft);
 				break;
 				case 2:
 					_bookHolder.lucas.bord.gotoAndStop(3);
-					_bookHolder.lucas.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
+					_bookHolder.lucas.removeEventListener(MouseEvent.CLICK,disableEffects);
+					
 					_bookHolder.bookHolder.filters = [blurY];
-					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
+					if(timeSub) _timeLeft = Math.ceil(3/4 * _timeLeft);
 				break;
 				case 1:
 					 _bookHolder.bookHolder.filters = [];
@@ -326,6 +339,7 @@ package nl.iTouch.guessgame
 				break;
 			}
 			effects--;
+			trace(_bookHolder.lucas.hasEventListener(MouseEvent.CLICK));
 		}
 		public function stop(force:Boolean = false):void
 		{
