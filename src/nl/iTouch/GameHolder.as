@@ -53,8 +53,8 @@ package nl.iTouch
 		//	tmp.graphics.endFill();
 			var back:Sprite = new HomeButton();
 			back = new iButton(back);
-			back.x = 940;
-			back.y = 100;
+			back.x = 1225;
+			back.y = 50;
 			//back.scaleX = 0.4;
 			//back.scaleY= 0.4;
 			back.addEventListener(MouseEvent.CLICK,killGame);
