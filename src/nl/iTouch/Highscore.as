@@ -80,7 +80,22 @@ package nl.iTouch
 		}
 		private function switchHSType(e:MouseEvent):void
 		{
-			trace(e.currentTarget.parent);
+			var hsL:HSList = e.currentTarget.parent as HSList;
+			var score:Array;
+			switch(hsL.GameScoreTypeTF.text){
+				case 'Week Score':
+					hsL.GameScoreTypeTF.text = 'Maand Score';
+					score = generateScore('Maand');
+					hsL.ScoreList.text = score[1];
+					hsL.NameList.text = score[0];
+					break;
+				case 'Maand Score':
+					hsL.GameScoreTypeTF.text = 'Week Score';
+					score = generateScore('Week');
+					hsL.ScoreList.text = score[1];
+					hsL.NameList.text = score[0];
+					break;
+			}
 		}
 		
 		private function generateScore(type:String):Array
