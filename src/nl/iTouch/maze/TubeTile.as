@@ -23,6 +23,7 @@ package nl.iTouch.maze
 		public var tempLine:Sprite = null;
 		public var powerSource:Boolean = false;
 		public var overlay:MovieClip = new MovieClip();
+		public var background:Sprite = new Sprite();
 		
 		public var outputTile:int = -1;
 		
@@ -40,8 +41,14 @@ package nl.iTouch.maze
 			curTubeTile = new _naam();
 			curTubeTile.width = 80;
 			curTubeTile.height = 80;
+			
+			background.graphics.beginFill(0xFFFFFF);
+			background.graphics.drawRect(0,0,curTubeTile.width, curTubeTile.height);
+			background.graphics.endFill();
+			
+			addChild(background);
 			addChild(curTubeTile);
-
+			
 			this.overlay.graphics.lineStyle(5, 0x000000, 1, false, "normal", CapsStyle.NONE);
 			
 			switch(this.naam)

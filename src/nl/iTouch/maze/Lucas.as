@@ -31,6 +31,8 @@ package nl.iTouch.maze
 			this.pathStartTile = startTile;
 			this.pathEndTile = endTile;
 			this.speed = speed;
+			this.path = createManualPath();
+
 			
 			addEventListener(Event.ADDED_TO_STAGE, initLucas);
 		}
@@ -55,12 +57,11 @@ package nl.iTouch.maze
 			this.m = this.lucasMc.transform.matrix;
 
 			//createPath();
-			this.path = createManualPath();
 			
 			//setInterval(rotateLucas, 10, 1, 'tr');
 			setTimeout(this.walkPath, 2000);
 		}
-		
+				
 		private function createPath():void
 		{
 			//
@@ -87,8 +88,22 @@ package nl.iTouch.maze
 			}
 		}
 		
+		private function checkHitTest(tile:Tile, index:uint, refArray:Array)
+		{
+			if(tile.hasTubeTile == true)
+			{
+				if(this.hitTestObject(tile) == true)
+				{
+					tile.removeTubeTile();
+				}
+			}
+		}
+		
 		private function moveLucas(to:Point):void
 		{
+
+			this.gTilesObj.forEach(checkHitTest);
+			
 			if(this.x != to.x)
 			{
 				if(this.x - to.x > 0)
