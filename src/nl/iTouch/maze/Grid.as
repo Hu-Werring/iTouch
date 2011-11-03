@@ -81,11 +81,25 @@ package nl.iTouch.maze
 		{
 			if(trueNr == true)
 			{
-				return this.tilesObj[tile];
+				if(tile >= 0)
+				{
+					return this.tilesObj[tile];
+				}
+				else
+				{
+					return null;
+				}
 			}
 			else
 			{
-				return this.tilesObj[tile-1];
+				if(tile-1 >= 0)
+				{
+					return this.tilesObj[tile-1];
+				}
+				else
+				{
+					return null;
+				}
 			}
 		}
 		
