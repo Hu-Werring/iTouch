@@ -13,6 +13,7 @@ package nl.iTouch
 		public static const GAME_INVISIBLE:String = 'Gi';
 		public static const GAME_VISIBLE:String = 'Gv';
 		
+		public var  howToScreen:Sprite = new Sprite();
 		
 		private var _game:* = null;
 		private var _addedToStage:Boolean = false;
@@ -72,6 +73,7 @@ package nl.iTouch
 				this.removeChild(_game);
 				_game.stop(true);
 			}
+			trace("===============>",obj.toString());
 			_game = new obj();
 			_game.addEventListener('BACK',hide);
 			addChildAt(_game,0);
