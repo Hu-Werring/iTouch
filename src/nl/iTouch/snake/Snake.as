@@ -52,7 +52,9 @@ package nl.iTouch.snake
 		private var timerBar:TimerBar = new TimerBar();
 		private var timerBarLine:TimerBarLine = new TimerBarLine();
 		private var scoreField:TextField = new TextField();
+		private var timerLabel:TextField = new TextField();
 		private var hintField:TextField = new TextField();
+		private var hintLabel:TextField = new TextField();
 		
 		//== effecten variables ==
 
@@ -211,7 +213,13 @@ package nl.iTouch.snake
 			
 			//== create scorefield ==
 			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 60,null,true);
-			txtFrmtScore.align = TextAlign.RIGHT;
+			txtFrmtScore.align = TextAlign.LEFT;
+			
+			var txtFrmtLabel:TextFormat = new TextFormat("Avenir", 20,null,true);
+			txtFrmtScore.align = TextAlign.CENTER;
+			
+			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
+			txtFrmtHint.align = TextAlign.JUSTIFY;
 			
 			scoreField.x = 975;
 			scoreField.y = 120;
@@ -229,13 +237,21 @@ package nl.iTouch.snake
 			hintField.height = 135;
 			hintField.border = true;
 			hintField.wordWrap = true;
-			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
-			txtFrmtHint.align = TextAlign.JUSTIFY;
 			hintField.defaultTextFormat = txtFrmtHint;
 			
 			hintField.backgroundColor = 0xffffff;
 			//hintField.text = String(_score);
 			addChild(hintField);
+			
+			timerLabel.x = 975;
+			timerLabel.y = 240;
+			timerLabel.width = 270;
+			timerLabel.height = 70;
+			timerLabel.border = false;
+			timerLabel.defaultTextFormat = txtFrmtLabel;
+			timerLabel.backgroundColor = 0xffffff;
+			timerLabel.text = "Hint timer:";
+			addChild(timerLabel);
 			
 			placeStudent();
 			
