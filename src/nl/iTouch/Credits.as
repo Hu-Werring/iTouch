@@ -33,8 +33,9 @@ package nl.iTouch
 		{
 		}
 		
-		public function howTo():void
+		public function howTo():String
 		{
+			return null;
 		}
 		
 		public function gotoHome(e:MouseEvent):void

@@ -130,6 +130,8 @@ package nl.iTouch.maze
 		public function setPowerEndTile(p:int):void
 		{
 			this.powerEndTile = p;
+			var tmpMc:TubeTile = new TubeTile(maze_port1);
+			this.tilesObj[p-1].setTubeTile(tmpMc);
 		}
 		
 		public function setBookCase(tiles:Array):void
@@ -170,6 +172,19 @@ package nl.iTouch.maze
 				for(var i:int=startTile;i<=endTile;i+=this.cols)
 				{
 					this.colorTile(i, color, alpha);
+				}
+			}
+		}
+		
+		public function setRow(row:int, content:*):void
+		{
+			if(row/this.rows <= 1)
+			{
+				var startTile:int = (row-1)*this.cols;
+				var endTile:int = startTile + cols;
+				for(var i:int=startTile;i<endTile;i++)
+				{
+					this.setTile(i, new content());
 				}
 			}
 		}
