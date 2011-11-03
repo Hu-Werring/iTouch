@@ -39,9 +39,9 @@ package nl.iTouch
 			graphics.drawRect(0,0,stage.stageWidth,stage.stageHeight);
 			graphics.endFill();
 			
-			this.width = 0;
+			this.scaleX = 0.01;
 			
-			this.height = 0;
+			this.scaleY = 0.01;
 			this.x = stage.stageWidth/2;
 			this.y = stage.stageHeight/2;
 			this.visible = false;
@@ -53,8 +53,8 @@ package nl.iTouch
 		//	tmp.graphics.endFill();
 			var back:Sprite = new HomeButton();
 			back = new iButton(back);
-			back.x = -200;
-			back.y = 90;
+			back.x = 940;
+			back.y = 100;
 			back.scaleX = 0.4;
 			back.scaleY= 0.4;
 			back.addEventListener(MouseEvent.CLICK,killGame);
@@ -73,7 +73,7 @@ package nl.iTouch
 				_game.stop(true);
 			}
 			_game = new obj();
-			_game.addEventListener('BACK',hide)
+			_game.addEventListener('BACK',hide);
 			addChildAt(_game,0);
 			if(visible){
 				_status = GameHolder.GAME_VISIBLE;
@@ -88,7 +88,7 @@ package nl.iTouch
 				_animate = true;
 				this.visible = true;
 				_status = GameHolder.GAME_VISIBLE;
-				TweenLite.to(this,1,{x:2,y:2,height:stage.stageHeight,width:stage.stageWidth,onComplete:function():void{_animate = false; _visible = true;}});
+				TweenLite.to(this,1,{x:2,y:2,scaleX:1,scaleY:1,onComplete:function():void{_animate = false; _visible = true;}});
 			}
 		}
 		

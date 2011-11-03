@@ -181,7 +181,7 @@ package nid.ui.controls.vkb
 						case '{space}':	icon = new space_icon();	break;
 						case '{tab}':	icon = new tab_icon();		break;
 					}
-					trace(currentLayout[raws][columns].c,'icon:',icon);
+					
 					key = KeyFactory.getKey(ko.c, k_w, k_h, ko.t, icon);
 					
 					key.x = x_pox;

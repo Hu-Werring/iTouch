@@ -14,7 +14,8 @@ package nl.iTouch.maze
 		public var trashMode:Boolean = false;
 		private var prevY:int = 0;
 		private var tubeTilesY:Array = new Array();
-		private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble1, maze_curveDouble2, maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
+	//	private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble1, maze_curveDouble2, maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
+		private var tubeTiles:Array = new Array(maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
 		
 		public function Controls()
 		{

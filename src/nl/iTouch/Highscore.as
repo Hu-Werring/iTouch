@@ -67,18 +67,49 @@ package nl.iTouch
 			var score:Array = generateScore('Week');
 			hsList.ScoreList.text = score[1];
 			hsList.NameList.text = score[0];
+			hsList.SluitKnop.addEventListener(MouseEvent.CLICK,closeHSList);
+			hsList.switchKnop.addEventListener(MouseEvent.CLICK,switchHSType);
 			return hsList;
+		}
+		
+		private function closeHSList(e:MouseEvent):void
+		{
+			var hsL:HSList = e.currentTarget.parent as HSList;
+			
+			TweenLite.to(hsL,1,{scaleY:0.01,scaleX:0.01,alpha: 0,onComplete:function():void{hsL.parent.removeChild(hsL);}});
+		}
+		private function switchHSType(e:MouseEvent):void
+		{
+			var hsL:HSList = e.currentTarget.parent as HSList;
+			var score:Array;
+			switch(hsL.GameScoreTypeTF.text){
+				case 'Week Score':
+					hsL.GameScoreTypeTF.text = 'Maand Score';
+					score = generateScore('Maand');
+					hsL.ScoreList.text = score[1];
+					hsL.NameList.text = score[0];
+					hsL.switchKnop.tf.text='Week Score';
+					break;
+				case 'Maand Score':
+					hsL.GameScoreTypeTF.text = 'Week Score';
+					score = generateScore('Week');
+					hsL.ScoreList.text = score[1];
+					hsL.NameList.text = score[0];
+					hsL.switchKnop.tf.text='Maand Score';
+					break;
+			}
 		}
 		
 		private function generateScore(type:String):Array
 		{
 			var list:Array = getList(type);
-			
 			var names:String = "";
 			var scores:String = "";
-			for (var i:uint = 0; i<list.length;i++){
-				names += formatName(list[i],i);
-				scores+= list[i].score + "\n";
+			if(list != null){
+				for (var i:uint = 0; i<list.length;i++){
+					names += formatName(list[i],i);
+					scores+= list[i].score + "\n";
+				}
 			}
 			
 			return [names,scores];
@@ -163,7 +194,7 @@ package nl.iTouch
 			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,x:object.width/2+object.x,y:object.height/2+object.y,onComplete:function():void{ 
 				object.parent.removeChild(object);
 			}});
-
+			TweenLite.delayedCall(1,function():void{object.dispatchEvent(new Event('closedSubmit'))});
 		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{

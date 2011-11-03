@@ -1,5 +1,7 @@
 package nl.iTouch.guessgame
 {
+	import caurina.transitions.TweenListObj;
+	
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Linear;
 	import com.greensock.events.LoaderEvent;
@@ -33,9 +35,9 @@ package nl.iTouch.guessgame
 		
 		private var _queue:LoaderMax;
 		private var _loaded:Boolean = false;
-		private var boek:Object;
 		private var _bookHolder:GuessGameHolder = new GuessGameHolder();
 		
+		private var boek:Object;
 		private var bookIndex:int;
 		
 		private var _timeLeft:int;
@@ -116,6 +118,7 @@ package nl.iTouch.guessgame
 			_queue.load();		
 			bookIndex = Math.floor(Math.random()*_boekenlijst.length);
 			timerBar.graphics.beginFill(0x00FF00);
+			timerBar.graphics.lineStyle(1);
 			timerBar.graphics.drawRect(0,0,600,50);
 			timerBar.graphics.endFill();
 				
@@ -137,6 +140,7 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwD.text = "";
 			_bookHolder.authorTF.text = "";
 			_bookHolder.descTF.text = "";
+			_bookHolder.lucas.bord.gotoAndStop(4);
 		}
 		
 		private function completeHandler(e:LoaderEvent):void
@@ -155,14 +159,14 @@ package nl.iTouch.guessgame
 		
 		public function play():void
 		{
-			this.parent.addEventListener(MouseEvent.CLICK,startGame);
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,startGame);
 		}
 		
 		private function startGame(e:MouseEvent=null):void
 		{
 			TweenLite.to(timerBar,0.5,{width:600,ease:Linear.easeOut});
 			bookIndex=(bookIndex+1)%_boekenlijst.length;
-			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
+			_bookHolder.lucas.removeEventListener(MouseEvent.CLICK,startGame);
 			if(_noGame) return;
 			_timeLeft = _totaltime;
 			timer.start();
@@ -193,10 +197,6 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwB.alpha=1;
 			_bookHolder.AntwC.alpha=1;
 			_bookHolder.AntwD.alpha=1;
-			_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
-			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
 
 			_bookHolder.AntwA.addEventListener(MouseEvent.CLICK,answerQ);
 			_bookHolder.AntwB.addEventListener(MouseEvent.CLICK,answerQ);
@@ -212,8 +212,8 @@ package nl.iTouch.guessgame
 			_bookHolder.bookHolder.addChild(effect);
 			effect.effectIn(loader.rawContent);
 			effects = 3;
-			_bookHolder.bookHolder.addEventListener(MouseEvent.CLICK,disableEffects);
-			
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,disableEffects);
+			_bookHolder.lucas.bord.gotoAndStop(1);
 		}
 		
 		private function tick(e:TimerEvent):void
@@ -223,6 +223,7 @@ package nl.iTouch.guessgame
 					if(_timeLeft<=20){
 						disableEffects();
 						_timeLeft = 20;
+						_bookHolder.lucas.bord.gotoAndStop(2);
 					}
 				break;
 				case 2:
@@ -236,12 +237,20 @@ package nl.iTouch.guessgame
 						disableEffects();
 						timer.stop();
 						timer.removeEventListener(TimerEvent.TIMER,tick);
-							var sw:Sprite = _hs.submitHS(score);
-							if(sw !=null){
-								sw.x = (this.width - sw.width)/2;
-								sw.y = 100;
-								addChild(sw);
-							}
+						_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
+						_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
+						var sw:Sprite = _hs.submitHS(score);
+						if(sw !=null){
+							sw.x = (this.width - sw.width)/2;
+							sw.y = 100;
+							TweenLite.delayedCall(3,addChild,[sw]);
+							sw.addEventListener('closedSubmit',closed);
+							
+						} else {
+							highscore();
+						}
 					}
 			}
 			
@@ -249,30 +258,44 @@ package nl.iTouch.guessgame
 			TweenLite.to(timerBar,1,{width:20*_timeLeft,ease:Linear.easeNone});
 		}
 		
+		private function closed(e:Event=null):void
+		{
+			highscore();
+			_bookHolder.lucas.gotoAndStop(4);
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,startGame);
+		}
 		private function answerQ(e:MouseEvent):void
 		{
 			var tf:TextField = e.currentTarget as TextField;
 			
 			if(tf.text.substr(3) == boek.naam) goed();
 			else fout(tf);
-			
-			
 		}
 		
 		private function goed():void
 		{
 			timer.stop();
 			timer.removeEventListener(TimerEvent.TIMER,tick);
+			_bookHolder.AntwA.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwB.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwC.removeEventListener(MouseEvent.CLICK,answerQ);
+			_bookHolder.AntwD.removeEventListener(MouseEvent.CLICK,answerQ);
 			score+=_timeLeft;
 			correctTotal++;
+			effect.disable();
+			_bookHolder.bookHolder.filters = [];
 			if(correctTotal<_boekenlijst.length){
-				startGame();
+				TweenLite.delayedCall(3,startGame);
 			} else {
 				var sw:Sprite = _hs.submitHS(score*2);
 				if(sw !=null){
 					sw.x = (this.width - sw.width)/2;
 					sw.y = 100;
-					addChild(sw);
+					TweenLite.delayedCall(3,addChild,[sw]);
+					sw.addEventListener('closedSubmit',closed);
+					
+				}  else {
+					highscore();
 				}
 			}
 		}
@@ -283,20 +306,23 @@ package nl.iTouch.guessgame
 			tf.alpha = 0.5;
 		}
 		
-		private function disableEffects(e:MouseEvent=null):void
+		private function disableEffects(e:MouseEvent=null,timeSub:Boolean = true ):void
 		{
 			switch(effects){
 				case 3:
 					effect.disable();
-					_timeLeft = Math.ceil(2/3 * _timeLeft);
+					_bookHolder.lucas.bord.gotoAndStop(2);
+					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 2:
+					_bookHolder.lucas.bord.gotoAndStop(3);
+					_bookHolder.lucas.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
 					_bookHolder.bookHolder.filters = [blurY];
-					_timeLeft = Math.ceil(2/3 * _timeLeft);
+					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 1:
-					_bookHolder.bookHolder.filters = [];
-					_timeLeft = 0;
+					 _bookHolder.bookHolder.filters = [];
+					 if(timeSub) _timeLeft = 0;
 				break;
 			}
 			effects--;
@@ -316,7 +342,11 @@ package nl.iTouch.guessgame
 		
 		public function highscore():void
 		{
+			var hsL:Sprite = _hs.highScoreList();
+			hsL.x = (this.width-hsL.width)/2;
+			hsL.y = (this.height-hsL.height)/2;
 			
+			addChild(hsL);
 		}
 		private function mixArray(array:Array):Array {
 			var _length:Number = array.length; 

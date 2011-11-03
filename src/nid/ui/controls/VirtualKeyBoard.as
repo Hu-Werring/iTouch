@@ -53,7 +53,6 @@ package  nid.ui.controls
 		
 		private function updateTarget(e:KeyBoardEvent):void 
 		{
-			trace(e.char);
 			switch(e.char)
 			{
 				case '{del}':

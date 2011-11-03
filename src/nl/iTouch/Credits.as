@@ -15,14 +15,12 @@ package nl.iTouch
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			var cred:CreditsImage = new CreditsImage();
-			cred.width = 1300;
-			cred.height = 1024;
-			cred.x=25;
+
 			addChild(cred);	
 			var Logo:LogoImage = new LogoImage();
-			Logo.x = 600;
-			Logo.width = 400;
-			Logo.height = 330;
+			Logo.x = 550;
+			Logo.scaleY = 3;
+			Logo.scaleX = 3;
 			Logo.y = 400;
 			addChild(Logo);
 		}

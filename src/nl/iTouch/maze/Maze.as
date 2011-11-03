@@ -48,7 +48,7 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
-			//this.grid.showTileNrs();
+			this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
 			this.grid.setPowerEndTile(42);
@@ -71,8 +71,10 @@ package nl.iTouch.maze
 			{
 				if(this.grid.clickedTile.hasTubeTile == false)
 				{
-					var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
+					var tmpMc:TubeTile = this.Control.tubeTilesOrder.shift();
 					tmpMc.tileNr = this.grid.clickedTile.tileNr;
+					//tmpMc.addChild(tmpMc.overlay);
+					//tmpMc.curTubeTile.visible = false;
 					//tmpMc.width = 80;
 					//tmpMc.height = 80;
 					TweenLite.killTweensOf(tmpMc);
@@ -80,14 +82,10 @@ package nl.iTouch.maze
 					tmpMc.y = 0;
 					//	tmpMc.alpha = 0.5;
 					
-					this.grid.clickedTile.setTubeTile(tmpMc);
-					
-					trace(this.grid.clickedTile.tileNr, this.grid.powerStartTile);
-					if(this.grid.clickedTile.tileNr == this.grid.powerStartTile)
-					{
-						trace('powerSTART');
-						this.grid.clickedTile.curTubeTile.stroom('left');
-					}
+					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].setTubeTile(tmpMc);
+					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].hasTubeTile = true;
+					trace('-------------------goandcheckpower-------------------');
+					this.checkPower(this.grid.clickedTile.tileNr);
 					
 					this.Control.addTubeTile();
 				}
@@ -96,11 +94,256 @@ package nl.iTouch.maze
 			{
 				if(this.grid.clickedTile.hasTubeTile==true)
 				{
-					//Remove tubetile.
-					trace(this.grid.clickedTile);
-					this.grid.clickedTile.removeTubeTile();
+					clearTubeTile(this.grid.clickedTile.tileNr);
+					removeTubeTile(this.grid.clickedTile.tileNr);
 				}
 			}
+		}
+		
+		private function clearTubeTile(tileNr:int):void
+		{
+			var tbt:Tile = this.grid.returnTile(tileNr);
+			if(tbt.hasTubeTile == true)
+			{
+				tbt.curTubeTile.powerPoint = 'false';
+				tbt.curTubeTile.curTubeTile.visible = true;
+				
+				if(tbt.curTubeTile.tempLine !=null)
+				{
+					tbt.curTubeTile.removeChild(tbt.curTubeTile.tempLine);
+				}
+				tbt.curTubeTile.tempLine = null;
+				if(tbt.curTubeTile.outputTile != -1)
+				{
+					clearTubeTile(tbt.curTubeTile.outputTile);
+					tbt.curTubeTile.outputTile = -1;
+				}
+			}
+			
+			//var surroundingTiles:Object = this.grid.getSurroundingTiles(tileNr);
+			//var tileLeft:Tile = surroundingTiles.tileLeft;
+			//var tileTop:Tile = surroundingTiles.tileTop;
+			//var tileRight:Tile = surroundingTiles.tileRight;
+			//var tileBottom:Tile = surroundingTiles.tileBottom;
+			
+			
+			/*if(tileLeft != null)
+			{
+				checkPower(tileLeft.tileNr);
+			}
+			
+			if(tileRight != null)
+			{
+				checkPower(tileRight.tileNr);
+			}
+			
+			if(tileTop != null)
+			{
+				checkPower(tileTop.tileNr);
+			}
+			
+			if(tileBottom != null)
+			{
+				checkPower(tileBottom.tileNr);
+			}*/
+			
+		}
+		
+		private function removeTubeTile(tileNr:int):void
+		{
+			this.grid.returnTile(tileNr).removeTubeTile();
+		}
+		
+		private function checkPower(tileNr:int):void
+		{
+			var curTile:Tile = this.grid.returnTile(tileNr);
+
+			if(curTile.hasTubeTile == true)
+			{
+				trace('checking power realy');
+				var currentTubeTile:TubeTile = curTile.curTubeTile;
+				var curTileNr:int = curTile.tileNr;
+				
+				var surroundingTiles:Object = this.grid.getSurroundingTiles(curTileNr);
+				
+				var tileLeft:Tile = surroundingTiles.tileLeft;
+				var tileTop:Tile = surroundingTiles.tileTop;
+				var tileRight:Tile = surroundingTiles.tileRight;
+				var tileBottom:Tile = surroundingTiles.tileBottom;
+				var inputPoint:String;
+				
+				/*
+				var hadPower:Boolean = false;
+				
+				trace('before: '+currentTubeTile.powerPoint);
+				if(currentTubeTile.powerPoint != 'false')
+				{
+					currentTubeTile.powerPoint = 'false';
+					if(currentTubeTile.tempLine !=null)
+					{
+						currentTubeTile.removeChild(currentTubeTile.tempLine);
+					}
+					currentTubeTile.tempLine = null;
+					hadPower = true;
+				}
+				trace('after' + currentTubeTile.powerPoint);*/
+				
+				//check links
+				if(tileLeft != null)
+				{
+					trace('left', tileLeft.hasTubeTile);
+					if(tileLeft.hasTubeTile == true)
+					{
+						trace('lefthastubetile');
+						if(tileLeft.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileLeft.curTubeTile.powerPoint);
+							if(currentTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromleft');
+								tileLeft.curTubeTile.outputTile = curTileNr;
+								currentTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check rechts
+				if(tileRight != null)
+				{
+					trace('right');
+					if(tileRight.hasTubeTile == true)
+					{
+						trace('righthastubetile');
+						if(tileRight.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileRight.curTubeTile.powerPoint);
+							if(currentTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromright');
+								tileRight.curTubeTile.outputTile = curTileNr;
+								currentTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check onder
+				if(tileBottom != null)
+				{
+					trace('bottom');
+					if(tileBottom.hasTubeTile == true)
+					{
+						trace('bottomhastubetile');
+						if(tileBottom.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileBottom.curTubeTile.powerPoint);
+							if(currentTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfrombottom');
+								tileBottom.curTubeTile.outputTile = curTileNr;
+								currentTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+				
+				//check boven
+				if(tileTop != null)
+				{
+					trace('top');
+					if(tileTop.hasTubeTile == true)
+					{
+						trace('tophastubetile');
+						if(tileTop.curTubeTile.powerPoint != 'false')
+						{
+							trace('haspowerpoint');
+							inputPoint = this.mirrorOutput2input(tileTop.curTubeTile.powerPoint);
+							if(currentTubeTile[inputPoint] != 'false')
+							{
+								trace('powerfromtop');
+								tileTop.curTubeTile.outputTile = curTileNr;
+								currentTubeTile.stroom(inputPoint);
+							}
+						}
+					}
+				}
+						
+				trace('END: '+currentTubeTile.powerPoint);
+				switch(currentTubeTile.powerPoint)
+				{
+					case 'left':
+						if(tileLeft != false)
+						{
+							checkPower(tileLeft.tileNr);
+						}
+						break;
+					
+					case 'right':
+						if(tileRight != null)
+						{
+							checkPower(tileRight.tileNr);
+						}
+						break;
+					
+					case 'top':
+						if(tileTop != null)
+						{
+							checkPower(tileTop.tileNr);
+						}
+						break;
+					
+					case 'bottom':
+						if(tileBottom != null)
+						{
+							checkPower(tileBottom.tileNr);
+						}
+						break;
+					/*
+					case 'false':
+						if(hadPower == true)
+						{
+							trace("hadd power, not anymore, removing tile: "+curTile.tileNr);
+							clearTubeTile(curTile.tileNr);
+						}
+						break;
+					*/
+					default:
+						break;
+				}
+			}
+		}
+		
+		private function mirrorOutput2input(output:String):String
+		{
+			var input:String;
+			
+			switch(output)
+			{
+				case 'left':
+					input = 'right';
+					break;
+				
+				case 'right':
+					input = 'left';
+					break;
+				
+				case 'top':
+					input = 'bottom';
+					break;
+				
+				case 'bottom':
+					input = 'top';
+					break;
+				
+				default:
+					break;
+			}
+			
+			return input;
 		}
 		
 		private function drawPath():void
