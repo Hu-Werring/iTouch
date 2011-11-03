@@ -13,7 +13,7 @@ package nl.iTouch.eyecatcher
 		
 		override protected function drawMe():void
 		{
-			var lucas:Sprite = new CdImage();
+			var lucas:Sprite = new BoekImage();
 			lucas.scaleX = 0.4;
 			lucas.scaleY = 0.4;
 			addChild(lucas)
