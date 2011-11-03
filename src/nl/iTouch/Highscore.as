@@ -88,12 +88,14 @@ package nl.iTouch
 					score = generateScore('Maand');
 					hsL.ScoreList.text = score[1];
 					hsL.NameList.text = score[0];
+					hsL.switchKnop.tf.text='Week Score';
 					break;
 				case 'Maand Score':
 					hsL.GameScoreTypeTF.text = 'Week Score';
 					score = generateScore('Week');
 					hsL.ScoreList.text = score[1];
 					hsL.NameList.text = score[0];
+					hsL.switchKnop.tf.text='Maand Score';
 					break;
 			}
 		}
