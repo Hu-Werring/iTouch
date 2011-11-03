@@ -92,23 +92,56 @@ package nl.iTouch.maze
 			{
 				if(this.grid.clickedTile.hasTubeTile==true)
 				{
-					//Remove tubetile.
-					trace(this.grid.clickedTile);
-					this.grid.clickedTile.removeTubeTile();
+					clearTubeTile(this.grid.clickedTile.tileNr);
+					removeTubeTile(this.grid.clickedTile.tileNr);
 				}
 			}
 		}
 		
+		private function clearTubeTile(tileNr:int):void
+		{
+			//Remove tubetile.
+			var surroundingTiles:Object = this.grid.getSurroundingTiles(tileNr);
+			var tileLeft:Tile = surroundingTiles.tileLeft;
+			var tileTop:Tile = surroundingTiles.tileTop;
+			var tileRight:Tile = surroundingTiles.tileRight;
+			var tileBottom:Tile = surroundingTiles.tileBottom;
+			
+			if(tileLeft != false)
+			{
+				checkPower(tileLeft.tileNr);
+			}
+			
+			if(tileRight != false)
+			{
+				checkPower(tileRight.tileNr);
+			}
+			
+			if(tileTop != false)
+			{
+				checkPower(tileTop.tileNr);
+			}
+			
+			if(tileBottom != false)
+			{
+				checkPower(tileBottom.tileNr);
+			}
+			
+		}
+		
+		private function removeTubeTile(tileNr:int):void
+		{
+			this.grid.returnTile(tileNr).removeTubeTile();
+		}
+		
 		private function checkPower(tileNr:int):void
 		{
-			trace('checking power of '+ tileNr);
 			var curTile:Tile = this.grid.returnTile(tileNr);
-			trace(curTile);
-			trace(curTile.hasTubeTile);
+
 			if(curTile.hasTubeTile == true)
 			{
 				trace('checking power realy');
-				var curTubeTile:TubeTile = curTile.curTubeTile;
+				var currentTubeTile:TubeTile = curTile.curTubeTile;
 				var curTileNr:int = curTile.tileNr;
 				
 				var surroundingTiles:Object = this.grid.getSurroundingTiles(curTileNr);
@@ -118,6 +151,7 @@ package nl.iTouch.maze
 				var tileRight:Tile = surroundingTiles.tileRight;
 				var tileBottom:Tile = surroundingTiles.tileBottom;
 				var inputPoint:String;
+				//currentTubeTile.powerPoint = 'false';
 				
 				//check links
 				if(tileLeft != null)
@@ -130,10 +164,10 @@ package nl.iTouch.maze
 						{
 							trace('haspowerpoint');
 							inputPoint = this.mirrorOutput2input(tileLeft.curTubeTile.powerPoint);
-							if(curTubeTile[inputPoint] != 'false')
+							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromleft');
-								curTubeTile.stroom(inputPoint);
+								currentTubeTile.stroom(inputPoint);
 							}
 						}
 					}
@@ -150,10 +184,10 @@ package nl.iTouch.maze
 						{
 							trace('haspowerpoint');
 							inputPoint = this.mirrorOutput2input(tileRight.curTubeTile.powerPoint);
-							if(curTubeTile[inputPoint] != 'false')
+							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromright');
-								curTubeTile.stroom(inputPoint);
+								currentTubeTile.stroom(inputPoint);
 							}
 						}
 					}
@@ -170,10 +204,10 @@ package nl.iTouch.maze
 						{
 							trace('haspowerpoint');
 							inputPoint = this.mirrorOutput2input(tileBottom.curTubeTile.powerPoint);
-							if(curTubeTile[inputPoint] != 'false')
+							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfrombottom');
-								curTubeTile.stroom(inputPoint);
+								currentTubeTile.stroom(inputPoint);
 							}
 						}
 					}
@@ -190,16 +224,17 @@ package nl.iTouch.maze
 						{
 							trace('haspowerpoint');
 							inputPoint = this.mirrorOutput2input(tileTop.curTubeTile.powerPoint);
-							if(curTubeTile[inputPoint] != 'false')
+							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromtop');
-								curTubeTile.stroom(inputPoint);
+								currentTubeTile.stroom(inputPoint);
 							}
 						}
 					}
 				}
-				
-				switch(curTubeTile.powerPoint)
+						
+				trace('END: '+currentTubeTile.powerPoint);
+				switch(currentTubeTile.powerPoint)
 				{
 					case 'left':
 						if(tileLeft != false)
@@ -228,6 +263,11 @@ package nl.iTouch.maze
 							checkPower(tileBottom.tileNr);
 						}
 						break;
+					
+					case 'false':
+						//removeTubeTile(curTile.tileNr);
+						break;
+					
 					default:
 						break;
 				}
