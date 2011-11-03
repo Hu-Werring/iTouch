@@ -138,7 +138,7 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwD.text = "";
 			_bookHolder.authorTF.text = "";
 			_bookHolder.descTF.text = "";
-			_bookHolder.bord.gotoAndStop(4);
+			_bookHolder.lucas.bord.gotoAndStop(4);
 		}
 		
 		private function completeHandler(e:LoaderEvent):void
@@ -215,6 +215,7 @@ package nl.iTouch.guessgame
 			effect.effectIn(loader.rawContent);
 			effects = 3;
 			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,disableEffects);
+			_bookHolder.lucas.bord.gotoAndStop(1);
 		}
 		
 		private function tick(e:TimerEvent):void
@@ -224,7 +225,7 @@ package nl.iTouch.guessgame
 					if(_timeLeft<=20){
 						disableEffects();
 						_timeLeft = 20;
-						_bookHolder.bord.gotoAndStop(2);
+						_bookHolder.lucas.bord.gotoAndStop(2);
 					}
 				break;
 				case 2:
@@ -245,6 +246,8 @@ package nl.iTouch.guessgame
 								addChild(sw);
 								sw.addEventListener('closedSubmit',closed);
 								
+							} else {
+								highscore();
 							}
 					}
 			}
@@ -253,7 +256,7 @@ package nl.iTouch.guessgame
 			TweenLite.to(timerBar,1,{width:20*_timeLeft,ease:Linear.easeNone});
 		}
 		
-		private function closed(e:Event):void
+		private function closed(e:Event=null):void
 		{
 			highscore();
 			_bookHolder.lucas.gotoAndStop(4);
@@ -283,7 +286,9 @@ package nl.iTouch.guessgame
 					addChild(sw);
 					sw.addEventListener('closedSubmit',closed);
 					
-				} 
+				}  else {
+					highscore();
+				}
 			}
 		}
 		private function fout(tf:TextField):void
@@ -298,12 +303,12 @@ package nl.iTouch.guessgame
 			switch(effects){
 				case 3:
 					effect.disable();
-					_bookHolder.bord.gotoAndStop(2);
+					_bookHolder.lucas.bord.gotoAndStop(2);
 					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 2:
-					_bookHolder.bord.gotoAndStop(3);
-					_bookHolder.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
+					_bookHolder.lucas.bord.gotoAndStop(3);
+					_bookHolder.lucas.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
 					_bookHolder.bookHolder.filters = [blurY];
 					_timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
