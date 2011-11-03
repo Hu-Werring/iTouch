@@ -1,5 +1,7 @@
 package nl.iTouch.guessgame
 {
+	import caurina.transitions.TweenListObj;
+	
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Linear;
 	import com.greensock.events.LoaderEvent;
@@ -276,14 +278,16 @@ package nl.iTouch.guessgame
 			timer.removeEventListener(TimerEvent.TIMER,tick);
 			score+=_timeLeft;
 			correctTotal++;
+			effect.disable();
+			_bookHolder.bookHolder.filters = [];
 			if(correctTotal<_boekenlijst.length){
-				startGame();
+				TweenLite.delayedCall(3,startGame);
 			} else {
 				var sw:Sprite = _hs.submitHS(score*2);
 				if(sw !=null){
 					sw.x = (this.width - sw.width)/2;
 					sw.y = 100;
-					addChild(sw);
+					TweenLite.delayedCall(3,addChild,[sw]);
 					sw.addEventListener('closedSubmit',closed);
 					
 				}  else {
@@ -298,23 +302,23 @@ package nl.iTouch.guessgame
 			tf.alpha = 0.5;
 		}
 		
-		private function disableEffects(e:MouseEvent=null):void
+		private function disableEffects(e:MouseEvent=null,timeSub:Boolean = true ):void
 		{
 			switch(effects){
 				case 3:
 					effect.disable();
 					_bookHolder.lucas.bord.gotoAndStop(2);
-					_timeLeft = Math.ceil(2/3 * _timeLeft);
+					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 2:
 					_bookHolder.lucas.bord.gotoAndStop(3);
 					_bookHolder.lucas.bord.removeEventListener(MouseEvent.CLICK,disableEffects);
 					_bookHolder.bookHolder.filters = [blurY];
-					_timeLeft = Math.ceil(2/3 * _timeLeft);
+					if(timeSub) _timeLeft = Math.ceil(2/3 * _timeLeft);
 				break;
 				case 1:
-					_bookHolder.bookHolder.filters = [];
-					_timeLeft = 0;
+					 _bookHolder.bookHolder.filters = [];
+					 if(timeSub) _timeLeft = 0;
 				break;
 			}
 			effects--;
