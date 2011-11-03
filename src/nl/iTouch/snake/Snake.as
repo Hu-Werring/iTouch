@@ -563,6 +563,7 @@ package nl.iTouch.snake
 			submit.x = (stage.stageWidth-submit.width)/2;
 			submit.y = (stage.stageHeight-submit.height)/2;
 			addChild(submit);
+			submit.addEventListener('closedSubmit',closed);
 			}
 			
 			_studentTimer.stop();
@@ -591,7 +592,16 @@ package nl.iTouch.snake
 		
 		public function highscore():void
 		{
+			var hsL:Sprite = hs.highScoreList();
+			hsL.x = (this.width-hsL.width)/2;
+			hsL.y = (this.height-hsL.height)/2;
 			
+			addChild(hsL);
+		}
+		
+		private function closed(e:Event):void
+		{
+			highscore();
 		}
 		
 		public function resetSnake():void

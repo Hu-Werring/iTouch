@@ -243,8 +243,8 @@ package nl.iTouch.guessgame
 								sw.y = 100;
 								addChild(sw);
 								sw.addEventListener('closedSubmit',closed);
-								trace('lose');
-							} else trace(sw,'lose');
+								
+							}
 					}
 			}
 			
@@ -279,10 +279,8 @@ package nl.iTouch.guessgame
 					sw.y = 100;
 					addChild(sw);
 					sw.addEventListener('closedSubmit',closed);
-					trace('win',score);
-				} else {
-					trace(sw,'win');
-				}
+					
+				} 
 			}
 		}
 		private function fout(tf:TextField):void
