@@ -210,13 +210,13 @@ package nl.iTouch.snake
 			addChild(timerBarLine);
 			
 			//== create scorefield ==
-			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 40,null,true);
+			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 60,null,true);
 			txtFrmtScore.align = TextAlign.RIGHT;
 			
 			scoreField.x = 975;
-			scoreField.y = 60;
+			scoreField.y = 120;
 			scoreField.width = 270;
-			scoreField.height = 90;
+			scoreField.height = 70;
 			scoreField.border = true;
 			scoreField.defaultTextFormat = txtFrmtScore;
 			scoreField.backgroundColor = 0xffffff;
