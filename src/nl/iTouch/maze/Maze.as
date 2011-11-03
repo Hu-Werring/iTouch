@@ -54,7 +54,7 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
-			//this.grid.showTileNrs();
+			this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
 			this.grid.setPowerEndTile(42);
@@ -444,9 +444,14 @@ package nl.iTouch.maze
 									85,99,113,127, 89,103,117,131, 92,106,120,134, 95,109,123,137, 98,112,126,140));
 			
 			//Teken blauwe ruimte
-			G.setColomColor(2, 0x2244FF, 0.5);
-			G.setColomColor(3, 0x2244FF, 0.5);
-			G.setColomColor(4, 0x2244FF, 0.5);
+			//tmpmc.width = 80;
+			//tmpmc.height = 80;
+			//G.setColomColor(2, 0x2244FF, 0.5);
+			//G.setColomColor(3, 0x2244FF, 0.5);
+			//G.setColomColor(4, 0x2244FF, 0.5);
+			G.setColom(2, maze_tapijtblauw);
+			G.setColom(3, maze_tapijtblauw);
+			G.setColom(4, maze_tapijtblauw);
 			
 			//Teken zilvere ruimte
 			G.setColomColor(6, 0xDDDDDD, 0.5);
