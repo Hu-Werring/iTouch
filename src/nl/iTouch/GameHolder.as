@@ -13,6 +13,7 @@ package nl.iTouch
 		public static const GAME_INVISIBLE:String = 'Gi';
 		public static const GAME_VISIBLE:String = 'Gv';
 		
+		public var  howToScreen:Sprite = new Sprite();
 		
 		private var _game:* = null;
 		private var _addedToStage:Boolean = false;
@@ -55,14 +56,33 @@ package nl.iTouch
 			back = new iButton(back);
 			back.x = 1225;
 			back.y = 50;
+			
+			
+			var howToButton:Sprite = new iButton(new HelpButton());
+			howToButton.x = 1225- 20 - howToButton.width;
+			howToButton.y = 50;
+			
+			
+			howToScreen.graphics.beginFill(0x0,0.2);
+			howToScreen.graphics.drawRect(0,0,1280,1024);
+			howToScreen.graphics.endFill();
+			addChild(howToScreen);
+			howToScreen.visible = false;
+			
 			//back.scaleX = 0.4;
 			//back.scaleY= 0.4;
 			back.addEventListener(MouseEvent.CLICK,killGame);
+			howToButton.addEventListener(MouseEvent.CLICK,displayHowTo);
 			addChild(back);
+			addChild(howToButton);
 		}
 		private function killGame(e:MouseEvent):void
 		{
 			hide();
+		}
+		private function displayHowTo(e:MouseEvent):void
+		{
+			howToScreen.visible = !howToScreen.visible;
 		}
 		
 		public function addGame(obj:Class):void

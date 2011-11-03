@@ -7,7 +7,11 @@ package nl.iTouch.snake
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.events.TimerEvent;
+	import flash.text.TextField;
+	import flash.text.TextFormat;
 	import flash.utils.Timer;
+	
+	import flashx.textLayout.formats.TextAlign;
 	
 	import nl.iTouch.iButton;
 	
@@ -49,6 +53,21 @@ package nl.iTouch.snake
 				
 			}})
 			TweenLite.to(splash,0.5,{scaleX:1,scaleY:1,alpha:1})
+				
+			/*var txtFrmtTitle:TextFormat = new TextFormat();
+			txtFrmtTitle.align = TextAlign.LEFT;
+			txtFrmtTitle.size = 60;
+			txtFrmtTitle.font = "_sans";
+			
+			var title:TextField = new TextField();
+			title.x = 457,5;
+			title.y = 457,5;
+			title.width = 100;
+			title.height = 70;
+			title.text = "GameOver";
+			title.defaultTextFormat = txtFrmtTitle;
+			addChild(title);*/
+			
 		}
 		
 		public function deleteMe():void

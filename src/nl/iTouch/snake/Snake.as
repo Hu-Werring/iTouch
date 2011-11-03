@@ -52,7 +52,9 @@ package nl.iTouch.snake
 		private var timerBar:TimerBar = new TimerBar();
 		private var timerBarLine:TimerBarLine = new TimerBarLine();
 		private var scoreField:TextField = new TextField();
+		private var timerLabel:TextField = new TextField();
 		private var hintField:TextField = new TextField();
+		private var hintLabel:TextField = new TextField();
 		
 		//== effecten variables ==
 
@@ -68,6 +70,9 @@ package nl.iTouch.snake
 		//== highscore + DB varables/objecten ==
 		private var db:DataBase = DataBase.getInstance;
 		private var hs:Highscore = new Highscore('Snake');
+		
+		[Embed(source="AvenirLT-Book.ttf", fontFamily="Avenir")] 
+		public static var bar:Class;
 		
 		//== main class function ==
 		public function Snake()
@@ -113,34 +118,46 @@ package nl.iTouch.snake
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
+			//== create background ==
+			var realBackground:BackgroundSnake = new BackgroundSnake();
+			realBackground.alpha = 0.2;
+			addChild(realBackground);
+			
+			//== create background stats ==
+			var backStat:BackgroundStats = new BackgroundStats();
+			backStat.x = 960;
+			backStat.y = 105;
+			backStat.alpha = 0.8;
+			addChild(backStat);
+			
 			//== create buttons ==
 			var btnUp:ButtonArrow = new ButtonArrow();
 			btnUp.x = 1115;
 			btnUp.y = 740;
 			btnUp.rotation = 0;
 			btnUp.addEventListener(MouseEvent.CLICK,buttonUp);
-			addChild(btnUp);
+			addChild(new iButton(btnUp));
 			
 			var btnDown:ButtonArrow = new ButtonArrow();
 			btnDown.x = 1115;
 			btnDown.y = 930;
 			btnDown.rotation = 180;
 			btnDown.addEventListener(MouseEvent.CLICK,buttonDown);
-			addChild(btnDown);
+			addChild(new iButton(btnDown));
 			
 			var btnLeft:ButtonArrow = new ButtonArrow();
 			btnLeft.x = 1020;
 			btnLeft.y = 835;
 			btnLeft.rotation = -90;
 			btnLeft.addEventListener(MouseEvent.CLICK,buttonLeft);
-			addChild(btnLeft);
+			addChild(new iButton(btnLeft));
 			
 			var btnRight:ButtonArrow = new ButtonArrow();
 			btnRight.x = 1210;
 			btnRight.y = 835;
 			btnRight.rotation = 90;
 			btnRight.addEventListener(MouseEvent.CLICK,buttonRight);
-			addChild(btnRight);
+			addChild(new iButton(btnRight));
 			
 			//== create background ==
 			var background:SnakeBackground = new SnakeBackground();
@@ -202,16 +219,22 @@ package nl.iTouch.snake
 			
 			_counter = _counterLenght;
 			timerBar.x = 975;
-			timerBar.y = 300;
+			timerBar.y = 350;
 			addChild(timerBar);
 			
 			timerBarLine.x = 975;
-			timerBarLine.y = 300;
+			timerBarLine.y = 350;
 			addChild(timerBarLine);
 			
 			//== create scorefield ==
-			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 60,null,true);
+			var txtFrmtScore:TextFormat = new TextFormat("_sans", 60,null,true);
 			txtFrmtScore.align = TextAlign.RIGHT;
+			
+			var txtFrmtLabel:TextFormat = new TextFormat("_sans", 25,null,true);
+			txtFrmtLabel.align = TextAlign.CENTER;
+			
+			var txtFrmtHint:TextFormat = new TextFormat("_sans", 20,null,true);
+			txtFrmtHint.align = TextAlign.JUSTIFY;
 			
 			scoreField.x = 975;
 			scoreField.y = 120;
@@ -224,18 +247,34 @@ package nl.iTouch.snake
 			addChild(scoreField);
 			
 			hintField.x = 975;
-			hintField.y = 350;
+			hintField.y = 420;
 			hintField.width = 270;
-			hintField.height = 135;
+			hintField.height = 60;
 			hintField.border = true;
 			hintField.wordWrap = true;
-			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
-			txtFrmtHint.align = TextAlign.JUSTIFY;
 			hintField.defaultTextFormat = txtFrmtHint;
 			
 			hintField.backgroundColor = 0xffffff;
 			//hintField.text = String(_score);
 			addChild(hintField);
+			
+			timerLabel.x = 975;
+			timerLabel.y = 295;
+			timerLabel.width = 270;
+			timerLabel.height = 70;
+			timerLabel.border = false;
+			timerLabel.defaultTextFormat = txtFrmtLabel;
+			timerLabel.text = "Hint timer:";
+			addChild(timerLabel);
+			
+			hintLabel.x = 975;
+			hintLabel.y = 390;
+			hintLabel.width = 270;
+			hintLabel.height = 70;
+			hintLabel.border = false;
+			hintLabel.defaultTextFormat = txtFrmtLabel;
+			hintLabel.text = "Hint:";
+			addChild(hintLabel);
 			
 			placeStudent();
 			
