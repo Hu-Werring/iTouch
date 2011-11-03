@@ -25,6 +25,7 @@ package nl.iTouch.eyecatcher
 		{
 					
 			var backgroundGradient:Sprite = new Sprite();
+			var background:BackgroundEyecatcher = new BackgroundEyecatcher();
 			var luuk:Sprite = new Lucas();
 			var gat:Sprite = new GatImage();
 			var timer:Timer = new Timer(20);
@@ -38,7 +39,8 @@ package nl.iTouch.eyecatcher
 			gat.y = stage.stageHeight / 2 - 230;			
 			
 			
-			addChild(backgroundGradient);			
+			//addChild(backgroundGradient);	
+			addChild(background);
 			addChild(luuk);		
 			addChildAt(gat, 2);			
 			new iButton(bord);	
@@ -68,7 +70,7 @@ package nl.iTouch.eyecatcher
 			var alphas:Array = [1, 1];
 			var ratios:Array = [0, 0xFF];
 			var matrix:Matrix = new Matrix();
-			matrix.createGradientBox(stage.stageWidth, stage.stageHeight, (3 * Math.PI / 2), 0, 10);
+			//matrix.createGradientBox(stage.stageWidth, stage.stageHeight, (3 * Math.PI / 2), 0, 10);
 			var focalPoint:Number = 0.5;
 			
 			with(backgroundGradient.graphics){

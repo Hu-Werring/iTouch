@@ -15,11 +15,11 @@ package nl.iTouch.eyecatcher
 		{
 			
 			addChild(emitor);
-			emitor.setParticle = CDParticle;
+			emitor.setParticle = Particle_b;
 			
 			
 			addChild(emitor2);
-			emitor2.setParticle = BoekParticle;
+			emitor2.setParticle = Particle_a;
 			
 			
 			
