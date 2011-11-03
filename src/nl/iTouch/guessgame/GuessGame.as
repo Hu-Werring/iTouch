@@ -279,7 +279,7 @@ package nl.iTouch.guessgame
 					sw.y = 100;
 					addChild(sw);
 					sw.addEventListener('closedSubmit',closed);
-					trace('win');
+					trace('win',score);
 				} else {
 					trace(sw,'win');
 				}
