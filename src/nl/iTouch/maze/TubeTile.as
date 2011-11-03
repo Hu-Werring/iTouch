@@ -20,7 +20,7 @@ package nl.iTouch.maze
 		public var top:String = 'false';
 		public var bottom:String = 'false';
 		public var powerPoint:String = 'false';
-		public var tempLine:Sprite;
+		public var tempLine:Sprite = null;
 		public var powerSource:Boolean = false;
 		
 		public function get naam():String
@@ -135,8 +135,11 @@ package nl.iTouch.maze
 		
 		public function stroom(from:String):void
 		{
-			if(this.powerPoint == 'false')
+			trace('maakstroom');
+			trace(this.powerPoint);
+			if(this.powerPoint == 'false' && tempLine == null)
 			{
+				trace('maakstroom2');
 				var fromPoint:Point;
 				var toPoint:Point;
 				var noStroom:Boolean = false;

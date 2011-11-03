@@ -48,7 +48,7 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
-			//this.grid.showTileNrs();
+			this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
 			this.grid.setPowerEndTile(42);
@@ -100,7 +100,9 @@ package nl.iTouch.maze
 		
 		private function clearTubeTile(tileNr:int):void
 		{
+			this.grid.returnTile(tileNr).curTubeTile.powerPoint = 'false';
 			//Remove tubetile.
+			this.grid.returnTile(tileNr).curTubeTile.curTubeTile.visible = true;
 			var surroundingTiles:Object = this.grid.getSurroundingTiles(tileNr);
 			var tileLeft:Tile = surroundingTiles.tileLeft;
 			var tileTop:Tile = surroundingTiles.tileTop;
@@ -151,8 +153,20 @@ package nl.iTouch.maze
 				var tileRight:Tile = surroundingTiles.tileRight;
 				var tileBottom:Tile = surroundingTiles.tileBottom;
 				var inputPoint:String;
-				//currentTubeTile.powerPoint = 'false';
+				var hadPower:Boolean = false;
 				
+				trace('before: '+currentTubeTile.powerPoint);
+				if(currentTubeTile.powerPoint != 'false')
+				{
+					currentTubeTile.powerPoint = 'false';
+					if(currentTubeTile.tempLine !=null)
+					{
+						currentTubeTile.removeChild(currentTubeTile.tempLine);
+					}
+					currentTubeTile.tempLine = null;
+					hadPower = true;
+				}
+				trace('after' + currentTubeTile.powerPoint);
 				//check links
 				if(tileLeft != null)
 				{
@@ -265,7 +279,11 @@ package nl.iTouch.maze
 						break;
 					
 					case 'false':
-						//removeTubeTile(curTile.tileNr);
+						if(hadPower == true)
+						{
+							trace("hadd power, not anymore, removing tile: "+curTile.tileNr);
+							clearTubeTile(curTile.tileNr);
+						}
 						break;
 					
 					default:
