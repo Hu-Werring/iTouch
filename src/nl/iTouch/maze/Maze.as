@@ -202,16 +202,31 @@ package nl.iTouch.maze
 				switch(curTubeTile.powerPoint)
 				{
 					case 'left':
-						checkPower(tileLeft.tileNr);
+						if(tileLeft != false)
+						{
+							checkPower(tileLeft.tileNr);
+						}
 						break;
+					
 					case 'right':
-						checkPower(tileRight.tileNr);
+						if(tileRight != false)
+						{
+							checkPower(tileRight.tileNr);
+						}
 						break;
+					
 					case 'top':
-						checkPower(tileTop.tileNr);
+						if(tileTop != false)
+						{
+							checkPower(tileTop.tileNr);
+						}
 						break;
+					
 					case 'bottom':
-						checkPower(tileBottom.tileNr);
+						if(tileBottom != false)
+						{
+							checkPower(tileBottom.tileNr);
+						}
 						break;
 					default:
 						break;
