@@ -486,9 +486,9 @@ package nl.iTouch.maze
 			
 		}
 		
-		public function howTo():void
+		public function howTo():String
 		{
-			
+			return 'lol';
 		}
 		
 		public function highscore():void
