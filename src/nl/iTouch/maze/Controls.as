@@ -12,6 +12,13 @@ package nl.iTouch.maze
 		public var tubeTilePadding:int = 10;
 		public var tubetilesholderheight:int;
 		public var trashMode:Boolean = false;
+		
+		private var nextTubeTileBtn:MovieClip = new maze_refresh();
+		private var nextTubeTileBtnP:MovieClip = new maze_refreshP();
+		
+		private var	trashBin:MovieClip = new maze_trash();
+		private var trashBinP:MovieClip = new maze_trashP();
+		
 		private var prevY:int = 0;
 		private var tubeTilesY:Array = new Array();
 	//	private var tubeTiles:Array = new Array(maze_cross, maze_curveDouble1, maze_curveDouble2, maze_curveTL, maze_curveTR, maze_curveBL, maze_curveBR, maze_horizontal, maze_vertical);
@@ -19,7 +26,7 @@ package nl.iTouch.maze
 		
 		public function Controls()
 		{
-			graphics.beginFill(0x000000);
+			graphics.beginFill(0xFFFFFF);
 			graphics.drawRect(0,0,160,1024);
 			graphics.endFill();
 			this.x = 1120;
@@ -38,55 +45,62 @@ package nl.iTouch.maze
 			this.tubeTilesHolder.y = 120;
 			addChild(this.tubeTilesHolder);
 			
-			var nextTubeTileBtn:MovieClip = new maze_refresh();
-			//nextTubeTileBtn.graphics.beginFill(0xFF0000);
-			//nextTubeTileBtn.graphics.drawRect(0,0,this.width-40, this.width-40);
-			//nextTubeTileBtn.graphics.endFill();
+			nextTubeTileBtn.graphics.beginFill(0xFF0000);
+			nextTubeTileBtn.graphics.drawRect(0,0,this.width-40, this.width-40);
+			nextTubeTileBtn.graphics.endFill();
 			nextTubeTileBtn.width = this.width - 40;
 			nextTubeTileBtn.height = this.width - 40;
+			trace(nextTubeTileBtn.width, nextTubeTileBtn.height);
 			nextTubeTileBtn.x = tubeTilesHolder.x;
 			nextTubeTileBtn.y = tubeTilesHolder.height + tubeTilesHolder.y + 20;
 			addChild(nextTubeTileBtn);
 			
-			var trashBin:MovieClip = new MovieClip();
-			trashBin.graphics.beginFill(0xFF0000);
-			trashBin.graphics.drawRect(0,0,this.width-40, this.width-40);
-			trashBin.graphics.endFill();
+			var trashBin:MovieClip = new maze_trash();
+			//trashBin.graphics.beginFill(0xFF0000);
+			//trashBin.graphics.drawRect(0,0,this.width-40, this.width-40);
+			//trashBin.graphics.endFill();
 			trashBin.width = this.width - 40;
 			trashBin.height = this.width - 40;
 			trashBin.x = tubeTilesHolder.x;
 			trashBin.y = nextTubeTileBtn.y + nextTubeTileBtn.height + 20;
 			addChild(trashBin);
 			
-			nextTubeTileBtn.addEventListener(MouseEvent.CLICK, nextTubeTile);
-			nextTubeTileBtn.addEventListener(MouseEvent.MOUSE_DOWN, press);
-			trashBin.addEventListener(MouseEvent.CLICK, trashTubeTile);
+			nextTubeTileBtn.addEventListener(MouseEvent.MOUSE_DOWN, pressNxtDown);
+			nextTubeTileBtn.addEventListener(MouseEvent.MOUSE_UP, pressNxtUp);
+			//trashBin.addEventListener(MouseEvent.CLICK, trashTubeTile);
+			trashBin.addEventListener(MouseEvent.MOUSE_DOWN, pressTrashDown);
+			trashBin.addEventListener(MouseEvent.MOUSE_UP, pressTrashUp);
+
+
 			
 			fillTubeTileHolder();
 		}
 		
-		private function press(e:MouseEvent):void
+		private function pressNxtDown(e:MouseEvent):void
 		{
-			//e.target.addChild()
+			nextTubeTileBtn.addChild(nextTubeTileBtnP);
 		}
 		
-		private function nextTubeTile(e:MouseEvent):void
+		private function pressNxtUp(e:MouseEvent):void
 		{
+			nextTubeTileBtn.removeChild(nextTubeTileBtnP);
 			trace('nexttubetile');
 			this.tubeTilesHolder.removeChild(this.tubeTilesOrder.shift());
 			this.addTubeTile();
 		}
 		
-		private function trashTubeTile(e:MouseEvent):void
+		private function pressTrashDown(e:MouseEvent):void
 		{
-			trace('trashed');
-			if(this.trashMode == true)
+			trashBin.addChild(trashBinP);
+			
+		}
+		
+		private function pressTrashUp(e:MouseEvent):void
+		{
+			this.trashMode = !this.trashMode;
+			if(this.trashMode == false)
 			{
-				this.trashMode = false;
-			}
-			else
-			{
-				this.trashMode = true;
+				trashBin.removeChild(trashBinP);
 			}
 		}
 		
