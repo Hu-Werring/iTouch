@@ -119,13 +119,15 @@ package nl.iTouch.snake
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
 			//== create background ==
-			
+			var realBackground:BackgroundSnake = new BackgroundSnake();
+			realBackground.alpha = 0.2;
+			addChild(realBackground);
 			
 			//== create background stats ==
 			var backStat:BackgroundStats = new BackgroundStats();
 			backStat.x = 960;
-			backStat.y = 79;
-			backStat.alpha = 0.9;
+			backStat.y = 105;
+			backStat.alpha = 0.8;
 			addChild(backStat);
 			
 			//== create buttons ==
