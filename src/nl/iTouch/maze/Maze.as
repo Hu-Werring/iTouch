@@ -488,7 +488,7 @@ package nl.iTouch.maze
 		
 		public function howTo():String
 		{
-			return 'lol';
+			return 'Lucas probeert een boek te stelen van de Mediatheek, het doel van deze game is om de beveiligings poortjes aan te sluiten voordat Lucas deze bereikt.\n\Aan de rechterkant van het scherm zijn blokken met een stuk kabel te zien die op het scherm geplaatst kunnen worden.\n\nKlik op een plek op het scherm om de kabel zo te plaatsen dat deze de elektriciteitsbron met de poortjes verbind.\n\nGebruik de prullenbak om een ander blok te krijgen of om een eerder geplaatst blok te wissen.\n\nZorg dat Lucas de kabel niet doorkruist, anders knipt hij deze door en ben je af! ';
 		}
 		
 		public function highscore():void
