@@ -24,6 +24,7 @@ package nl.iTouch.maze
 		public var orgWidth:int;
 		public var orgHeight:int;
 		public var m:Matrix;
+		public var gameEnd:Boolean = false;
 		
 		public function Lucas(startTile:int, endTile:int, speed:int)
 		{
@@ -73,13 +74,16 @@ package nl.iTouch.maze
 		
 		private function walkPath():void
 		{
-			if(this.moveCounter < this.path.length)
+			if(gameEnd == false)
 			{
-				var pointX:int = this.gTilesObj[this.path[this.moveCounter]-1].x;
-				var pointY:int = this.gTilesObj[this.path[this.moveCounter]-1].y;
-				var toPoint:Point = new Point(pointX,pointY);
-				this.moveCounter++;
-				this.moveLucas(toPoint);
+				if(this.moveCounter < this.path.length)
+				{
+					var pointX:int = this.gTilesObj[this.path[this.moveCounter]-1].x;
+					var pointY:int = this.gTilesObj[this.path[this.moveCounter]-1].y;
+					var toPoint:Point = new Point(pointX,pointY);
+					this.moveCounter++;
+					this.moveLucas(toPoint);
+				}
 			}
 		}
 		

@@ -6,6 +6,7 @@ package nl.iTouch.maze
 	import flash.display.Stage;
 	import flash.events.*;
 	import flash.geom.Point;
+	import flash.utils.*;
 	
 	import nl.iTouch.*;
 
@@ -15,7 +16,11 @@ package nl.iTouch.maze
 		protected var lucas:Lucas; //Bevat het Lucas object
 		protected var grid:nl.iTouch.maze.Grid; //Bevat het grid object. (Zo aanroepen anders wordt de flash functie grid gebruikt).
 		protected var Control:nl.iTouch.maze.Controls //Bevat het controls object;
-		
+		private var _hs:Highscore = new Highscore('MazeGame');
+		private var score:int = 0;
+		private var beginTime:uint;
+		private var bonusPoints:int = 1000; //30 seconden
+			
 		protected var _db:DataBase;
 		
 		public function Maze()
@@ -27,6 +32,7 @@ package nl.iTouch.maze
 		private function init(e:Event):void
 		{
 			removeEventListener(Event.ADDED_TO_STAGE,init);
+			beginTime = getTimer();
 			//this.width = mazeWidth;
 			//this.height = mazeHeight;
 			/*
@@ -48,7 +54,7 @@ package nl.iTouch.maze
 			//Kleur de grid tegels in zodat er een mediatheek formaat ontstaat, en voeg toe.
 			colorGrid(this.grid);
 			addChild(this.grid);
-			this.grid.showTileNrs();
+			//this.grid.showTileNrs();
 			this.grid.addEventListener('tileClicked', placeTubeTile); 
 			this.grid.setPowerStartTile(29);
 			this.grid.setPowerEndTile(42);
@@ -63,6 +69,43 @@ package nl.iTouch.maze
 			addChild(this.lucas);
 			drawPath();
 		}
+		
+		private function endGame():void
+		{
+			this.lucas.lucasMc.stop();
+			this.lucas.gameEnd = true;
+			for(var i=0;i<this.grid.tilesObj.length;i++)
+			{
+				var tmpT:Tile = this.grid.returnTile(i,true);
+				if(tmpT.hasTubeTile == true)
+				{
+					if(tmpT.curTubeTile.powerPoint != 'false' && tmpT.curTubeTile.powerSource == false)
+					{
+						score++;
+					}
+				}
+			}
+			
+			var timePlayed:int = Math.ceil((getTimer()-beginTime)*10);
+			score += bonusPoints/timePlayed;
+			
+			var sw:Sprite = _hs.submitHS(score);
+			if(sw !=null){
+				sw.x = (this.width - sw.width)/2;
+				sw.y = 100;
+				TweenLite.delayedCall(3,addChild,[sw]);
+				sw.addEventListener('closedSubmit',closed);
+				
+			}  else {
+				highscore();
+			}
+		}
+		
+		private function closed(e:Event)
+		{
+			highscore();
+		}
+		
 
 		private function placeTubeTile(e:Event):void
 		{
@@ -84,10 +127,12 @@ package nl.iTouch.maze
 					
 					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].setTubeTile(tmpMc);
 					this.grid.tilesObj[this.grid.clickedTile.tileNr-1].hasTubeTile = true;
+				
 					trace('-------------------goandcheckpower-------------------');
 					this.checkPower(this.grid.clickedTile.tileNr);
 					
 					this.Control.addTubeTile();
+
 				}
 			}
 			else
@@ -271,49 +316,60 @@ package nl.iTouch.maze
 						}
 					}
 				}
-						
-				trace('END: '+currentTubeTile.powerPoint);
-				switch(currentTubeTile.powerPoint)
+				
+				if(currentTubeTile.tileNr == this.grid.powerEndTile-1 && currentTubeTile.powerPoint != 'false')
 				{
-					case 'left':
-						if(tileLeft != false)
-						{
-							checkPower(tileLeft.tileNr);
-						}
-						break;
-					
-					case 'right':
-						if(tileRight != null)
-						{
-							checkPower(tileRight.tileNr);
-						}
-						break;
-					
-					case 'top':
-						if(tileTop != null)
-						{
-							checkPower(tileTop.tileNr);
-						}
-						break;
-					
-					case 'bottom':
-						if(tileBottom != null)
-						{
-							checkPower(tileBottom.tileNr);
-						}
-						break;
-					/*
-					case 'false':
-						if(hadPower == true)
-						{
-							trace("hadd power, not anymore, removing tile: "+curTile.tileNr);
-							clearTubeTile(curTile.tileNr);
-						}
-						break;
-					*/
-					default:
-						break;
+					//END GAME;
+					trace('END THE GAME');
+					this.endGame();
 				}
+				else
+				{
+						
+					trace('END: '+currentTubeTile.powerPoint);
+					switch(currentTubeTile.powerPoint)
+					{
+						case 'left':
+							if(tileLeft != false)
+							{
+								checkPower(tileLeft.tileNr);
+							}
+							break;
+						
+						case 'right':
+							if(tileRight != null)
+							{
+								checkPower(tileRight.tileNr);
+							}
+							break;
+						
+						case 'top':
+							if(tileTop != null)
+							{
+								checkPower(tileTop.tileNr);
+							}
+							break;
+						
+						case 'bottom':
+							if(tileBottom != null)
+							{
+								checkPower(tileBottom.tileNr);
+							}
+							break;
+						/*
+						case 'false':
+							if(hadPower == true)
+							{
+								trace("hadd power, not anymore, removing tile: "+curTile.tileNr);
+								clearTubeTile(curTile.tileNr);
+							}
+							break;
+						*/
+						default:
+							break;
+					}
+				}
+				
 			}
 		}
 		
@@ -427,7 +483,11 @@ package nl.iTouch.maze
 		
 		public function highscore():void
 		{
+			var hsL:Sprite = _hs.highScoreList();
+			hsL.x = (this.width-hsL.width)/2;
+			hsL.y = (this.height-hsL.height)/2;
 			
+			addChild(hsL);
 		}
 	}
 }
