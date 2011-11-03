@@ -71,9 +71,15 @@ package nl.iTouch.maze
 		//Kleur een specifieke tegel. (tile = indexnr) of tewel tile0=index0=tegel1, etc
 		public function colorTile(tile:Number, color:uint, alpha:Number=1):void
 		{
+			var tmpsprite = new Sprite();
+			tmpsprite.graphics.beginFill(color, alpha);
+			tmpsprite.graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
+			tmpsprite.graphics.endFill();
+			this.setTile(tile,tmpsprite);
+			/*
 			this.tilesObj[tile].graphics.beginFill(color, alpha);
 			this.tilesObj[tile].graphics.drawRect(0,0,this.tilesObj[tile].width,this.tilesObj[tile].height);
-			this.tilesObj[tile].graphics.endFill();
+			this.tilesObj[tile].graphics.endFill();*/
 		}
 		
 		//Geef een tegel terug. (VERANDEREN IN getTile)
@@ -143,10 +149,13 @@ package nl.iTouch.maze
 			if(col/this.cols <= 1)
 			{
 				var startTile:int = col-1;
+				trace(startTile);
 				var endTile:int = (this.rows*this.cols) - (this.cols - startTile);
 				for(var i:int=startTile;i<=endTile;i+=this.cols)
 				{
-					this.setTile(i, content);
+					//this.colorTile(i, 0x00FF00, 1);
+					this.setTile(i, new content());
+					//this.tilesObj[i].addChild(content);
 				}
 			}
 		}

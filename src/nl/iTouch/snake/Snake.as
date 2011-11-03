@@ -115,6 +115,9 @@ package nl.iTouch.snake
 			_wall['up'] = 60; //== moet deelbaar zijn door _gridsize
 			_wall['down'] = 60 + _areaSize; //== moet deelbaar zijn door _gridsize
 			
+			//== create background ==
+			
+			
 			//== create buttons ==
 			var btnUp:ButtonArrow = new ButtonArrow();
 			btnUp.x = 1115;
@@ -213,10 +216,10 @@ package nl.iTouch.snake
 			
 			//== create scorefield ==
 			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 60,null,true);
-			txtFrmtScore.align = TextAlign.LEFT;
+			txtFrmtScore.align = TextAlign.RIGHT;
 			
-			var txtFrmtLabel:TextFormat = new TextFormat("Avenir", 20,null,true);
-			txtFrmtScore.align = TextAlign.CENTER;
+			var txtFrmtLabel:TextFormat = new TextFormat("Avenir", 25,null,true);
+			txtFrmtLabel.align = TextAlign.CENTER;
 			
 			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
 			txtFrmtHint.align = TextAlign.JUSTIFY;
@@ -232,7 +235,7 @@ package nl.iTouch.snake
 			addChild(scoreField);
 			
 			hintField.x = 975;
-			hintField.y = 350;
+			hintField.y = 370;
 			hintField.width = 270;
 			hintField.height = 135;
 			hintField.border = true;
@@ -244,14 +247,22 @@ package nl.iTouch.snake
 			addChild(hintField);
 			
 			timerLabel.x = 975;
-			timerLabel.y = 240;
+			timerLabel.y = 245;
 			timerLabel.width = 270;
 			timerLabel.height = 70;
 			timerLabel.border = false;
 			timerLabel.defaultTextFormat = txtFrmtLabel;
-			timerLabel.backgroundColor = 0xffffff;
 			timerLabel.text = "Hint timer:";
 			addChild(timerLabel);
+			
+			hintLabel.x = 975;
+			hintLabel.y = 340;
+			hintLabel.width = 270;
+			hintLabel.height = 70;
+			hintLabel.border = false;
+			hintLabel.defaultTextFormat = txtFrmtLabel;
+			hintLabel.text = "Hint:";
+			addChild(hintLabel);
 			
 			placeStudent();
 			
