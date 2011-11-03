@@ -116,6 +116,7 @@ package nl.iTouch.guessgame
 			_queue.load();		
 			bookIndex = Math.floor(Math.random()*_boekenlijst.length);
 			timerBar.graphics.beginFill(0x00FF00);
+			timerBar.graphics.lineStyle(1);
 			timerBar.graphics.drawRect(0,0,600,50);
 			timerBar.graphics.endFill();
 				
@@ -137,7 +138,7 @@ package nl.iTouch.guessgame
 			_bookHolder.AntwD.text = "";
 			_bookHolder.authorTF.text = "";
 			_bookHolder.descTF.text = "";
-			_bookHolder.bord.stop();
+			_bookHolder.bord.gotoAndStop(4);
 		}
 		
 		private function completeHandler(e:LoaderEvent):void
@@ -156,14 +157,14 @@ package nl.iTouch.guessgame
 		
 		public function play():void
 		{
-			this.parent.addEventListener(MouseEvent.CLICK,startGame);
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,startGame);
 		}
 		
 		private function startGame(e:MouseEvent=null):void
 		{
 			TweenLite.to(timerBar,0.5,{width:600,ease:Linear.easeOut});
 			bookIndex=(bookIndex+1)%_boekenlijst.length;
-			this.parent.removeEventListener(MouseEvent.CLICK,startGame);
+			_bookHolder.lucas.removeEventListener(MouseEvent.CLICK,startGame);
 			if(_noGame) return;
 			_timeLeft = _totaltime;
 			timer.start();
@@ -213,7 +214,7 @@ package nl.iTouch.guessgame
 			_bookHolder.bookHolder.addChild(effect);
 			effect.effectIn(loader.rawContent);
 			effects = 3;
-			_bookHolder.bord.addEventListener(MouseEvent.CLICK,disableEffects);
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,disableEffects);
 		}
 		
 		private function tick(e:TimerEvent):void
@@ -255,6 +256,8 @@ package nl.iTouch.guessgame
 		private function closed(e:Event):void
 		{
 			highscore();
+			_bookHolder.lucas.gotoAndStop(4);
+			_bookHolder.lucas.addEventListener(MouseEvent.CLICK,startGame);
 		}
 		private function answerQ(e:MouseEvent):void
 		{
