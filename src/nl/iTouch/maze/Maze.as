@@ -71,7 +71,7 @@ package nl.iTouch.maze
 			{
 				if(this.grid.clickedTile.hasTubeTile == false)
 				{
-					var tmpMc:MovieClip = this.Control.tubeTilesOrder.shift();
+					var tmpMc:TubeTile = this.Control.tubeTilesOrder.shift();
 					tmpMc.tileNr = this.grid.clickedTile.tileNr;
 					//tmpMc.width = 80;
 					//tmpMc.height = 80;

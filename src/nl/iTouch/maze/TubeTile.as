@@ -22,6 +22,7 @@ package nl.iTouch.maze
 		public var powerPoint:String = 'false';
 		public var tempLine:Sprite = null;
 		public var powerSource:Boolean = false;
+		public var overlay:Sprite;
 		
 		public function get naam():String
 		{
@@ -39,6 +40,8 @@ package nl.iTouch.maze
 			curTubeTile.height = 80;
 			addChild(curTubeTile);
 
+			overlay.graphics.lineStyle(5, 0x00FF00, 1, false, "normal", CapsStyle.NONE);
+			
 			switch(this.naam)
 			{
 				case 'maze_bookCaseElectricPoint':
@@ -79,6 +82,8 @@ package nl.iTouch.maze
 				{
 					bottom = 'left';
 					left = 'bottom';
+					overlay.graphics.moveTo(this.width / 2, this.height);
+					overlay.graphics.curveTo(this.width/2, this.height/2, this.x, this.height/2);
 					break;
 				}
 				
