@@ -1,5 +1,8 @@
 package nl.iTouch.snake
 {
+	import com.greensock.TweenLite;
+	import com.greensock.easing.Linear;
+	
 	import flash.display.Shader;
 	import flash.display.Sprite;
 	import flash.events.Event;
@@ -47,6 +50,7 @@ package nl.iTouch.snake
 		private var student:Student = new Student();
 		private var splashScreen:GameOverScreen = new GameOverScreen();
 		private var timerBar:TimerBar = new TimerBar();
+		private var timerBarLine:TimerBarLine = new TimerBarLine();
 		private var scoreField:TextField = new TextField();
 		private var hintField:TextField = new TextField();
 		
@@ -115,28 +119,28 @@ package nl.iTouch.snake
 			btnUp.y = 740;
 			btnUp.rotation = 0;
 			btnUp.addEventListener(MouseEvent.CLICK,buttonUp);
-			addChild(new iButton(btnUp));
+			addChild(btnUp);
 			
 			var btnDown:ButtonArrow = new ButtonArrow();
 			btnDown.x = 1115;
 			btnDown.y = 930;
 			btnDown.rotation = 180;
 			btnDown.addEventListener(MouseEvent.CLICK,buttonDown);
-			addChild(new iButton(btnDown));
+			addChild(btnDown);
 			
 			var btnLeft:ButtonArrow = new ButtonArrow();
 			btnLeft.x = 1020;
 			btnLeft.y = 835;
 			btnLeft.rotation = -90;
 			btnLeft.addEventListener(MouseEvent.CLICK,buttonLeft);
-			addChild(new iButton(btnLeft));
+			addChild(btnLeft);
 			
 			var btnRight:ButtonArrow = new ButtonArrow();
 			btnRight.x = 1210;
 			btnRight.y = 835;
 			btnRight.rotation = 90;
 			btnRight.addEventListener(MouseEvent.CLICK,buttonRight);
-			addChild(new iButton(btnRight));
+			addChild(btnRight);
 			
 			//== create background ==
 			var background:SnakeBackground = new SnakeBackground();
@@ -195,10 +199,15 @@ package nl.iTouch.snake
 			placeStudent();
 			
 			//== create timer bar ==
+			
 			_counter = _counterLenght;
 			timerBar.x = 975;
 			timerBar.y = 300;
 			addChild(timerBar);
+			
+			timerBarLine.x = 975;
+			timerBarLine.y = 300;
+			addChild(timerBarLine);
 			
 			//== create scorefield ==
 			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 40,null,true);
@@ -782,6 +791,9 @@ package nl.iTouch.snake
 				placeStudent();
 			}
 			
+			//var nScale:Number = _counter/_counterLenght;
+			
+			//TweenLite.to(timerBar,0.1,{width:nScale,ease:Linear.easeNone});
 			timerBar.scaleX = _counter/_counterLenght;
 		}
 	}

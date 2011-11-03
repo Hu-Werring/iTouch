@@ -45,21 +45,22 @@ package nl.iTouch.snake
 			/*_fadeTimer = new Timer(20);
 			_fadeTimer.addEventListener(TimerEvent.TIMER, fadeIn);
 			_fadeTimer.start();*/
-			TweenLite.to(background,1,{alpha:0.85,onComplete:function():void{
-					TweenLite.to(splash,1,{scaleX:1,scaleY:1,alpha:1})
+			TweenLite.to(background,0.5,{alpha:0.85,onComplete:function():void{
+				
 			}})
+			TweenLite.to(splash,0.5,{scaleX:1,scaleY:1,alpha:1})
 		}
 		
 		public function deleteMe():void
 		{
-			TweenLite.to(background,1,{alpha:0,onComplete: function():void{
+			TweenLite.to(background,0.5,{alpha:0,onComplete: function():void{
 				elder.play();
 				
 				this.visible = false
 				}
 			});
 				
-			TweenLite.to(splash,1,{scaleX:0, scaleY:0, alpha:0});
+			TweenLite.to(splash,0.5,{scaleX:0, scaleY:0, alpha:0});
 		}
 	}
 }
