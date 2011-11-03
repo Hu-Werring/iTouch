@@ -175,7 +175,7 @@ package nl.iTouch
 			TweenLite.to(object,1,{alpha:0,scaleX:0,scaleY:0,x:object.width/2+object.x,y:object.height/2+object.y,onComplete:function():void{ 
 				object.parent.removeChild(object);
 			}});
-
+			TweenLite.delayedCall(1,function():void{object.dispatchEvent(new Event('closedSubmit'))});
 		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{

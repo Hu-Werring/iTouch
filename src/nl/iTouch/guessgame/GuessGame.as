@@ -242,6 +242,7 @@ package nl.iTouch.guessgame
 								sw.x = (this.width - sw.width)/2;
 								sw.y = 100;
 								addChild(sw);
+								sw.addEventListener('closedSubmit',closed);
 							}
 					}
 			}
@@ -250,14 +251,16 @@ package nl.iTouch.guessgame
 			TweenLite.to(timerBar,1,{width:20*_timeLeft,ease:Linear.easeNone});
 		}
 		
+		private function closed(e:Event):void
+		{
+			highscore();
+		}
 		private function answerQ(e:MouseEvent):void
 		{
 			var tf:TextField = e.currentTarget as TextField;
 			
 			if(tf.text.substr(3) == boek.naam) goed();
 			else fout(tf);
-			
-			
 		}
 		
 		private function goed():void
