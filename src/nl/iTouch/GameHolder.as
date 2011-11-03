@@ -78,8 +78,9 @@ package nl.iTouch
 			holder.y = 80;
 			tf.x = 15;
 			tf.y = 65;
-			tf.width = 370;
-			tf.height = 520;
+			tf.width = 520;
+			tf.height = 370;
+			tf.wordWrap = true;
 			tf.defaultTextFormat = new TextFormat('_sans',18);
 			var title:TextField = new TextField();
 			title.defaultTextFormat = new TextFormat('_sans',30,0,true);

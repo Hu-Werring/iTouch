@@ -355,7 +355,7 @@ package nl.iTouch.guessgame
 		
 		public function howTo():String
 		{
-			return 'Het doel van deze game is om de titel van het boek te raden.\n\nEr wordt een vervaagde afbeelding van een boek getoond met een beschrijving erbij.\n\nOnderaan het scherm staan 4 mogelijke titels, klik op de juiste titel.\nDeze titel kan geraden worden door de beschrijving te lezen en de afbeelding te bekijken.\n\nDe hulp knop dient om de afbeelding beter zichtbaar te maken, maar dit kost natuurlijk punten.\n\nRaad de boeken zo snel mogelijk voorde hoogste score!"s';
+			return 'Het doel van deze game is om de titel van het boek te raden.\n\nEr wordt een vervaagde afbeelding van een boek getoond met een beschrijving erbij.\n\nOnderaan het scherm staan 4 mogelijke titels, klik op de juiste titel.\nDeze titel kan geraden worden door de beschrijving te lezen en de afbeelding te bekijken.\n\nDe hulp knop dient om de afbeelding beter zichtbaar te maken, maar dit kost natuurlijk punten.\n\nRaad de boeken zo snel mogelijk voorde hoogste score!';
 		}
 		
 		public function highscore():void
