@@ -124,7 +124,8 @@ package nl.iTouch.guessgame
 			timerBar.graphics.endFill();
 			*/
 			
-			timerBar= new TimerBar2();
+			timerBar = new TimerBar2();
+
 		}
 		
 		
