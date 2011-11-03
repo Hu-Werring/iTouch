@@ -74,7 +74,9 @@ package nl.iTouch
 		
 		private function closeHSList(e:MouseEvent):void
 		{
-			trace(e.currentTarget.parent);
+			var hsL:HSList = e.currentTarget.parent as HSList;
+			
+			TweenLite.to(hsL,1,{scaleY:0.01,scaleX:0.01,alpha: 0,onComplete:function():void{hsL.parent.removeChild(hsL);}});
 		}
 		private function switchHSType(e:MouseEvent):void
 		{
