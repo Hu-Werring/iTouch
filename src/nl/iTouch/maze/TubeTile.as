@@ -22,7 +22,7 @@ package nl.iTouch.maze
 		public var powerPoint:String = 'false';
 		public var tempLine:Sprite = null;
 		public var powerSource:Boolean = false;
-		public var overlay:Sprite;
+		public var overlay:MovieClip = new MovieClip();
 		
 		public function get naam():String
 		{
@@ -40,7 +40,7 @@ package nl.iTouch.maze
 			curTubeTile.height = 80;
 			addChild(curTubeTile);
 
-			overlay.graphics.lineStyle(5, 0x00FF00, 1, false, "normal", CapsStyle.NONE);
+			this.overlay.graphics.lineStyle(5, 0x000000, 1, false, "normal", CapsStyle.NONE);
 			
 			switch(this.naam)
 			{
@@ -91,6 +91,8 @@ package nl.iTouch.maze
 				{
 					bottom = 'right';
 					right = 'bottom';
+					overlay.graphics.moveTo(this.width / 2, this.height);
+					overlay.graphics.curveTo(this.width/2, this.height/2, this.width, this.height/2);
 					break;
 				}
 					
@@ -98,6 +100,8 @@ package nl.iTouch.maze
 				{
 					top = 'left';
 					left = 'top';
+					overlay.graphics.moveTo(this.width / 2, this.y);
+					overlay.graphics.curveTo(this.width/2, this.height/2, this.x, this.height/2);
 					break;
 				}
 					
@@ -105,6 +109,8 @@ package nl.iTouch.maze
 				{
 					top = 'right'
 					right = 'top';
+					overlay.graphics.moveTo(this.width / 2, this.y);
+					overlay.graphics.curveTo(this.width/2, this.height/2, this.width, this.height/2);
 					break;
 				}
 					
@@ -112,6 +118,8 @@ package nl.iTouch.maze
 				{
 					top = 'bottom';
 					bottom = 'top';
+					overlay.graphics.moveTo(this.width / 2, this.height);
+					overlay.graphics.lineTo(this.width / 2, this.y);
 					break;
 				}
 					
@@ -119,6 +127,8 @@ package nl.iTouch.maze
 				{
 					left = 'right';
 					right = 'left';
+					overlay.graphics.moveTo(this.x, this.height/2);
+					overlay.graphics.lineTo(this.width, this.height/2);
 					break;
 				}
 					
@@ -127,15 +137,11 @@ package nl.iTouch.maze
 					break;
 				}
 			}
-		}
-		
-		public function checkStroom():void
-		{
-			var leftTile:int;
-			var rightTile:int;
-			var topTile:int;
-			var bottomTile:int;
 			
+			
+			//addChildAt(overlay, this.numChildren);
+			//this.curTubeTile.visible = false;
+
 		}
 		
 		public function stroom(from:String):void

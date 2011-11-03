@@ -73,6 +73,8 @@ package nl.iTouch.maze
 				{
 					var tmpMc:TubeTile = this.Control.tubeTilesOrder.shift();
 					tmpMc.tileNr = this.grid.clickedTile.tileNr;
+					//tmpMc.addChild(tmpMc.overlay);
+					//tmpMc.curTubeTile.visible = false;
 					//tmpMc.width = 80;
 					//tmpMc.height = 80;
 					TweenLite.killTweensOf(tmpMc);
@@ -251,28 +253,28 @@ package nl.iTouch.maze
 				switch(currentTubeTile.powerPoint)
 				{
 					case 'left':
-						if(tileLeft != false)
+						if(tileLeft != null)
 						{
 							checkPower(tileLeft.tileNr);
 						}
 						break;
 					
 					case 'right':
-						if(tileRight != false)
+						if(tileRight != null)
 						{
 							checkPower(tileRight.tileNr);
 						}
 						break;
 					
 					case 'top':
-						if(tileTop != false)
+						if(tileTop != null)
 						{
 							checkPower(tileTop.tileNr);
 						}
 						break;
 					
 					case 'bottom':
-						if(tileBottom != false)
+						if(tileBottom != null)
 						{
 							checkPower(tileBottom.tileNr);
 						}
