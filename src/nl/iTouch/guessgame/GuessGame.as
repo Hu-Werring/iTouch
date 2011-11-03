@@ -123,6 +123,8 @@ package nl.iTouch.guessgame
 			timerBar.graphics.drawRect(0,0,600,50);
 			timerBar.graphics.endFill();
 			*/
+			
+			timerBar= new TimerBar2();
 		}
 		
 		
