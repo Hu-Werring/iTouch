@@ -353,9 +353,9 @@ package nl.iTouch.guessgame
 			_noGame  =true;
 		}
 		
-		public function howTo():void
+		public function howTo():String
 		{
-			
+			return '';
 		}
 		
 		public function highscore():void
