@@ -71,6 +71,9 @@ package nl.iTouch.snake
 		private var db:DataBase = DataBase.getInstance;
 		private var hs:Highscore = new Highscore('Snake');
 		
+		[Embed(source="AvenirLT-Book.ttf", fontFamily="Avenir")] 
+		public static var bar:Class;
+		
 		//== main class function ==
 		public function Snake()
 		{
@@ -117,6 +120,13 @@ package nl.iTouch.snake
 			
 			//== create background ==
 			
+			
+			//== create background stats ==
+			var backStat:BackgroundStats = new BackgroundStats();
+			backStat.x = 960;
+			backStat.y = 79;
+			backStat.alpha = 0.9;
+			addChild(backStat);
 			
 			//== create buttons ==
 			var btnUp:ButtonArrow = new ButtonArrow();
@@ -207,21 +217,21 @@ package nl.iTouch.snake
 			
 			_counter = _counterLenght;
 			timerBar.x = 975;
-			timerBar.y = 300;
+			timerBar.y = 350;
 			addChild(timerBar);
 			
 			timerBarLine.x = 975;
-			timerBarLine.y = 300;
+			timerBarLine.y = 350;
 			addChild(timerBarLine);
 			
 			//== create scorefield ==
-			var txtFrmtScore:TextFormat = new TextFormat("Avenir", 60,null,true);
+			var txtFrmtScore:TextFormat = new TextFormat("_sans", 60,null,true);
 			txtFrmtScore.align = TextAlign.RIGHT;
 			
-			var txtFrmtLabel:TextFormat = new TextFormat("Avenir", 25,null,true);
+			var txtFrmtLabel:TextFormat = new TextFormat("_sans", 25,null,true);
 			txtFrmtLabel.align = TextAlign.CENTER;
 			
-			var txtFrmtHint:TextFormat = new TextFormat("Avenir", 20,null,true);
+			var txtFrmtHint:TextFormat = new TextFormat("_sans", 20,null,true);
 			txtFrmtHint.align = TextAlign.JUSTIFY;
 			
 			scoreField.x = 975;
@@ -235,9 +245,9 @@ package nl.iTouch.snake
 			addChild(scoreField);
 			
 			hintField.x = 975;
-			hintField.y = 370;
+			hintField.y = 420;
 			hintField.width = 270;
-			hintField.height = 135;
+			hintField.height = 60;
 			hintField.border = true;
 			hintField.wordWrap = true;
 			hintField.defaultTextFormat = txtFrmtHint;
@@ -247,7 +257,7 @@ package nl.iTouch.snake
 			addChild(hintField);
 			
 			timerLabel.x = 975;
-			timerLabel.y = 245;
+			timerLabel.y = 295;
 			timerLabel.width = 270;
 			timerLabel.height = 70;
 			timerLabel.border = false;
@@ -256,7 +266,7 @@ package nl.iTouch.snake
 			addChild(timerLabel);
 			
 			hintLabel.x = 975;
-			hintLabel.y = 340;
+			hintLabel.y = 390;
 			hintLabel.width = 270;
 			hintLabel.height = 70;
 			hintLabel.border = false;
