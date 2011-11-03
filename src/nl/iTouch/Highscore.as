@@ -23,6 +23,8 @@ package nl.iTouch
 		private var _name:String;
 		private var _tableName:String;
 		
+		public var message:String = "Je hebt de highscore behaald,\nType je naam.";
+		
 		private var _dotLength:int = 121;
 		
 		public function Highscore(game:String)
@@ -198,7 +200,7 @@ package nl.iTouch
 		}
 		private function toggleKeyboard(e:MouseEvent):void 
 		{
-			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:"Je hebt de highscore behaald,\nType je naam." };
+			VirtualKeyBoard.getInstance().target = { field:e.currentTarget, fieldName:message };
 		}
 		private function hideKB():void
 		{
