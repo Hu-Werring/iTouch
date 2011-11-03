@@ -90,17 +90,17 @@ package nl.iTouch.snake
 			var list:Sprite = hs.highScoreList();
 			addChild(list);*/
 			
-			_hints.push("Lucas is een boek aan het zoeken in de afdeling Studio"); //== blauw boven ==
-			_hints.push("Lucas zoekt een boek in de afdeling Platform"); //== zilver boven ==
-			_hints.push("Lucas is een boek aan het zoeken in de afdeling De Plaats"); //== oranje boven ==
-			_hints.push("Lucas zoekt een boek in de afdeling het Lab"); //== rood boven ==
+			_hints.push("volgende student zoekt een boek in de afdeling Platform"); //== blauw boven ==
+			_hints.push("volgende student is een boek aan het zoeken in de afdeling Studio"); //== zilver boven ==
+			_hints.push("volgende student is een boek aan het zoeken in de afdeling De Plaats"); //== oranje boven ==
+			_hints.push("volgende student zoekt een boek in de afdeling het Lab"); //== rood boven ==
 			
-			_hints.push("Lucas is aan het werk bij de computers van Studio"); //== blauw onder ==
-			_hints.push("Lucas is aan het werk aan de tafels van de afdeling Platform"); //== zilver onder ==
-			_hints.push("Lucas is aan het werk bij de computers van De Plaats"); //== oranje onder ==
-			_hints.push("Lucas is aan het werk bij de computers van Het Lab"); //== rood onder ==
+			_hints.push("volgende student is aan het werk aan de tafels van de afdeling Platform"); //== blauw onder ==
+			_hints.push("volgende student is aan het werk bij de computers van Studio"); //== zilver onder ==
+			_hints.push("volgende student is aan het werk bij de computers van De Plaats"); //== oranje onder ==
+			_hints.push("volgende student is aan het werk bij de computers van Het Lab"); //== rood onder ==
 			
-			_hints.push("Lucas is op een andere student aan het wachten op het gang pad"); //== gangpad ==
+			_hints.push("volgende student is op een andere student aan het wachten op het gang pad"); //== gangpad ==
 			
 			_deelX.push(2 * _gridSize - (_gridSize/2));
 			_deelX.push(17 * _gridSize - (_gridSize/2));
@@ -126,7 +126,7 @@ package nl.iTouch.snake
 			//== create background stats ==
 			var backStat:BackgroundStats = new BackgroundStats();
 			backStat.x = 960;
-			backStat.y = 105;
+			backStat.y = 115;
 			backStat.alpha = 0.8;
 			addChild(backStat);
 			
@@ -162,6 +162,12 @@ package nl.iTouch.snake
 			//== create background ==
 			var background:SnakeBackground = new SnakeBackground();
 			addChild(background);
+			
+			//== highscore btn ==
+			var btnHigh:HighScoreButton = new HighScoreButton();
+			btnHigh.x = 1065;
+			btnHigh.y = 50;
+			addChild(new iButton(btnHigh));
 			
 			//== Create boeken kasten ==
 			for(var i:int = 1;i <= 3; i++)
@@ -219,11 +225,11 @@ package nl.iTouch.snake
 			
 			_counter = _counterLenght;
 			timerBar.x = 975;
-			timerBar.y = 350;
+			timerBar.y = 330;
 			addChild(timerBar);
 			
 			timerBarLine.x = 975;
-			timerBarLine.y = 350;
+			timerBarLine.y = 330;
 			addChild(timerBarLine);
 			
 			//== highScore button ==
@@ -241,7 +247,7 @@ package nl.iTouch.snake
 			txtFrmtHint.align = TextAlign.JUSTIFY;
 			
 			scoreField.x = 975;
-			scoreField.y = 120;
+			scoreField.y = 130;
 			scoreField.width = 270;
 			scoreField.height = 70;
 			scoreField.border = true;
@@ -251,9 +257,9 @@ package nl.iTouch.snake
 			addChild(scoreField);
 			
 			hintField.x = 975;
-			hintField.y = 420;
+			hintField.y = 390;
 			hintField.width = 270;
-			hintField.height = 60;
+			hintField.height = 80;
 			hintField.border = true;
 			hintField.wordWrap = true;
 			hintField.defaultTextFormat = txtFrmtHint;
@@ -263,7 +269,7 @@ package nl.iTouch.snake
 			addChild(hintField);
 			
 			timerLabel.x = 975;
-			timerLabel.y = 295;
+			timerLabel.y = 265;
 			timerLabel.width = 270;
 			timerLabel.height = 70;
 			timerLabel.border = false;
@@ -272,7 +278,7 @@ package nl.iTouch.snake
 			addChild(timerLabel);
 			
 			hintLabel.x = 975;
-			hintLabel.y = 390;
+			hintLabel.y = 360;
 			hintLabel.width = 270;
 			hintLabel.height = 70;
 			hintLabel.border = false;
@@ -638,7 +644,7 @@ package nl.iTouch.snake
 		
 		public function howTo():String
 		{
-			return "";
+			return "Het doel van deze game is om de polonaise uit te breiden met Lucas poppetjes.   Gebruik de knoppen aan de rechterkant om de polonaise te sturen.  Gebruik de hints om de juiste plek van de volgende persoon te bepalen om deze in de polonaise te betrekken.";
 		}
 		
 		public function highscore():void
