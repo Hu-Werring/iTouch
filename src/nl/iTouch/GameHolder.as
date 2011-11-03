@@ -56,10 +56,17 @@ package nl.iTouch
 			back = new iButton(back);
 			back.x = 1225;
 			back.y = 50;
+			
+			
+			howToScreen = new iButton(new HelpButton());
+			howToScreen.x = 1225- 20 - howToScreen.width;
+			howToScreen.y = 50;
+			
 			//back.scaleX = 0.4;
 			//back.scaleY= 0.4;
 			back.addEventListener(MouseEvent.CLICK,killGame);
 			addChild(back);
+			addChild(howToScreen);
 		}
 		private function killGame(e:MouseEvent):void
 		{
@@ -73,7 +80,6 @@ package nl.iTouch
 				this.removeChild(_game);
 				_game.stop(true);
 			}
-			trace("===============>",obj.toString());
 			_game = new obj();
 			_game.addEventListener('BACK',hide);
 			addChildAt(_game,0);

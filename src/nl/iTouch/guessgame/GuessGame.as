@@ -117,11 +117,12 @@ package nl.iTouch.guessgame
 			}
 			_queue.load();		
 			bookIndex = Math.floor(Math.random()*_boekenlijst.length);
+			/*
 			timerBar.graphics.beginFill(0x00FF00);
 			timerBar.graphics.lineStyle(1);
 			timerBar.graphics.drawRect(0,0,600,50);
 			timerBar.graphics.endFill();
-				
+			*/
 		}
 		
 		
