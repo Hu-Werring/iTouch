@@ -24,6 +24,8 @@ package nl.iTouch.maze
 		public var powerSource:Boolean = false;
 		public var overlay:MovieClip = new MovieClip();
 		
+		public var outputTile:int = -1;
+		
 		public function get naam():String
 		{
 			var tempReturnNaam:String = _naam.toString();

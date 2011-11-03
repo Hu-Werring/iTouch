@@ -226,7 +226,7 @@ package nl.iTouch.maze
 			//bereken lefttile nr.
 			if(tileNr == 1 || (tileNr-1)%this.cols == 0)
 			{
-				tileNr = -1;
+				tileLeft = null;
 			}
 			else
 			{

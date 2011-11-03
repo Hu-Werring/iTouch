@@ -102,34 +102,50 @@ package nl.iTouch.maze
 		
 		private function clearTubeTile(tileNr:int):void
 		{
-			this.grid.returnTile(tileNr).curTubeTile.powerPoint = 'false';
-			//Remove tubetile.
-			this.grid.returnTile(tileNr).curTubeTile.curTubeTile.visible = true;
-			var surroundingTiles:Object = this.grid.getSurroundingTiles(tileNr);
-			var tileLeft:Tile = surroundingTiles.tileLeft;
-			var tileTop:Tile = surroundingTiles.tileTop;
-			var tileRight:Tile = surroundingTiles.tileRight;
-			var tileBottom:Tile = surroundingTiles.tileBottom;
+			var tbt:Tile = this.grid.returnTile(tileNr);
+			if(tbt.hasTubeTile == true)
+			{
+				tbt.curTubeTile.powerPoint = 'false';
+				tbt.curTubeTile.curTubeTile.visible = true;
+				
+				if(tbt.curTubeTile.tempLine !=null)
+				{
+					tbt.curTubeTile.removeChild(tbt.curTubeTile.tempLine);
+				}
+				tbt.curTubeTile.tempLine = null;
+				if(tbt.curTubeTile.outputTile != -1)
+				{
+					clearTubeTile(tbt.curTubeTile.outputTile);
+					tbt.curTubeTile.outputTile = -1;
+				}
+			}
 			
-			if(tileLeft != false)
+			//var surroundingTiles:Object = this.grid.getSurroundingTiles(tileNr);
+			//var tileLeft:Tile = surroundingTiles.tileLeft;
+			//var tileTop:Tile = surroundingTiles.tileTop;
+			//var tileRight:Tile = surroundingTiles.tileRight;
+			//var tileBottom:Tile = surroundingTiles.tileBottom;
+			
+			
+			/*if(tileLeft != null)
 			{
 				checkPower(tileLeft.tileNr);
 			}
 			
-			if(tileRight != false)
+			if(tileRight != null)
 			{
 				checkPower(tileRight.tileNr);
 			}
 			
-			if(tileTop != false)
+			if(tileTop != null)
 			{
 				checkPower(tileTop.tileNr);
 			}
 			
-			if(tileBottom != false)
+			if(tileBottom != null)
 			{
 				checkPower(tileBottom.tileNr);
-			}
+			}*/
 			
 		}
 		
@@ -155,6 +171,8 @@ package nl.iTouch.maze
 				var tileRight:Tile = surroundingTiles.tileRight;
 				var tileBottom:Tile = surroundingTiles.tileBottom;
 				var inputPoint:String;
+				
+				/*
 				var hadPower:Boolean = false;
 				
 				trace('before: '+currentTubeTile.powerPoint);
@@ -168,7 +186,8 @@ package nl.iTouch.maze
 					currentTubeTile.tempLine = null;
 					hadPower = true;
 				}
-				trace('after' + currentTubeTile.powerPoint);
+				trace('after' + currentTubeTile.powerPoint);*/
+				
 				//check links
 				if(tileLeft != null)
 				{
@@ -183,6 +202,7 @@ package nl.iTouch.maze
 							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromleft');
+								tileLeft.curTubeTile.outputTile = curTileNr;
 								currentTubeTile.stroom(inputPoint);
 							}
 						}
@@ -203,6 +223,7 @@ package nl.iTouch.maze
 							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromright');
+								tileRight.curTubeTile.outputTile = curTileNr;
 								currentTubeTile.stroom(inputPoint);
 							}
 						}
@@ -223,6 +244,7 @@ package nl.iTouch.maze
 							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfrombottom');
+								tileBottom.curTubeTile.outputTile = curTileNr;
 								currentTubeTile.stroom(inputPoint);
 							}
 						}
@@ -243,6 +265,7 @@ package nl.iTouch.maze
 							if(currentTubeTile[inputPoint] != 'false')
 							{
 								trace('powerfromtop');
+								tileTop.curTubeTile.outputTile = curTileNr;
 								currentTubeTile.stroom(inputPoint);
 							}
 						}
@@ -253,7 +276,7 @@ package nl.iTouch.maze
 				switch(currentTubeTile.powerPoint)
 				{
 					case 'left':
-						if(tileLeft != null)
+						if(tileLeft != false)
 						{
 							checkPower(tileLeft.tileNr);
 						}
@@ -279,7 +302,7 @@ package nl.iTouch.maze
 							checkPower(tileBottom.tileNr);
 						}
 						break;
-					
+					/*
 					case 'false':
 						if(hadPower == true)
 						{
@@ -287,7 +310,7 @@ package nl.iTouch.maze
 							clearTubeTile(curTile.tileNr);
 						}
 						break;
-					
+					*/
 					default:
 						break;
 				}
