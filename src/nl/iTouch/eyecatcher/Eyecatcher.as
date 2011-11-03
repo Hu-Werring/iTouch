@@ -35,8 +35,7 @@ package nl.iTouch.eyecatcher
 			bord.y = stage.stageHeight / 2 - 500;
 			bord.x = stage.stageWidth / 2 - 265;
 			gat.x = stage.stageWidth / 2 - 140;
-			gat.y = stage.stageHeight / 2 - 230;
-			
+			gat.y = stage.stageHeight / 2 - 230;			
 			
 			
 			addChild(backgroundGradient);			

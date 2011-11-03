@@ -55,8 +55,8 @@ package nl.iTouch
 			back = new iButton(back);
 			back.x = 940;
 			back.y = 100;
-			back.scaleX = 0.4;
-			back.scaleY= 0.4;
+			//back.scaleX = 0.4;
+			//back.scaleY= 0.4;
 			back.addEventListener(MouseEvent.CLICK,killGame);
 			addChild(back);
 		}
