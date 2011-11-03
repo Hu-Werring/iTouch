@@ -243,6 +243,7 @@ package nl.iTouch.guessgame
 								sw.y = 100;
 								addChild(sw);
 								sw.addEventListener('closedSubmit',closed);
+								trace('lose');
 							}
 					}
 			}
@@ -277,6 +278,8 @@ package nl.iTouch.guessgame
 					sw.x = (this.width - sw.width)/2;
 					sw.y = 100;
 					addChild(sw);
+					sw.addEventListener('closedSubmit',closed);
+					trace('win');
 				}
 			}
 		}
