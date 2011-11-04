@@ -45,7 +45,7 @@ package nl.iTouch.maze
 			this.tubeTilesHolder.y = 120;
 			addChild(this.tubeTilesHolder);
 			
-			nextTubeTileBtn.graphics.beginFill(0xFF0000);
+			nextTubeTileBtn.graphics.beginFill(0xFFFFFF, 0);
 			nextTubeTileBtn.graphics.drawRect(0,0,this.width-40, this.width-40);
 			nextTubeTileBtn.graphics.endFill();
 			nextTubeTileBtn.width = this.width - 40;

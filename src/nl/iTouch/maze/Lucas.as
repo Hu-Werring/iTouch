@@ -43,8 +43,10 @@ package nl.iTouch.maze
 			trace('added');
 			//Maak lucas en plaats.
 			this.lucasMc = new maze_lucasMoving();
-			this.lucasMc.x = 0;
-			this.lucasMc.y = 0;
+			this.lucasMc.width = 70;
+			this.lucasMc.height = 70;
+			this.lucasMc.x = 5;
+			this.lucasMc.y = 5;
 			this.x = 160;
 			this.y = 720;
 
@@ -88,13 +90,20 @@ package nl.iTouch.maze
 			}
 		}
 		
-		private function checkHitTest(tile:Tile, index:uint, refArray:Array)
+		private function checkHitTest(tile:Tile, index:uint, refArray:Array):void
 		{
-			if(tile.hasTubeTile == true)
+			
+			if(this.lucasMc.hitTestObject(tile) == true)
 			{
-				if(this.hitTestObject(tile) == true)
+				if(tile.hasTubeTile == true)
 				{
 					tile.removeTubeTile();
+				}
+				
+				if(tile.tileNr == 70 || tile.tileNr == 84)
+				{
+					//end game
+					this.dispatchEvent(new Event('endGame'));
 				}
 			}
 		}
